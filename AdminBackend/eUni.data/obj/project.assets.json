@@ -1828,11 +1828,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Rukshan\\eUni\\eUni.data\\eUni.data.csproj",
+      "projectUniqueName": "C:\\Rukshan\\eUni\\AdminBackend\\eUni.data\\eUni.data.csproj",
       "projectName": "eUni.data",
-      "projectPath": "C:\\Rukshan\\eUni\\eUni.data\\eUni.data.csproj",
+      "projectPath": "C:\\Rukshan\\eUni\\AdminBackend\\eUni.data\\eUni.data.csproj",
       "packagesPath": "C:\\Users\\ruksh\\.nuget\\packages\\",
-      "outputPath": "C:\\Rukshan\\eUni\\eUni.data\\obj\\",
+      "outputPath": "C:\\Rukshan\\eUni\\AdminBackend\\eUni.data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ruksh\\AppData\\Roaming\\NuGet\\NuGet.Config"

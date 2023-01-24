@@ -24,7 +24,7 @@ const Batches = () => {
 
   return <div>
     <p>Batches</p>
-    {batches.map(batch => <div>{ batch.name}</div>)}
+    {batches.map(batch => <div key={batch.batchId}>{ batch.name}</div>)}
   </div>;
 };
 

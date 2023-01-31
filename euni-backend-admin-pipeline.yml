@@ -31,6 +31,6 @@ variables:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(euni-azure-connection)
         tags: |
           $(tag)

@@ -11,11 +11,11 @@ pool:
 
 variables:
   - name: repository
-    value: 'devopsjourney'
+    value: 'euni.Admin'
   - name: dockerfile
-    value: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
+    value: '$(Build.SourcesDirectory)/AdminBackend/eUni.services.admin/Dockerfile'
   - name: containerRegistry
-    value: 'tamopsimagesacr'
+    value: 'euniacr'
 
 - stage: Build
   displayName: Build and push stage
@@ -23,7 +23,7 @@ variables:
   - job: Build
     displayName: Build job
     pool:
-      vmImage: $(vmImageName)
+      vmImage: $(vmImage)
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry

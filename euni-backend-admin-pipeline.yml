@@ -32,6 +32,6 @@ stages:
           command: buildAndPush
           repository: $(imageRepository)
           dockerfile: $(dockerfilePath)
-          containerRegistry: $(euni-azure-connection)
+          containerRegistry: $(euni-acr-connection)
           tags: |
             $(tag)

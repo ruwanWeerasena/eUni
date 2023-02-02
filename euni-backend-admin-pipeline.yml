@@ -18,6 +18,8 @@ variables:
     value: 'euniacr'
   - name: tag
     value: 'v1'
+  - name: buildContext
+    value: '$(Build.SourcesDirectory)/AdminBackend'
 
 steps:
 - task: Bash@3
@@ -31,5 +33,6 @@ steps:
     repository: $(containerRegistry)
     dockerfile: $(dockerfile)
     containerRegistry: 'euni-acr-connection'
+    buildContext: $(buildContext)
     tags: |
       $(tag)

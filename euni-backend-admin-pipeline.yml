@@ -16,6 +16,8 @@ variables:
     value: '$(Build.SourcesDirectory)/AdminBackend/eUni.services.admin/Dockerfile'
   - name: containerRegistry
     value: 'euniacr'
+  - name: tag
+    value: 'v1'
 
 steps:
 - task: Bash@3

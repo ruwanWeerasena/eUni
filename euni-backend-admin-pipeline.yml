@@ -25,14 +25,24 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: echo '$(dockerfile)'
-- task: Docker@2
-  displayName: Build and push an image to container registry
+    script: echo 'docker file path --> $(dockerfile)'
+# - task: Docker@2
+#   displayName: Build and push an image to container registry
+#   inputs:
+#     command: buildAndPush
+#     repository: $(containerRegistry)
+#     dockerfile: $(dockerfile)
+#     containerRegistry: 'euni-acr-connection'
+#     buildContext: $(buildContext)
+#     tags: |
+#       $(tag)
+
+- task: AzureRmWebAppDeployment@4
   inputs:
-    command: buildAndPush
-    repository: $(containerRegistry)
-    dockerfile: $(dockerfile)
-    containerRegistry: 'euni-acr-connection'
-    buildContext: $(buildContext)
-    tags: |
-      $(tag)
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'euni-azure-connection'
+    appType: 'webAppContainer'
+    WebAppName: 'euni-backend-web'
+    DockerNamespace: 'euniacr.azurecr.io'
+    DockerRepository: 'euniacr'
+    DockerImageTag: 'v1'

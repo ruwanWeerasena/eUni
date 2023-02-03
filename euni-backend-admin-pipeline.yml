@@ -17,7 +17,7 @@ variables:
   - name: containerRegistry
     value: 'euniacr'
   - name: tag
-    value: 'v1'
+    value: 'v2'
   - name: buildContext
     value: '$(Build.SourcesDirectory)/AdminBackend'
 
@@ -26,16 +26,16 @@ steps:
   inputs:
     targetType: 'inline'
     script: echo 'docker file path --> $(dockerfile)'
-# - task: Docker@2
-#   displayName: Build and push an image to container registry
-#   inputs:
-#     command: buildAndPush
-#     repository: $(containerRegistry)
-#     dockerfile: $(dockerfile)
-#     containerRegistry: 'euni-acr-connection'
-#     buildContext: $(buildContext)
-#     tags: |
-#       $(tag)
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(containerRegistry)
+    dockerfile: $(dockerfile)
+    containerRegistry: 'euni-acr-connection'
+    buildContext: $(buildContext)
+    tags: |
+      $(tag)
 
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -44,5 +44,5 @@ steps:
     appType: 'webAppContainer'
     WebAppName: 'eunitest'
     DockerNamespace: 'euniacr.azurecr.io'
-    DockerRepository: 'euniacr'
-    DockerImageTag: 'v1'
+    DockerRepository: $(containerRegistry)
+    DockerImageTag: $(tag)

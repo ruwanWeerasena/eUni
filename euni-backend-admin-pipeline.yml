@@ -42,7 +42,7 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'euni-azure-connection'
     appType: 'webAppContainer'
-    WebAppName: 'euni-backend-web'
+    WebAppName: 'eunitest'
     DockerNamespace: 'euniacr.azurecr.io'
     DockerRepository: 'euniacr'
     DockerImageTag: 'v1'

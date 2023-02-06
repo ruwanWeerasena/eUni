@@ -47,4 +47,4 @@ stages:
         WebAppName: 'euni-admin-frontend-web'
         DockerNamespace: 'euniacr.azurecr.io'
         DockerRepository: 'eunifrontendadmin'
-        DockerImageTag: '$(Build.BuildId)'
+        DockerImageTag: $(tag)

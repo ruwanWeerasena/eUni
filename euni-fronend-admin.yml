@@ -14,7 +14,8 @@ variables:
   imageRepository: 'eunifrontendadmin'
   containerRegistry: 'euniacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/admin-frontend/Dockerfile.nginx'
-  tag: '$(Build.BuildId)'
+  tag: 'latest' 
+  #'$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -37,3 +38,13 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Azure subscription 1(7e357fdc-ce6b-4d83-8703-a83caed05747)'
+        appType: 'webAppContainer'
+        WebAppName: 'euni-admin-frontend-web'
+        DockerNamespace: 'euniacr.azurecr.io'
+        DockerRepository: 'eunifrontendadmin'
+        DockerImageTag: $(tag)

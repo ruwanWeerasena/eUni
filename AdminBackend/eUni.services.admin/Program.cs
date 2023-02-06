@@ -15,7 +15,7 @@ app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader(
 
 app.MapControllers();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello eUni!");
 
 app.MapGet("/db", async (EUniDBContext db) => {
     bool deleted = await db.Database.EnsureDeletedAsync();

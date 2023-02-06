@@ -1,0 +1,48 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - name: repository
+    value: 'euni.Admin'
+  - name: dockerfile
+    value: '$(Build.SourcesDirectory)/AdminBackend/eUni.services.admin/Dockerfile'
+  - name: containerRegistry
+    value: 'euniacr'
+  - name: tag
+    value: 'latest'
+  - name: buildContext
+    value: '$(Build.SourcesDirectory)/AdminBackend'
+
+steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: echo 'docker file path --> $(dockerfile)'
+# - task: Docker@2
+#   displayName: Build and push an image to container registry
+#   inputs:
+#     command: buildAndPush
+#     repository: $(containerRegistry)
+#     dockerfile: $(dockerfile)
+#     containerRegistry: 'euni-acr-connection'
+#     buildContext: $(buildContext)
+#     tags: |
+#       $(tag)
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'euni-azure-connection'
+    appType: 'webAppContainer'
+    WebAppName: 'euni-admin-api'
+    DockerNamespace: 'euniacr.azurecr.io'
+    DockerRepository: $(containerRegistry)
+    DockerImageTag: $(tag)

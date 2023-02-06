@@ -14,7 +14,8 @@ variables:
   imageRepository: 'eunifrontendadmin'
   containerRegistry: 'euniacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/admin-frontend/Dockerfile.nginx'
-  tag: '$(Build.BuildId)'
+  tag: 'latest' 
+  #'$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'

@@ -36,6 +36,13 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
   displayName: 'Run Tests'
 
+- script: dotnet test AdminBackend/eUni.test/eUni.test.csproj --logger trx
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+
 # - task: Docker@2
 #   displayName: Build and push an image to container registry
 #   inputs:

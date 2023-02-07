@@ -15,11 +15,48 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "jest": {
+    "coverageReporters": [
+      "cobertura",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "!/node_modules/"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/build/"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test",
+          "outputName": "junit.xml"
+        }
+      ]
+    ]
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "test/junit.xml",
+    "classNameTemplate": "{classname} - {title}",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " > ",
+    "usePathForSuiteName": "true"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "citest": "jest --maxWorkers=3 --colors --coverage",
+    "citest": "jest --env=jsdom --ci --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,5 +77,4 @@
       "last 1 safari version"
     ]
   }
-  
 }

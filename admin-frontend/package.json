@@ -19,7 +19,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "citest": "jest --maxWorkers=3 --colors --coverage",
+    "citest": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

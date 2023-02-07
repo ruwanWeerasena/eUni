@@ -26,6 +26,14 @@ steps:
   inputs:
     targetType: 'inline'
     script: echo 'docker file path --> $(dockerfile)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*test.csproj'
+    arguments: '--no-restore --no-build'
+  displayName: 'Run Tests'
+
 # - task: Docker@2
 #   displayName: Build and push an image to container registry
 #   inputs:
@@ -37,12 +45,12 @@ steps:
 #     tags: |
 #       $(tag)
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'euni-azure-connection'
-    appType: 'webAppContainer'
-    WebAppName: 'euni-admin-api'
-    DockerNamespace: 'euniacr.azurecr.io'
-    DockerRepository: $(containerRegistry)
-    DockerImageTag: $(tag)
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: 'euni-azure-connection'
+#     appType: 'webAppContainer'
+#     WebAppName: 'euni-admin-api'
+#     DockerNamespace: 'euniacr.azurecr.io'
+#     DockerRepository: $(containerRegistry)
+#     DockerImageTag: $(tag)

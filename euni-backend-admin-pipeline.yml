@@ -20,6 +20,7 @@ variables:
     value: 'latest'
   - name: buildContext
     value: '$(Build.SourcesDirectory)/AdminBackend'
+    buildConfiguration: 'Release'
 
 steps:
 - task: Bash@3
@@ -31,7 +32,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*test.csproj'
-    arguments: '--no-restore --no-build'
+    arguments: '--configuration $(buildConfiguration)'
   displayName: 'Run Tests'
 
 # - task: Docker@2

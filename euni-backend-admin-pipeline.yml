@@ -29,12 +29,12 @@ steps:
     targetType: 'inline'
     script: echo 'docker file path --> $(dockerfile)'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*test.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-  displayName: 'Run Tests'
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'test'
+#     projects: '**/*test.csproj'
+#     arguments: '--configuration $(buildConfiguration)'
+#   displayName: 'Run Tests'
 
 - script: dotnet test AdminBackend/eUni.test/eUni.test.csproj --logger trx
 - task: PublishTestResults@2

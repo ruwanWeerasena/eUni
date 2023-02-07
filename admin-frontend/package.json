@@ -19,7 +19,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "citest": "set CI=true react-app-rewired test --coverage --coverageReporters=cobertura --coverageReporters=html",
+    "citest": "jest --maxWorkers=3 --colors --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,4 +40,5 @@
       "last 1 safari version"
     ]
   }
+  
 }

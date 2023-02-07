@@ -24,15 +24,16 @@ variables:
 steps:
 
 - task: Npm@1
-  displayName: npm run test
-  inputs:
-    command: 'custom'
-    customCommand: 'run citest'
+    inputs:
+      command: 'custom'
+      customCommand: 'run citest'
+    displayName: 'Test'
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results junit.xml'
+- task: PublishCodeCoverageResults@1
   inputs:
-    testResultsFiles: junit.xml
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'admin-frontend/coverage/cobertura-coverage.xml'
+  displayName: 'Publish Code Coverage'
 
 - task: Docker@2
   displayName: Build and push an image to container registry

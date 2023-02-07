@@ -20,7 +20,8 @@ variables:
     value: 'latest'
   - name: buildContext
     value: '$(Build.SourcesDirectory)/AdminBackend'
-    buildConfiguration: 'Release'
+  - name: buildConfiguration
+    value: 'Release'
 
 steps:
 - task: Bash@3

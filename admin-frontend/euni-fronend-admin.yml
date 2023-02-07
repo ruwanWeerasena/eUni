@@ -34,8 +34,8 @@ steps:
 
 - task: Npm@1
   inputs:
-    command: 'custom'
-    customCommand: 'run citest'
+    command: 'test'
+    # customCommand: 'run citest'
   displayName: 'Test'
 
 - task: PublishCodeCoverageResults@1

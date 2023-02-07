@@ -24,10 +24,10 @@ variables:
 steps:
 
 - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'run citest'
-    displayName: 'Test'
+  inputs:
+    command: 'custom'
+    customCommand: 'run citest'
+  displayName: 'Test'
 
 - task: PublishCodeCoverageResults@1
   inputs:

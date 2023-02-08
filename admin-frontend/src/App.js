@@ -1,22 +1,27 @@
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import BatchesPage from './features/batches'
-import Header from './features/header'
-import Footer from './features/footer'
+import BatchesPage from "./features/batches";
+import Header from "./features/header";
+import Footer from "./features/footer";
+
+import Profile from "./features/profile";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header/>
+        <Header />
         <Routes>
           <Route path="/" element={<BatchesPage />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </div>
   );
 }
 
 export default App;
+

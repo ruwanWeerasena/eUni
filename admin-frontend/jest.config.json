@@ -1,3 +1,0 @@
-{
-  "coverageReporters": ["json", "lcov", "text", "clover", "cobertura"]
-}

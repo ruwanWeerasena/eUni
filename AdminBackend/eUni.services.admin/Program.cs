@@ -11,6 +11,12 @@ builder.Services.AddDbContext<EUniDBContext>(options => options.UseSqlServer(bui
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<EUniDBContext>();
+    db.Database.Migrate();
+}
+
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader());
 
 app.MapControllers();

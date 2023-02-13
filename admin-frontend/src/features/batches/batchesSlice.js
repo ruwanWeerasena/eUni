@@ -15,7 +15,8 @@ export const fetchesBatches = createAsyncThunk(
   "batch/fetchBatches",
   async () => {
     //setTimeout(() => console.log('delay 3000'), 3000)
-    const response = await axios.get("http://localhost:5000/batch");
+    console.log('endpoint url', process.env.REACT_APP_API_URL + '/batch');
+    const response = await axios.get(process.env.REACT_APP_API_URL + '/batch');
     return response.data;
   }
 );

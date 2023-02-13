@@ -21,7 +21,7 @@ RUN dotnet build eUni.services.admin/eUni.services.admin.csproj -c Release -o /a
 # RUN dotnet test --no-build -c Release --results-directory /testresults --logger "trx;LogFileName=test_results.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=json%2cCobertura /p:CoverletOutput=/testresults/coverage/ -p:MergeWith=/testresults/coverage/coverage.json  eUni.test/eUni.test.csproj  
 
 FROM build AS publish
-RUN dotnet publish eUni.services.admin.csproj -c Release -o /app/publish
+RUN dotnet publish eUni.services.admin/eUni.services.admin.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

@@ -13,7 +13,8 @@
     <PrivateAssets>all</PrivateAssets>
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; 
 buildtransitive</IncludeAssets>
-  </PackageReference>  
+  </PackageReference>
+  <PackageReference Include="Microsoft.Identity.Web" Version="1.26.0" />  
   <ProjectReference Include="..\eUni.data\eUni.data.csproj" />
   </ItemGroup>
 

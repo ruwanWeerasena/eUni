@@ -1,11 +1,12 @@
 using eUni.data;
 using eUni.data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
+// using Microsoft.Identity.Web;
 using static System.Console;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBatchRepository, BatchRepository>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EUniDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));

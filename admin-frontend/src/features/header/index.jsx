@@ -43,11 +43,7 @@ const Header = (props) => {
         </Toolbar>
       </AppBar>
      
-      <h5>
-        <center>
-          Welcome to the Microsoft Authentication Library For React Tutorial
-        </center>
-      </h5>
+     
       <br />
       <br />
       {props.children}

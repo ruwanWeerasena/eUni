@@ -11,14 +11,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "../../components/SignInButton";
 import { SignOutButton } from "../../components/SignOutButton";
+
 import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+
 
 const Header = (props) => {
   const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -30,20 +34,22 @@ const Header = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-            </Typography>
-            <Link to={'/test'}>test</Link>
-          { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
+
+          <Box sx={{ flexGrow: 1,textAlign:'left' }}>
+
+            <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./branches")}}>
+                  Branches Form
+            </Button>
+
+          </Box>
+          <Box >
+            { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
+          </Box>
+
         </Toolbar>
       </AppBar>
-    </Box>
      
-      <h5>
-        <center>
-          Welcome to the Microsoft Authentication Library For React Tutorial
-        </center>
-      </h5>
+     
       <br />
       <br />
       {props.children}

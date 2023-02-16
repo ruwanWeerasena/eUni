@@ -7,6 +7,7 @@ import Header from "./features/header";
 import Footer from "./features/footer";
 
 import Profile from "./features/profile";
+import BranchForm from "./components/branch/BranchForm";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/test" element={<BatchesPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/branches" element={<BranchForm />} />
         </Routes>
         <Footer />
       </BrowserRouter>

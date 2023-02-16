@@ -25,6 +25,9 @@ const Profile = () => {
 function ProfileContent() {
     const { instance, accounts } = useMsal();
     const [graphData, setGraphData] = useState(null);
+
+  // console.log('---instance----', instance);
+  // console.log('---account----', accounts);
   
     const name = accounts[0] && accounts[0].name;
   

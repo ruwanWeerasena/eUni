@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import { createRoot } from "react-dom/client";
+//import axios from 'axios'
 
 import store from "./store";
 //import { fetchTodos } from './features/todos/todosSlice'
@@ -16,6 +17,8 @@ const msalInstance = new PublicClientApplication(msalConfig);
 
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
+
+
 
 root.render(
   <React.StrictMode>

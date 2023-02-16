@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<BatchesPage />} />
+          <Route path="/test" element={<BatchesPage />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />

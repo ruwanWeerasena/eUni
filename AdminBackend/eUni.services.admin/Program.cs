@@ -1,5 +1,6 @@
 using eUni.data;
 using eUni.data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using static System.Console;
@@ -7,11 +8,15 @@ using static System.Console;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBatchRepository, BatchRepository>();
 builder.Services.AddCors();
+
+builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthentication();
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EUniDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-// builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
-// builder.Services.AddAuthentication();
-// builder.Services.AddAuthorization();
+
 
 
 var app = builder.Build();
@@ -27,8 +32,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader());
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

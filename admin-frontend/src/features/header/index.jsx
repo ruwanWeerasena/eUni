@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "../../components/SignInButton";
 import { SignOutButton } from "../../components/SignOutButton";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
   const isAuthenticated = useIsAuthenticated();
@@ -31,7 +32,8 @@ const Header = (props) => {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
-          </Typography>
+            </Typography>
+            <Link to={'/test'}>test</Link>
           { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
         </Toolbar>
       </AppBar>

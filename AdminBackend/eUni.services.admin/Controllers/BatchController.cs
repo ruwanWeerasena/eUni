@@ -6,7 +6,7 @@ namespace eUni.services.admin.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-// [Authorize]
+ [Authorize]
 public class BatchController : ControllerBase
 {
     private readonly IBatchRepository _batchRepository;

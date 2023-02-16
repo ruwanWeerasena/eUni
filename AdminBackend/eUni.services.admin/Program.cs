@@ -2,6 +2,7 @@ using eUni.data;
 using eUni.data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 // using Microsoft.Identity.Web;
 using static System.Console;
 

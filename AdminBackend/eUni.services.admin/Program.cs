@@ -2,11 +2,12 @@ using eUni.data;
 using eUni.data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
+// using Microsoft.Identity.Web;
 using static System.Console;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBatchRepository, BatchRepository>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddCors();
 
 builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);

@@ -51,7 +51,6 @@ public class BranchRepository : IBranchRepository
         }else{
         
             return null;
-
         }
 
     }

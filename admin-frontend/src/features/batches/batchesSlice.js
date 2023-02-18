@@ -1,14 +1,9 @@
 import {
   createSlice,
-  createSelector,
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-
-import { useMsal } from "@azure/msal-react";
-
-
 
 const batchesAdapter = createEntityAdapter({
   selectId: (batch) => batch.batchId,

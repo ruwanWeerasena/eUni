@@ -8,5 +8,5 @@ public class Staff
     public DateTime  DateOfBirth { get; set; }
     public string Email { get; set; }
     public string Mobile { get; set; }
-    public virtual ICollection<StudentPayment> StudentPayments { get; set; }
+    public virtual ICollection<StudentPayment>? StudentPayments { get; set; }
 }

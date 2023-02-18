@@ -9,6 +9,7 @@ using static System.Console;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBatchRepository, BatchRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddCors();
 
 builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
@@ -18,8 +19,6 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EUniDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
-
 
 var app = builder.Build();
 
@@ -33,7 +32,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader());
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.UseAuthentication();
 app.UseAuthorization();
 

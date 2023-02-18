@@ -11,7 +11,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "../../components/SignInButton";
 import { SignOutButton } from "../../components/SignOutButton";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate,Link } from "react-router-dom";
+
 
 const Header = (props) => {
   const isAuthenticated = useIsAuthenticated();
@@ -19,32 +21,34 @@ const Header = (props) => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
-            </Typography>
-            <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/staffs`)}>Staffs</Button>
-            {isAuthenticated ? <SignOutButton /> : <SignInButton />}
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
 
-      <h5>
-        <center>
-          Welcome to the Microsoft Authentication Library For React Tutorial
-        </center>
-      </h5>
+          <Box sx={{ flexGrow: 1,textAlign:'left' }}>
+          <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/staffs`)}>Staffs</Button>
+            <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./branches")}}>
+                  Branches Form
+            </Button>
+
+          </Box>
+          <Box >
+            { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
+          </Box>
+
+        </Toolbar>
+      </AppBar>
+     
+     
+
       <br />
       <br />
       {props.children}

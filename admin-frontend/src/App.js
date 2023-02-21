@@ -12,21 +12,24 @@ import Profile from "./features/profile";
 import BranchForm from "./components/branch/BranchForm";
 import BranchesPage from "./features/branches";
 import BranchFormx from "./features/branches/form";
+import Container from '@mui/material/Container';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/batches" element={<BatchesPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/staffs" element={<StaffsPage />} />
-          <Route path="/staffs/:id" element={<StaffForm />} />
-          <Route path="/branches" element={<BranchesPage />} />
-          <Route path="/branchesx/:id" element={<BranchFormx />} />
-          <Route path="/branch/:id" element={<BranchForm />} />
-        </Routes>
+        <Container fixed>
+          <Routes>
+            <Route path="/batches" element={<BatchesPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/staffs" element={<StaffsPage />} />
+            <Route path="/staffs/:id" element={<StaffForm />} />
+            <Route path="/branches" element={<BranchesPage />} />
+            <Route path="/branchesx/:id" element={<BranchFormx />} />
+            <Route path="/branch/:id" element={<BranchForm />} />
+          </Routes>
+        </Container>
         <Footer />
       </BrowserRouter>
     </div>

@@ -10,6 +10,8 @@ import Footer from "./features/footer";
 
 import Profile from "./features/profile";
 import BranchForm from "./components/branch/BranchForm";
+import BranchesPage from "./features/branches";
+import BranchFormx from "./features/branches/form";
 
 function App() {
   return (
@@ -21,7 +23,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/staffs" element={<StaffsPage />} />
           <Route path="/staffs/:id" element={<StaffForm />} />
-          <Route path="/branches" element={<BranchForm />} />
+          <Route path="/branches" element={<BranchesPage />} />
+          <Route path="/branchesx/:id" element={<BranchFormx />} />
+          <Route path="/branch/:id" element={<BranchForm />} />
         </Routes>
         <Footer />
       </BrowserRouter>

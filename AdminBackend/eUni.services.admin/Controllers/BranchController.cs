@@ -19,7 +19,9 @@ public class BranchController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetBranches()
     {
-        return Ok(await _branchRepository.GetBranchesAsync());
+        var list = await _branchRepository.GetBranchesAsync();
+        //Thread.Sleep(3000);
+        return Ok(list);
     }
 
 

@@ -8,5 +8,5 @@ public class Branch
     public string Email { get; set; }
     public string ContactNumber { get; set; }
     public string ContactPerson { get; set; }
-    public virtual ICollection<Batch> Batches { get; set; }
+    public virtual ICollection<Batch>? Batches { get; set; }
 }

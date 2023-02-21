@@ -18,14 +18,10 @@ const msalInstance = new PublicClientApplication(msalConfig);
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
-
-
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <MsalProvider instance={msalInstance}>
-        <App />
-      </MsalProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <MsalProvider instance={msalInstance}>
+      <App />
+    </MsalProvider>
+  </Provider>
 );

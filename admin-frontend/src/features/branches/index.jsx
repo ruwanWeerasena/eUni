@@ -15,20 +15,22 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import Typography from '@mui/material/Typography';
 
 import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
   CircularProgress,
+  Grid,
 } from "@mui/material";
 
 import "../../App.css";
+import { grey } from "@mui/material/colors";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -96,7 +98,16 @@ const Branches = () => {
 
   return (
     <div>
-      <p>Branches</p>
+      <Grid container>
+        <Grid item xs={8} sx={{textAlign:'left'}}>
+          <Typography variant="h4" color='grey' gutterBottom>
+            Branches
+          </Typography>
+        </Grid>
+        <Grid item xs={4} sx={{textAlign:'right'}}>
+          <Button variant="outlined" onClick={() => edit(null)}>New Branch</Button>
+        </Grid>
+      </Grid>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -113,7 +124,7 @@ const Branches = () => {
           </TableHead>
           <TableBody>
             {branches?.map((branch) => (
-              <StyledTableRow key={branch.staffId}>
+              <StyledTableRow key={branch.branchId}>
                 <StyledTableCell component="th" scope="row">
                   {branch.name}
                 </StyledTableCell>
@@ -132,7 +143,7 @@ const Branches = () => {
                 <StyledTableCell>
                   <IconButton
                     onClick={() => edit(branch.branchId)}
-                    aria-label="delete"
+                    aria-label="update"
                   >
                     <EditIcon />
                   </IconButton>
@@ -142,9 +153,7 @@ const Branches = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Box>
-        <Button onClick={() => edit(null)}>New Branch</Button>
-      </Box>
+      
       <Dialog
         open={open}
         onClose={handleClose}

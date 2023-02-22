@@ -26,7 +26,7 @@ const BranchForm = () => {
 
     const selectBranchById = (branches, id) => {
       
-        console.log('branch list', branches)
+        
     if (id != "null") {
       return branches.find((branch) => branch.branchId == id);
     } else {
@@ -58,7 +58,6 @@ const BranchForm = () => {
     },
   });
 
-  //console.log('formik', formik)
 
   return (
     <div>
@@ -130,10 +129,12 @@ const BranchForm = () => {
                 helperText={formik.touched.contactPerson && formik.errors.contactPerson}
               />
             </Grid>
+            <Grid item xs={12} >
+              <Button color="primary" variant="contained" fullWidth type="submit">
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-          <Button color="primary" variant="contained" fullWidth type="submit">
-            Submit
-          </Button>
         </form>
       </Box>
     </div>

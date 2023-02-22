@@ -9,28 +9,27 @@ const http = axios.create({
 });
 
 const getAll = () => {
-  console.log('getAll',http)
-  return http.get("/staff");
+  return http.get("/student");
 };
 
 const get = id => {
-  return http.get(`/staff/${id}`);
+  return http.get(`/student/${id}`);
 };
 
 const create = data => {
-  return http.post("/staff", data);
+  return http.post("/student", data);
 };
 
 const update = (id, data) => {
-  return http.put(`/staff/${id}`, data);
+  return http.put(`/student/${id}`, data);
 };
 
 const remove = id => {
-  return http.delete(`/staff/${id}`);
+  return http.delete(`/student/${id}`);
 };
 
 
-const StaffService = {
+const StudentService = {
   getAll,
   get,
   create,
@@ -38,4 +37,4 @@ const StaffService = {
   remove,
 };
 
-export default StaffService;
+export default StudentService;

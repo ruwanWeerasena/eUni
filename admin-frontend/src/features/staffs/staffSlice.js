@@ -36,7 +36,7 @@ export const deleteStaff = createAsyncThunk(
   "staffs/delete",
   async ({ id }) => {
     await StaffService.remove(id);
-    return { id };
+    return  id ;
   }
 );
   

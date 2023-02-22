@@ -65,7 +65,7 @@ const branchSlice = createSlice({
       };
     },
     [deleteBranch.fulfilled]: (state, action) => {
-      let index = state.findIndex(({ id }) => id === action.payload.id);
+      let index = state.branchList.findIndex(({ id }) => id === action.payload.id);
       state.branchList.splice(index, 1);
     },
   },

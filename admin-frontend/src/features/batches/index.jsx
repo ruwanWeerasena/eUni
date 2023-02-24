@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveBranches, deleteBranch } from "./branchSlice";
+import { retrieveBatches, deleteBatch } from "./batchesSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -69,8 +69,8 @@ const Batches = () => {
   };
 
   const deleteConfirm = async () => {
-    dispatch(deleteBranch({ id: selectedDeleteId }));
-    dispatch(retrieveBranches());
+    dispatch(deleteBatch({ id: selectedDeleteId }));
+    dispatch(retrieveBatches());
     setOpen(false);
   };
 
@@ -79,7 +79,7 @@ const Batches = () => {
   const loadingStatus = useSelector((state) => state.branches?.status);
 
   useEffect(() => {
-    dispatch(retrieveBranches());
+    dispatch(retrieveBatches());
   }, []);
 
   console.log("loading state", loadingStatus);

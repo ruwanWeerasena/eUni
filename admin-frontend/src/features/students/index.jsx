@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveStaffs, deleteStaff } from "./staffSlice";
-import { useMsal } from "@azure/msal-react";
+import { retrieveStudent,deleteStudent } from "./studentSlice";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -25,6 +24,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  CircularProgress,
   Grid,
   Typography
 } from "@mui/material";
@@ -49,7 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Staffs = () => {
+const Students = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,46 +68,42 @@ const Staffs = () => {
 
   const deleteConfirm = async () => {
     console.log('delete confirmation', selectedDeleteId)
-    dispatch(deleteStaff({id:selectedDeleteId}));
+    dispatch(deleteStudent({id:selectedDeleteId}));
     setOpen(false);
   };
 
-  const staffs = useSelector((state) => state.staffs);
-  const globalstate = useSelector((state)=>state);
-  console.log(globalstate);
-  const loadingStatus = useSelector((state) => state.staffs.status);
+  const students = useSelector((state) => state.students.studentlist);
+  
+  const loadingStatus = useSelector((state) => state.students.status);
 
   useEffect(() => {
-    dispatch(retrieveStaffs());
+    dispatch(retrieveStudent());
   }, []);
 
-  console.log("loading state", loadingStatus);
 
   if (loadingStatus === "loading") {
     return (
-      <div className="todo-list">
-        <div className="loader" />
-      </div>
+      <CircularProgress />
     );
   }
 
   const edit = (id) => {
-    navigate(`/staffs/${id}`);
+    navigate(`/students/${id}`);
   };
 
   return (
     <div>
-      
       <Grid container>
         <Grid item xs={8} sx={{textAlign:'left'}}>
           <Typography variant="h4" color='grey' gutterBottom>
-            Staffs
+            Students
           </Typography>
         </Grid>
         <Grid item xs={4} sx={{textAlign:'right'}}>
-          <Button variant="outlined" onClick={() => edit(null)}>New Staff</Button>
+          <Button variant="outlined" onClick={() => edit(null)}>New Student</Button>
         </Grid>
       </Grid>
+    
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -115,6 +111,9 @@ const Staffs = () => {
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell>DOB</StyledTableCell>
+              <StyledTableCell>Street</StyledTableCell>
+              <StyledTableCell>City</StyledTableCell>
+              <StyledTableCell>State</StyledTableCell>
               <StyledTableCell>Email</StyledTableCell>
               <StyledTableCell>Mobile</StyledTableCell>
               <StyledTableCell></StyledTableCell>
@@ -122,23 +121,24 @@ const Staffs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {staffs.map((staff) => (
-              <StyledTableRow key={staff.staffId}>
-                <StyledTableCell component="th" scope="row">
-                  {staff.name}
-                </StyledTableCell>
-                <StyledTableCell>{staff.dateOfBirth}</StyledTableCell>
-                <StyledTableCell>{staff.email}</StyledTableCell>
-                <StyledTableCell>{staff.mobile}</StyledTableCell>
+            {students.map((student) => (
+              <StyledTableRow key={student.studentId}>
+                <StyledTableCell component="th" scope="row">{student.name}</StyledTableCell>
+                <StyledTableCell>{student.dateOfBirth}</StyledTableCell>
+                <StyledTableCell>{student.street}</StyledTableCell>
+                <StyledTableCell>{student.city}</StyledTableCell>
+                <StyledTableCell>{student.state}</StyledTableCell>
+                <StyledTableCell>{student.email}</StyledTableCell>
+                <StyledTableCell>{student.mobile}</StyledTableCell>
                 <StyledTableCell>
-                  <IconButton onClick={() => onDelete(staff.staffId)} aria-label="delete">
+                  <IconButton onClick={() => onDelete(student.studentId)} aria-label="delete">
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell>
                   <IconButton
-                    onClick={() => edit(staff.staffId)}
-                    aria-label="delete"
+                    onClick={() => edit(student.studentId)}
+                    aria-label="update"
                   >
                     <EditIcon />
                   </IconButton>
@@ -148,7 +148,9 @@ const Staffs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    
+      <Box>
+        <Button onClick={() => edit(null)}>New Student</Button>
+      </Box>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -160,7 +162,7 @@ const Staffs = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure to delete Staff?
+            Are you sure to delete Student?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -174,4 +176,4 @@ const Staffs = () => {
   );
 };
 
-export default Staffs;
+export default Students;

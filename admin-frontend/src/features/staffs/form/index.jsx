@@ -129,10 +129,12 @@ const StaffForm = () => {
                 helperText={formik.touched.mobile && formik.errors.mobile}
               />
             </Grid>
+            <Grid item xs={12}>
+              <Button color="primary" variant="contained" fullWidth type="submit">
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-          <Button color="primary" variant="contained" fullWidth type="submit">
-            Submit
-          </Button>
         </form>
       </Box>
     </div>

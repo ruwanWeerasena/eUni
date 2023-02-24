@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Button, Grid, Box } from "@mui/material";
@@ -8,7 +7,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createStaff, updateStaff } from "../staffSlice";
 
-const validationSchema = yup.object({});
+const validationSchema = yup.object({
+
+  name: yup.string().min(3,"Enter a valid Name").required("Name is required"),
+  address: yup.string().min(5,"Enter a valid address").required("Address is required"),
+  email: yup.string().email("Enter a valid email").required("Email is required"),
+  dateOfBirth: yup.string().required("Date Of Birth is required"),
+  mobile: yup.string().matches(/^[0][0-9]{9}$/,"Mobile format - 0xxxxxxxxx ").required(" Mobile number is required"),
+
+});
 
 // email: yup
 // .string("Enter your email")
@@ -57,7 +64,6 @@ const StaffForm = () => {
     },
   });
 
-  //console.log('formik', formik)
 
   return (
     <div>

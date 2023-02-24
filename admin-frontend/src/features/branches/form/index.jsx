@@ -8,7 +8,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createBranch, updateBranch } from "../branchSlice";
 
-const validationSchema = yup.object({});
+const validationSchema = yup.object({
+        name:yup.string().max(25,"must be 25 char or less").required("required"),
+        address:yup.string().required("required"),
+        email:yup.string().email("invalid email").required("required"),
+        contactPerson:yup.string().required("required"),
+        contactNumber:yup.string().required("required"),
+});
 
 // email: yup
 // .string("Enter your email")
@@ -33,6 +39,7 @@ const BranchForm = () => {
       return {
         id: null,
         name: "",
+        email:"",
         address: "",
         contactNumber: "",
         contactPerson: "",

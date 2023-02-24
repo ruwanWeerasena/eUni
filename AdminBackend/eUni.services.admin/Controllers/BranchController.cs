@@ -20,7 +20,7 @@ public class BranchController : ControllerBase
     public async Task<IActionResult> GetBranches()
     {
         var list = await _branchRepository.GetBranchesAsync();
-        //Thread.Sleep(3000);
+        Thread.Sleep(3000);
         return Ok(list);
     }
 

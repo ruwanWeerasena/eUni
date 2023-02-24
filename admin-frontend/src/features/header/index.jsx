@@ -39,7 +39,7 @@ const Header = (props) => {
             <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./students")}}>
                   Student
             </Button>
-
+            <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/batches`)}>Batch</Button>
           </Box>
           <Box >
             { isAuthenticated ? <SignOutButton /> : <SignInButton /> }

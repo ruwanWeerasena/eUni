@@ -74,9 +74,9 @@ const Batches = () => {
     setOpen(false);
   };
 
-  const branches = useSelector((state) => state.branches?.branchList);
+  const batches = useSelector((state) => state.batches?.batchList);
 
-  const loadingStatus = useSelector((state) => state.branches?.status);
+  const loadingStatus = useSelector((state) => state.batches?.status);
 
   useEffect(() => {
     dispatch(retrieveBatches());
@@ -91,39 +91,39 @@ const Batches = () => {
   }
 
   const edit = (id) => {
-    navigate(`/branchesx/${id}`);
+    navigate(`/batches/${id}`);
   };
 
   return (
     <div>
-      <p>Branches</p>
+      <p>Batches</p>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Address</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
-              <StyledTableCell>Contact Number</StyledTableCell>
-              <StyledTableCell>Contact Person</StyledTableCell>
+              <StyledTableCell>Course Name</StyledTableCell>
+              <StyledTableCell>Branch Name</StyledTableCell>
+              <StyledTableCell>Start Date</StyledTableCell>
+              <StyledTableCell>End Date</StyledTableCell>
               <StyledTableCell></StyledTableCell>
               <StyledTableCell></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {branches?.map((branch) => (
-              <StyledTableRow key={branch.staffId}>
+            {batches?.map((batch) => (
+              <StyledTableRow key={batch.staffId}>
                 <StyledTableCell component="th" scope="row">
-                  {branch.name}
+                  {batch.name}
                 </StyledTableCell>
-                <StyledTableCell>{branch.address}</StyledTableCell>
-                <StyledTableCell>{branch.email}</StyledTableCell>
-                <StyledTableCell>{branch.contactNumber}</StyledTableCell>
-                <StyledTableCell>{branch.contactPerson}</StyledTableCell>
+                <StyledTableCell>{batch.courseName}</StyledTableCell>
+                <StyledTableCell>{batch.branchName}</StyledTableCell>
+                <StyledTableCell>{batch.startDate}</StyledTableCell>
+                <StyledTableCell>{batch.endDate}</StyledTableCell>
                 <StyledTableCell>
                   <IconButton
-                    onClick={() => onDelete(branch.branchId)}
+                    onClick={() => onDelete(batch.branchId)}
                     aria-label="delete"
                   >
                     <DeleteIcon />
@@ -131,7 +131,7 @@ const Batches = () => {
                 </StyledTableCell>
                 <StyledTableCell>
                   <IconButton
-                    onClick={() => edit(branch.branchId)}
+                    onClick={() => edit(batch.batchId)}
                     aria-label="delete"
                   >
                     <EditIcon />

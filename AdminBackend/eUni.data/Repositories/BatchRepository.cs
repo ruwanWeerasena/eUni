@@ -13,7 +13,9 @@ public class BatchRepository : IBatchRepository
     }
     public Task<List<Batch>> GetBatchesAsync()
     {
-        return _db.Batchs.ToListAsync();
+        return _db.Batchs.Include(b => b.Course)
+            .Include(b => b.Branch).Include(b => b.Lecturer).Include(b => b.Staff)
+            .ToListAsync();
     }
     public async Task<Batch?> GetBatcheByIdAsync(int id)
     {

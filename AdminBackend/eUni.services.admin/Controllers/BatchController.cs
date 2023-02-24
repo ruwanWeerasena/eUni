@@ -1,5 +1,7 @@
+using AutoMapper;
 using eUni.data.Entities;
 using eUni.data.Repositories;
+using eUni.services.admin.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +13,11 @@ namespace eUni.services.admin.Controllers;
 public class BatchController : ControllerBase
 {
     private readonly IBatchRepository _batchRepository;
+    private readonly IMapper _mapper;
 
-    public BatchController(IBatchRepository branchRepository){
+    public BatchController(IBatchRepository branchRepository, IMapper mapper){
         _batchRepository = branchRepository;
+        _mapper = mapper;
     }
 
     [HttpGet()]
@@ -22,8 +26,11 @@ public class BatchController : ControllerBase
     public async Task<IActionResult> GetBatches()
     {
         var list = await _batchRepository.GetBatchesAsync();
-        Thread.Sleep(3000);
-        return Ok(list);
+        var mappedList = list.Select(s => _mapper.Map<BatchViewModel>(s)).ToList();
+
+
+        //Thread.Sleep(3000);
+        return Ok(mappedList);
     }
 
 

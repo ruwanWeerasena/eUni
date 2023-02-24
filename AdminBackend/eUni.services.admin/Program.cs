@@ -20,6 +20,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EUniDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddAutoMapper(typeof(Program)); 
 
 var app = builder.Build();
 

@@ -1,16 +1,14 @@
-import {
-    createSlice,
-    createAsyncThunk,
-  } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
-  import BranchService from "./service";
-  
-const initialState = {branchList:[], status: "idle", error: null};
+import BranchService from "./service";
+
+const initialState = { branchList: [], status: "idle", error: null };
 
 export const createBranch = createAsyncThunk(
   "branches/create",
   async (branch) => {
-    const res = await BranchService.create({...branch, batches:null});
+    const res = await BranchService.create({ ...branch, batches: null });
     return res.data;
   }
 );
@@ -38,7 +36,7 @@ export const deleteBranch = createAsyncThunk(
     return { id };
   }
 );
-  
+
 const branchSlice = createSlice({
   name: "branches",
   initialState,
@@ -47,16 +45,15 @@ const branchSlice = createSlice({
       state.branchList.push(action.payload);
     },
     [retrieveBranches.pending]: (state, action) => {
-      return {...state, status:'loading'}
+      return { ...state, status: "loading" };
     },
     [retrieveBranches.fulfilled]: (state, action) => {
-      return {branchList:[...action.payload], status:'succeeded'}
+      return { branchList: [...action.payload], status: "succeeded" };
     },
     [retrieveBranches.rejected]: (state, action) => {
-      return {...state,status:'failed', error:action.payload}
+      return { ...state, status: "failed", error: action.payload };
     },
     [updateBranch.fulfilled]: (state, action) => {
-     
       const index = state.branchList.findIndex(
         (branch) => branch.branchId === action.payload.branchId
       );
@@ -66,7 +63,10 @@ const branchSlice = createSlice({
       };
     },
     [deleteBranch.fulfilled]: (state, action) => {
-      let index = state.branchList.findIndex(({ branchId }) =>  branchId === action.payload.id);
+      let index = state.branchList.findIndex(
+        ({ branchId }) => branchId === action.payload.id
+      );
+
       state.branchList.splice(index, 1);
     },
   },

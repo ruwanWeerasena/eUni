@@ -12,8 +12,7 @@ import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "../../components/SignInButton";
 import { SignOutButton } from "../../components/SignOutButton";
 
-import { useNavigate,Link } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
 
 const Header = (props) => {
   const isAuthenticated = useIsAuthenticated();
@@ -33,21 +32,55 @@ const Header = (props) => {
             <MenuIcon />
           </IconButton>
 
-          <Box sx={{ flexGrow: 1, textAlign: 'left' }}>
-          <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/branches`)}>Branch</Button>
-          <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/staffs`)}>Staff</Button>
-          <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./students")}}> Student </Button>
-          <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./lecturers")}}> Lecturer </Button>
+          <Box sx={{ flexGrow: 1, textAlign: "left" }}>
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              onClick={() => navigate(`/branches`)}
+            >
+              Branch
+            </Button>
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              onClick={() => navigate(`/staffs`)}
+            >
+              Staff
+            </Button>
 
-          </Box>
-          <Box >
-            { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
-          </Box>
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              sx={{ color: "white" }}
+              onClick={() => {
+                navigate("./students");
+              }}
+            >
+              Student
+            </Button>
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              onClick={() => navigate(`/batches`)}
+            >
+              Batch
+            </Button>
 
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              sx={{ color: "white" }}
+              onClick={() => {
+                navigate("./lecturers");
+              }}
+            >
+              {" "}
+              Lecturer{" "}
+            </Button>
+          </Box>
+          <Box>{isAuthenticated ? <SignOutButton /> : <SignInButton />}</Box>
         </Toolbar>
       </AppBar>
-     
-     
 
       <br />
       <br />

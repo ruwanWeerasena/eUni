@@ -1,57 +1,75 @@
 import {
   createSlice,
   createAsyncThunk,
-  createEntityAdapter,
 } from "@reduxjs/toolkit";
-import axios from "axios";
 
-const batchesAdapter = createEntityAdapter({
-  selectId: (batch) => batch.batchId,
-});
+import BatchService from "./service";
 
-const initialState = batchesAdapter.getInitialState({ status: "idle" });
+const initialState = {batchList:[], status: "idle", error: null};
 
-// Thunk functions
-export const fetchesBatches = createAsyncThunk(
-  "batch/fetchBatches",
-  async () => {
-    const response = await axios.get(process.env.REACT_APP_API_URL + "/batch");
-    console.log('response', response);
-    return response.data;
-  }
+export const createBatch = createAsyncThunk(
+"batches/create",
+async (branch) => {
+  const res = await BatchService.create({...branch, batches:null});
+  return res.data;
+}
 );
 
-const batchesSlice = createSlice({
-  name: "batches",
-  initialState,
-  reducers: {
-    // todoToggled(state, action) {
-    //   const todoId = action.payload;
-    //   const todo = state.entities[todoId];
-    //   todo.completed = !todo.completed;
-    // },
+export const retrieveBatches = createAsyncThunk(
+"batches/retrieve",
+async () => {
+  const res = await BatchService.getAll();
+  return res.data;
+}
+);
+
+export const updateBatch = createAsyncThunk(
+"batches/update",
+async ({ id, data }) => {
+  const res = await BatchService.update(id, data);
+  return res.data;
+}
+);
+
+export const deleteBatch = createAsyncThunk(
+"batches/delete",
+async ({ id }) => {
+  await BatchService.remove(id);
+  return { id };
+}
+);
+
+const branchSlice = createSlice({
+name: "batches",
+initialState,
+extraReducers: {
+  [createBatch.fulfilled]: (state, action) => {
+    state.batchList.push(action.payload);
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchesBatches.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(fetchesBatches.fulfilled, (state, action) => {
-        console.log("adapter", action.payload);
-        batchesAdapter.setAll(state, action.payload);
-        state.status = "idle";
-      });
+  [retrieveBatches.pending]: (state, action) => {
+    return {...state, status:'loading'}
   },
+  [retrieveBatches.fulfilled]: (state, action) => {
+    return {batchList:[...action.payload], status:'succeeded'}
+  },
+  [retrieveBatches.rejected]: (state, action) => {
+    return {...state,status:'failed', error:action.payload}
+  },
+  [updateBatch.fulfilled]: (state, action) => {
+    const index = state.findIndex(
+      (tutorial) => tutorial.id === action.payload.id
+    );
+    state.batchList[index] = {
+      ...state[index],
+      ...action.payload,
+    };
+  },
+  [deleteBatch.fulfilled]: (state, action) => {
+    let index = state.findIndex(({ id }) => id === action.payload.id);
+    state.batchList.splice(index, 1);
+  },
+},
 });
 
-export const { todoToggled } = batchesSlice.actions;
-
-export default batchesSlice.reducer;
-
-// export const { selectAll: selectTodos, selectById: selectTodoById } =
-//   todosAdapter.getSelectors((state) => state.todos);
-
-//export const batches = createSelector((state) => state);
-
-export const { selectAll: selectBatches, selectById: selectBatchById } =
-  batchesAdapter.getSelectors((state) => state.batches);
+const { reducer } = branchSlice;
+export default reducer;

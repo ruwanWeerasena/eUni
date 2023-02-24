@@ -18,7 +18,6 @@ public class StudentController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetAllStudent()
     {
-        Thread.Sleep(1000);
         
         return Ok(await _studentrepository.GetStudentsAsync());
     }

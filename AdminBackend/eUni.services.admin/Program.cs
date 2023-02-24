@@ -11,6 +11,7 @@ builder.Services.AddScoped<IBatchRepository, BatchRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepositoy>();
 builder.Services.AddCors();
 
 builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);

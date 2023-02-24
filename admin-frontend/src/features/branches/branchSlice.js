@@ -56,16 +56,17 @@ const branchSlice = createSlice({
       return {...state,status:'failed', error:action.payload}
     },
     [updateBranch.fulfilled]: (state, action) => {
-      const index = state.findIndex(
-        (tutorial) => tutorial.id === action.payload.id
+     
+      const index = state.branchList.findIndex(
+        (branch) => branch.branchId === action.payload.branchId
       );
       state.branchList[index] = {
-        ...state[index],
+        ...state.branchList[index],
         ...action.payload,
       };
     },
     [deleteBranch.fulfilled]: (state, action) => {
-      let index = state.branchList.findIndex(({ id }) => id === action.payload.id);
+      let index = state.branchList.findIndex(({ branchId }) =>  branchId === action.payload.id);
       state.branchList.splice(index, 1);
     },
   },

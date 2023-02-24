@@ -148,9 +148,6 @@ const Students = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Box>
-        <Button onClick={() => edit(null)}>New Student</Button>
-      </Box>
       <Dialog
         open={open}
         onClose={handleClose}

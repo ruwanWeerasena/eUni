@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveStaffs, deleteStaff } from "./staffSlice";
+import { retrieveLecturers, deleteLecturer } from "./lecturerSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -15,19 +15,22 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import Typography from '@mui/material/Typography';
 
 import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
+  CircularProgress,
   Grid,
-  Typography
 } from "@mui/material";
+
+import "../../App.css";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,9 +52,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Staffs = () => {
+const Lecturers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { instance, accounts } = useMsal();
 
   const [selectedDeleteId, setSelectedDeleteId] = useState(undefined);
 
@@ -67,45 +71,42 @@ const Staffs = () => {
   };
 
   const deleteConfirm = async () => {
-    console.log('delete confirmation', selectedDeleteId)
-    dispatch(deleteStaff({id:selectedDeleteId}));
+    dispatch(deleteLecturer({ id: selectedDeleteId }));
+    dispatch(retrieveLecturers());
     setOpen(false);
   };
 
-  const staffs = useSelector((state) => state.staffs.staffList);
-  const globalstate = useSelector((state)=>state);
-  console.log(globalstate);
-  const loadingStatus = useSelector((state) => state.staffs.status);
+  const lecturers = useSelector((state) => state.lecturers?.lecturerList);
+
+
+  const loadingStatus = useSelector((state) => state.lecturers?.status);
 
   useEffect(() => {
-    dispatch(retrieveStaffs());
+    dispatch(retrieveLecturers());
   }, []);
 
-  console.log("loading state", loadingStatus);
+
 
   if (loadingStatus === "loading") {
     return (
-      <div className="todo-list">
-        <div className="loader" />
-      </div>
+      <CircularProgress />
     );
   }
 
   const edit = (id) => {
-    navigate(`/staffs/${id}`);
+    navigate(`/lecturers/${id}`);
   };
 
   return (
     <div>
-      
       <Grid container>
         <Grid item xs={8} sx={{textAlign:'left'}}>
           <Typography variant="h4" color='grey' gutterBottom>
-            Staffs
+            Lecturers
           </Typography>
         </Grid>
         <Grid item xs={4} sx={{textAlign:'right'}}>
-          <Button variant="outlined" onClick={() => edit(null)}>New Staff</Button>
+          <Button variant="outlined" onClick={() => edit(null)}>New Lecturer</Button>
         </Grid>
       </Grid>
 
@@ -114,7 +115,8 @@ const Staffs = () => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>DOB</StyledTableCell>
+              <StyledTableCell>Address</StyledTableCell>
+              <StyledTableCell>Date of Birth</StyledTableCell>
               <StyledTableCell>Email</StyledTableCell>
               <StyledTableCell>Mobile</StyledTableCell>
               <StyledTableCell></StyledTableCell>
@@ -122,23 +124,27 @@ const Staffs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {staffs.map((staff) => (
-              <StyledTableRow key={staff.staffId}>
+            {lecturers?.map((lecturer) => (
+              <StyledTableRow key={lecturer.lecturerId}>
                 <StyledTableCell component="th" scope="row">
-                  {staff.name}
+                  {lecturer.name}
                 </StyledTableCell>
-                <StyledTableCell>{staff.dateOfBirth}</StyledTableCell>
-                <StyledTableCell>{staff.email}</StyledTableCell>
-                <StyledTableCell>{staff.mobile}</StyledTableCell>
+                <StyledTableCell>{lecturer.address}</StyledTableCell>
+                <StyledTableCell>{lecturer.dateOfBirth}</StyledTableCell>
+                <StyledTableCell>{lecturer.email}</StyledTableCell>
+                <StyledTableCell>{lecturer.mobile}</StyledTableCell>
                 <StyledTableCell>
-                  <IconButton onClick={() => onDelete(staff.staffId)} aria-label="delete">
+                  <IconButton
+                    onClick={() => onDelete(lecturer.lecturerId)}
+                    aria-label="delete"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell>
                   <IconButton
-                    onClick={() => edit(staff.staffId)}
-                    aria-label="delete"
+                    onClick={() => edit(lecturer.lecturerId)}
+                    aria-label="update"
                   >
                     <EditIcon />
                   </IconButton>
@@ -148,19 +154,17 @@ const Staffs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    
+      
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete Staff"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Delete Lecturer"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure to delete Staff?
+            Are you sure to delete Lecturer?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -174,4 +178,4 @@ const Staffs = () => {
   );
 };
 
-export default Staffs;
+export default Lecturers;

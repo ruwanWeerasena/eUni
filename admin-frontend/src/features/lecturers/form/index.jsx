@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import  { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Button, Grid, Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { createStaff, updateStaff } from "../staffSlice";
+import { createLecturer, updateLecturer } from "../lecturerSlice";
 
 const validationSchema = yup.object({});
 
@@ -19,45 +18,46 @@ const validationSchema = yup.object({});
 // .min(8, "Password should be of minimum 8 characters length")
 // .required("Password is required"),
 
-const StaffForm = () => {
+const LecturerForm = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const selectStaffById = (staffs, id) => {
+    const selectlecturebyid = (lecturers, id) => {
+      
+        
     if (id != "null") {
-      return staffs.find((staff) => staff.staffId == id);
+      return lecturers.find((lecturer) => lecturer.lecturerId == id);
     } else {
       return {
         id: null,
         name: "",
         address: "",
         dateOfBirth: "",
-        email: "",
         mobile: "",
+        email: "",
       };
     }
   };
 
-  const staff = useSelector((state) => selectStaffById(state.staffs.staffList, id));
+  const lecturer = useSelector((state) => selectlecturebyid(state.lecturers.lecturerList, id));
 
   const formik = useFormik({
-    initialValues: staff,
+    initialValues: lecturer,
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("values", values.staffId);
-      if (values.staffId) {
-        dispatch(updateStaff({ id: values.staffId, data: values }));
+      
+      if (values.lecturerId) {
+        dispatch(updateLecturer({ id: values.lecturerId, data: values }));
       } else {
-        dispatch(createStaff(values));
+        dispatch(createLecturer(values));
       }
 
-      navigate("/staffs");
+      navigate("/lecturers");
     },
   });
 
-  //console.log('formik', formik)
 
   return (
     <div>
@@ -96,25 +96,8 @@ const StaffForm = () => {
                 label="Date Of Birth"
                 value={formik.values?.dateOfBirth}
                 onChange={formik.handleChange}
-                error={
-                  formik.touched.dateOfBirth &&
-                  Boolean(formik.errors.dateOfBirth)
-                }
-                helperText={
-                  formik.touched.dateOfBirth && formik.errors.dateOfBirth
-                }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="Email"
-                value={formik.values?.email}
-                onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
+                error={formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)}
+                helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
               />
             </Grid>
             <Grid item xs={12}>
@@ -125,11 +108,28 @@ const StaffForm = () => {
                 label="Mobile"
                 value={formik.values?.mobile}
                 onChange={formik.handleChange}
-                error={formik.touched.mobile && Boolean(formik.errors.mobile)}
-                helperText={formik.touched.mobile && formik.errors.mobile}
+                error={
+                  formik.touched.mobile &&
+                  Boolean(formik.errors.mobile)
+                }
+                helperText={
+                  formik.touched.mobile && formik.errors.mobile
+                }
               />
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="email"
+                name="email"
+                label="E Mail"
+                value={formik.values?.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+            </Grid>
+            <Grid item xs={12} >
               <Button color="primary" variant="contained" fullWidth type="submit">
                 Submit
               </Button>
@@ -141,4 +141,4 @@ const StaffForm = () => {
   );
 };
 
-export default StaffForm;
+export default LecturerForm;

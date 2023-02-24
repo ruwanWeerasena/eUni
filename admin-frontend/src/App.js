@@ -15,6 +15,8 @@ import BranchFormx from "./features/branches/form";
 import Container from '@mui/material/Container';
 import StudentsPage from "./features/students";
 import StudentForm from "./features/students/form";
+import LecturersPage from "./features/lecturers";
+import LecturerForm from "./features/lecturers/form";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="/branch/:id" element={<BranchForm />} />
             <Route path="/students" element={<StudentsPage />} />
             <Route path="/students/:id" element={<StudentForm />} />
+            <Route path="/lecturers" element={<LecturersPage/>} />
+            <Route path="/lecturers/:id" element={<LecturerForm/>} />
           </Routes>
         </Container>
         <Footer />

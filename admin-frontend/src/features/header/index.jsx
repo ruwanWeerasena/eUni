@@ -36,9 +36,8 @@ const Header = (props) => {
           <Box sx={{ flexGrow: 1, textAlign: 'left' }}>
           <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/branches`)}>Branch</Button>
           <Button variant="secondary" className="ml-auto" onClick={() => navigate(`/staffs`)}>Staff</Button>
-            <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./students")}}>
-                  Student
-            </Button>
+          <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./students")}}> Student </Button>
+          <Button variant="secondary" className="ml-auto" sx={{ color: 'white' }} onClick={()=>{navigate("./lecturers")}}> Lecturer </Button>
 
           </Box>
           <Box >

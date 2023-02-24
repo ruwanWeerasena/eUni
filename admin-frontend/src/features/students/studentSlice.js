@@ -59,15 +59,15 @@ const studentSlice = createSlice({
     },
     [updateStudent.fulfilled]: (state, action) => {
       const index = state.studentlist.findIndex(
-        (student) => student.id === action.payload.id
+        (student) => student.studentId === action.payload.studentId
       );
-      state[index] = {
-        ...state[index],
+      state.studentlist[index] = {
+        ...state.studentlist[index],
         ...action.payload,
       };
     },
     [deleteStudent.fulfilled]: (state, action) => {
-      let index = state.studentlist.findIndex(({ studentId }) => studentId === action.payload.id);
+      let index = state.studentlist.findIndex(({ studentId }) => studentId === action.payload);
       state.studentlist.splice(index, 1);
     },
   },

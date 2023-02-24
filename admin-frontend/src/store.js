@@ -4,6 +4,7 @@ import batchesReducer from './features/batches/batchesSlice'
 import staffsReducer from './features/staffs/staffSlice'
 import branchesReducer from './features/branches/branchSlice'
 import studentsReducer from './features/students/studentSlice'
+import lecturerReducer from './features/lecturers/lecturerSlice'
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     batches: batchesReducer,
     staffs: staffsReducer,
     branches: branchesReducer,
-    students: studentsReducer
+    students: studentsReducer,
+    lecturers : lecturerReducer
   },
 })
 

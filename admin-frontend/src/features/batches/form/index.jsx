@@ -14,11 +14,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { createBatch, updateBatch } from "../batchesSlice";
 import { retrieveBranches } from "../../branches/branchSlice";
 import { retrieveStaffs } from "../../staffs/staffSlice";
+import { retrieveLecturers } from "../../lecturers/lecturerSlice";
+import { retrieveCourses, getAllCourses } from "../../courses/courseSlice";
 
 const validationSchema = yup.object({});
 
 // email: yup
-// .string("Enter your email")
+// .string("Enter your email"),
 // .email("Enter a valid email")
 // .required("Email is required"),
 // password: yup
@@ -34,6 +36,8 @@ const BatchForm = () => {
   useEffect(() => {
     dispatch(retrieveBranches());
     dispatch(retrieveStaffs());
+    dispatch(retrieveCourses());
+    dispatch(retrieveLecturers());
   }, []);
 
   const selectBatchById = (batches, id) => {
@@ -41,11 +45,10 @@ const BatchForm = () => {
       return batches.find((batch) => batch.batchId == id);
     } else {
       return {
-        batchId: null,
         courseId: 0,
         branchId: 0,
-        staffId: 0,
-        lecturerId: 0,
+        inchargeStaffId: 0,
+        inchargeLecturerId: 0,
         name: "",
         startDate: "",
         endDate: "",
@@ -61,9 +64,19 @@ const BatchForm = () => {
     return [{ branchId: 0, name: "Select Branch" }, ...list];
   });
   const staffs = useSelector((state) => {
-      const list = state.staffs;
-      return [{ staffId: 0, name: 'Select Staff' }, ...list];
+    const list = state.staffs?.staffList;
+    console.log("list", list);
+    return [{ staffId: 0, name: "Select Staff" }, ...list];
   });
+
+  const lecturers = useSelector((state) => {
+    const list = state.lecturers?.lecturerList;
+    console.log("list", list);
+    return [{ lecturerId: 0, name: "Select Lecturer" }, ...list];
+  });
+
+  const courses = useSelector(getAllCourses.selectAll);
+
   const batches = useSelector((state) => state.batches);
 
   console.log("batch", batch);
@@ -83,6 +96,8 @@ const BatchForm = () => {
     },
   });
 
+  console.log(11, formik.values);
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -93,7 +108,8 @@ const BatchForm = () => {
                 <InputLabel id="demo-simple-select-label">Branch</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  id="branchId"
+                  name="branchId"
                   value={formik.values?.branchId}
                   label="Branch"
                   onChange={formik.handleChange}
@@ -112,8 +128,9 @@ const BatchForm = () => {
                 <InputLabel id="demo-simple-select-label">Staffs</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={formik.values?.staffId}
+                  id="inchargeStaffId"
+                  name="inchargeStaffId"
+                  value={formik.values?.inchargeStaffId}
                   label="Staffs"
                   onChange={formik.handleChange}
                 >
@@ -125,6 +142,86 @@ const BatchForm = () => {
                   {formik.touched.name && formik.errors.name}
                 </FormHelperText>
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Courses</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="courseId"
+                  name='courseId'
+                  value={formik.values?.courseId}
+                  label="Courses"
+                  onChange={formik.handleChange}
+                >
+                  {courses.map((course) => (
+                    <MenuItem value={course.courseId}>{course.name}</MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>
+                  {formik.touched.name && formik.errors.name}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Lecturers</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="inchargeLecturerId"
+                  name='inchargeLecturerId'
+                  value={formik.values?.inchargeLecturerId}
+                  label="Lecturers"
+                  onChange={formik.handleChange}
+                >
+                  {lecturers.map((lecturer) => (
+                    <MenuItem value={lecturer.lecturerId}>
+                      {lecturer.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>
+                  {formik.touched.name && formik.errors.name}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="name"
+                name="name"
+                label="Name"
+                value={formik.values?.name}
+                onChange={formik.handleChange}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="startDate"
+                name="startDate"
+                label="Start Date"
+                value={formik.values?.startDate}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.startDate && Boolean(formik.errors.startDate)
+                }
+                helperText={formik.touched.startDate && formik.errors.startDate}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="endDate"
+                name="endDate"
+                label="End Date"
+                value={formik.values?.endDate}
+                onChange={formik.handleChange}
+                error={formik.touched.endDate && Boolean(formik.errors.endDate)}
+                helperText={formik.touched.endDate && formik.errors.endDate}
+              />
             </Grid>
             <Grid item xs={12}>
               <Button

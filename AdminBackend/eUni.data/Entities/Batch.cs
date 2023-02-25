@@ -15,9 +15,9 @@ public class Batch
     
     [ForeignKey("Lecturer")]
     public int InchargeLecturerId { get; set; }
-    public virtual Lecturer Lecturer { get; set; }
-    public virtual Branch Branch { get; set; }
-    public virtual Course Course { get; set; }
-    public virtual Staff Staff { get; set; }
-    public virtual ICollection<LecturerBatch> LecturerBatches { get; set; }
+    public virtual Lecturer? Lecturer { get; set; }
+    public virtual Branch? Branch { get; set; }
+    public virtual Course? Course { get; set; }
+    public virtual Staff? Staff { get; set; }
+    public virtual ICollection<LecturerBatch>? LecturerBatches { get; set; }
 }

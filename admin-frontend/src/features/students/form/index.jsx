@@ -27,6 +27,18 @@ const StudentForm = () => {
   }
   
   const [data,setData] = useState(initialstate);
+  
+  // const errorobb = {
+  //   name:false,
+  //   dateOfBirth:false,
+  //   street : false,
+  //   city : false,
+  //   state : false,
+  //   email: false,
+  //   mobile: false,
+    
+  // }
+  const [errors,setErrors] = useState(false);
 
   const selectStudentByID = (students, id) => {
     if (id != "null") {
@@ -46,13 +58,34 @@ const StudentForm = () => {
     }
   },[])
 
- 
+
+  const validation = (data)=>{
+    if(data.name =="" && data.street == "" && data.city == "" && data.email == "" && data.state == "" &&  data.mobile == ""){
+      setErrors(true)
+    }else{
+      setErrors(false)
+    }
+    // if(data.dateOfBirth == ""){
+    //   setErrors({...errors,dateOfBirth:true})
+    // }
+    // if(data.street == "")setErrors({...errors,street:true})
+    // if(data.city == "")setErrors({...errors,city:true})
+    // if(data.email == "")setErrors({...errors,email:true})
+    // if(data.state == "")setErrors({...errors,state:true})
+    // if(data.mobile == "")setErrors({...errors,mobile:true})
+   
+  }
+
 
   const handlesubmit = ()=>{
     if (data.studentId) {
       dispatch(updateStudent({ id: data.studentId, data:{...data,enrollments:[],studentPayments:[]} }));
     } else {
+      //validation done only for all fields empty.need to be finished later.error got while updating the error state within a function without callback
+      validation(data)
       dispatch(createStudent(data));
+ 
+      
     }
 
     navigate("/students");
@@ -74,8 +107,11 @@ const StudentForm = () => {
                 value={data?.name }
                 onChange={(e)=>{
                   setData({...data,name:e.target.value})
+                 
                   
                 }}
+                error={errors}
+                helperText={errors && 'Name is Required'}
               />
             </Grid>
             <Grid item xs={12}>
@@ -87,6 +123,8 @@ const StudentForm = () => {
                 label="Date Of Birth"
                 value={data?.dateOfBirth }
                 onChange={(e)=>{setData({...data,dateOfBirth:e.target.value})}}
+                error={errors}
+                helperText={errors && 'Date Of Birth is Required'}
               />
             </Grid>
            
@@ -99,6 +137,8 @@ const StudentForm = () => {
                 label="street"
                 value={data?.street }
                 onChange={(e)=>{setData({...data,street:e.target.value})}}
+                error={errors}
+                helperText={errors && 'street is Required'}
               />
             </Grid>
            
@@ -111,6 +151,8 @@ const StudentForm = () => {
                 label="city"
                 value={data?.city }
                 onChange={(e)=>{setData({...data,city:e.target.value})}}
+                error={errors }
+                helperText={errors && 'city is Required'}
               />
             </Grid>
             <Grid item xs={12}>
@@ -122,6 +164,8 @@ const StudentForm = () => {
                 label="state"
                 value={data?.state }
                 onChange={(e)=>{setData({...data,state:e.target.value})}}
+                error={errors}
+                helperText={errors && 'state is Required'}
               />
             </Grid>
             <Grid item xs={12}>
@@ -133,6 +177,8 @@ const StudentForm = () => {
                 label="email"
                 value={data?.email }
                 onChange={(e)=>{setData({...data,email:e.target.value})}}
+                error={errors }
+                helperText={errors && 'email is Required'}
               />
             </Grid>
             <Grid item xs={12}>
@@ -144,6 +190,8 @@ const StudentForm = () => {
                 label="Mobile"
                 value={data?.mobile }
                 onChange={(e)=>{setData({...data,mobile:e.target.value})}}
+                error={errors }
+                helperText={errors && 'mobile is Required'}
               />
             </Grid>
             <Grid item xs={12}>

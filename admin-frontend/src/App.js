@@ -18,6 +18,9 @@ import StudentsPage from "./features/students";
 import StudentForm from "./features/students/form";
 import LecturersPage from "./features/lecturers";
 import LecturerForm from "./features/lecturers/form";
+import CoursesPage from "./features/courses";
+import CourseForm from "./features/courses/form";
+
 
 function App() {
   return (
@@ -37,7 +40,9 @@ function App() {
             <Route path="/students" element={<StudentsPage />} />
             <Route path="/students/:id" element={<StudentForm />} />
             <Route path="/lecturers" element={<LecturersPage/>} />
-            <Route path="/lecturers/:id" element={<LecturerForm/>} />
+            <Route path="/lecturers/:id" element={<LecturerForm />} />
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/courses/:id" element={<CourseForm />} />
           </Routes>
         </Container>
         <Footer />

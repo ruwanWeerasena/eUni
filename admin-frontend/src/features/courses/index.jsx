@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveStaffs, deleteStaff } from "./staffSlice";
+import {retrieveCourses,deleteCourse, getAllCourses} from "./courseSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -15,19 +15,24 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import Typography from '@mui/material/Typography';
+
+
 
 import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
+  CircularProgress,
   Grid,
-  Typography
 } from "@mui/material";
+
+import "../../App.css";
+import { grey } from "@mui/material/colors";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,9 +54,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Staffs = () => {
+const Courses = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+    const { instance, accounts } = useMsal();
 
   const [selectedDeleteId, setSelectedDeleteId] = useState(undefined);
 
@@ -67,44 +73,40 @@ const Staffs = () => {
   };
 
   const deleteConfirm = async () => {
-    console.log('delete confirmation', selectedDeleteId)
-    dispatch(deleteStaff({id:selectedDeleteId}));
+    dispatch(deleteCourse({ id: selectedDeleteId }));
+    dispatch(retrieveCourses());
     setOpen(false);
   };
 
-  const staffs = useSelector((state) => state.staffs.staffList);
-  const globalstate = useSelector((state)=>state);
-  console.log(globalstate);
-  const loadingStatus = useSelector((state) => state.staffs.status);
+  //const courses = useSelector((state) => state.courses);
+  const courses = useSelector(getAllCourses.selectAll);
+
+  const loadingStatus = useSelector((state) => state.courses?.status);
 
   useEffect(() => {
-    dispatch(retrieveStaffs());
+    dispatch(retrieveCourses());
   }, []);
-
 
   if (loadingStatus === "loading") {
     return (
-      <div className="todo-list">
-        <div className="loader" />
-      </div>
+      <CircularProgress />
     );
   }
 
   const edit = (id) => {
-    navigate(`/staffs/${id}`);
+    navigate(`/courses/${id}`);
   };
 
   return (
     <div>
-      
       <Grid container>
         <Grid item xs={8} sx={{textAlign:'left'}}>
           <Typography variant="h4" color='grey' gutterBottom>
-            Staffs
+            Courses
           </Typography>
         </Grid>
         <Grid item xs={4} sx={{textAlign:'right'}}>
-          <Button variant="outlined" onClick={() => edit(null)}>New Staff</Button>
+          <Button variant="outlined" onClick={() => edit(null)}>New Course</Button>
         </Grid>
       </Grid>
 
@@ -113,31 +115,36 @@ const Staffs = () => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>DOB</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
-              <StyledTableCell>Mobile</StyledTableCell>
+              <StyledTableCell>Entry Requirement</StyledTableCell>
+              <StyledTableCell>Awading Body</StyledTableCell>
+              <StyledTableCell>Contact Detail</StyledTableCell>
+              <StyledTableCell>Information URL</StyledTableCell>
               <StyledTableCell></StyledTableCell>
               <StyledTableCell></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {staffs.map((staff) => (
-              <StyledTableRow key={staff.staffId}>
+            {courses?.map((course) => (
+              <StyledTableRow key={course.courseId}>
                 <StyledTableCell component="th" scope="row">
-                  {staff.name}
+                  {course.name}
                 </StyledTableCell>
-                <StyledTableCell>{staff.dateOfBirth}</StyledTableCell>
-                <StyledTableCell>{staff.email}</StyledTableCell>
-                <StyledTableCell>{staff.mobile}</StyledTableCell>
+                <StyledTableCell>{course.entryRequirement}</StyledTableCell>
+                <StyledTableCell>{course.awadingBody}</StyledTableCell>
+                <StyledTableCell>{course.contactDetail}</StyledTableCell>
+                <StyledTableCell>{course.informationUrl}</StyledTableCell>
                 <StyledTableCell>
-                  <IconButton onClick={() => onDelete(staff.staffId)} aria-label="delete">
+                  <IconButton
+                    onClick={() => onDelete(course.courseId)}
+                    aria-label="delete"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell>
                   <IconButton
-                    onClick={() => edit(staff.staffId)}
-                    aria-label="delete"
+                    onClick={() => edit(course.courseId)}
+                    aria-label="update"
                   >
                     <EditIcon />
                   </IconButton>
@@ -147,19 +154,17 @@ const Staffs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    
+      
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete Staff"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Delete Staff"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure to delete Staff?
+            Are you sure to delete Course?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -173,4 +178,4 @@ const Staffs = () => {
   );
 };
 
-export default Staffs;
+export default Courses;

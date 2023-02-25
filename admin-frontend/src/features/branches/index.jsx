@@ -84,8 +84,7 @@ const Branches = () => {
     dispatch(retrieveBranches());
   }, []);
 
-  console.log("loading state", loadingStatus);
-
+ 
   if (loadingStatus === "loading") {
     return (
       <CircularProgress />

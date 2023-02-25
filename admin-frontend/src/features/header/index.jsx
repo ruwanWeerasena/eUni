@@ -77,6 +77,17 @@ const Header = (props) => {
               {" "}
               Lecturer{" "}
             </Button>
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              sx={{ color: "white" }}
+              onClick={() => {
+                navigate("./courses");
+              }}
+            >
+              {" "}
+              Courses{" "}
+            </Button>
           </Box>
           <Box>{isAuthenticated ? <SignOutButton /> : <SignInButton />}</Box>
         </Toolbar>

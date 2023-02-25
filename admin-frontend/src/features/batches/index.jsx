@@ -82,8 +82,6 @@ const Batches = () => {
     dispatch(retrieveBatches());
   }, []);
 
-  console.log("loading state", loadingStatus);
-
   if (loadingStatus === "loading") {
     return (
       <CircularProgress />

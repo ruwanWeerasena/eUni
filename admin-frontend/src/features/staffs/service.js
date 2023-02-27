@@ -9,7 +9,6 @@ const http = axios.create({
 });
 
 const getAll = () => {
-  console.log('getAll',http)
   return http.get("/staff");
 };
 

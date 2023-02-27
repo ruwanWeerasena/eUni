@@ -67,14 +67,12 @@ const Staffs = () => {
   };
 
   const deleteConfirm = async () => {
-    console.log('delete confirmation', selectedDeleteId)
     dispatch(deleteStaff({id:selectedDeleteId}));
     setOpen(false);
   };
 
   const staffs = useSelector((state) => state.staffs.staffList);
   const globalstate = useSelector((state)=>state);
-  console.log(globalstate);
   const loadingStatus = useSelector((state) => state.staffs.status);
 
   useEffect(() => {

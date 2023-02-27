@@ -20,7 +20,7 @@ public class BranchController : ControllerBase
     public async Task<IActionResult> GetBranches()
     {
         var list = await _branchRepository.GetBranchesAsync();
-        Thread.Sleep(3000);
+        Thread.Sleep(2000);
         return Ok(list);
     }
 
@@ -52,6 +52,8 @@ public class BranchController : ControllerBase
         Branch? addedbranch = await _branchRepository.CreateAsync(b);
 
         Branch? isadded = await _branchRepository.GetBrancheByIdAsync(b.BranchId);
+
+        Thread.Sleep(2000);
 
         if (isadded is null)
         {

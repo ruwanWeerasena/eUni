@@ -45,14 +45,12 @@ const CourseForm = () => {
 
   const course = selectCourseById(courses, id);
 
-  console.log('course', course);
 
   const formik = useFormik({
     initialValues: course,
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("values", values.courseId);
       if (values.courseId) {
         dispatch(updateCourse({ id: values.courseId, data: values }));
       } else {

@@ -67,7 +67,6 @@ const Students = () => {
   };
 
   const deleteConfirm = async () => {
-    console.log('delete confirmation', selectedDeleteId)
     dispatch(deleteStudent({id:selectedDeleteId}));
     setOpen(false);
   };

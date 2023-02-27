@@ -30,20 +30,15 @@ export const SignInButton = () => {
           return config
         },
         error => {
-          console.log('--error--', error)
           Promise.reject(error)
         }
       )
 
       //axios.defaults.headers.common['Authorization'] = tokenResponse.accessToken;
 
-      //console.log('--axios headers--', axios.defaults.headers)
-      
       // axios.interceptors.request.use(
       //   config => {
-
-      //     console.log('--token--', token)
-          
+   
       //     if (token) {
       //       config.headers['Authorization'] = 'Bearer ' + token
       //     }
@@ -51,7 +46,6 @@ export const SignInButton = () => {
       //     return config
       //   },
       //   error => {
-      //     console.log('--error--', error)
       //     Promise.reject(error)
       //   }
       // )

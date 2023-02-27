@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveBranches, deleteBranch } from "./branchSlice";
+import { retrieveBranches, deleteBranch, resetModifying } from "./branchSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -71,42 +71,57 @@ const Branches = () => {
   };
 
   const deleteConfirm = async () => {
-    dispatch(deleteBranch({ id: selectedDeleteId }));
-    dispatch(retrieveBranches());
+    dispatch(deleteBranch({ id: selectedDeleteId })).then((x) => {
+      console.log(2)
+      dispatch(resetModifying());
+    });
+    //dispatch(retrieveBranches());
     setOpen(false);
   };
 
   const branches = useSelector((state) => state.branches?.branchList);
-  console.log(2, branches)
 
-  const loadingStatus = useSelector((state) => state.branches?.status);
+  const fetchingStatus = useSelector((state) => state.branches?.loadingStatus);
+  const modifyingStatus = useSelector(
+    (state) => state.branches?.modifingStatus
+  );
+
+  const test = useSelector((state) => state.branches);
+
+  console.log(3, test)
 
   useEffect(() => {
-    console.log(1)
-    dispatch(retrieveBranches());
+    if (branches.length === 0) {
+      dispatch(retrieveBranches());
+    } else {
+      dispatch(resetModifying());
+    }
   }, []);
-
- 
-  if (loadingStatus === "loading") {
-    return (
-      <CircularProgress />
-    );
-  }
 
   const edit = (id) => {
     navigate(`/branchesx/${id}`);
   };
 
+  if (fetchingStatus === "loading") {
+    return <CircularProgress />;
+  }
+
+  if (modifyingStatus === "pending") {
+    return <CircularProgress />;
+  }
+
   return (
     <div>
       <Grid container>
-        <Grid item xs={8} sx={{textAlign:'left'}}>
-          <Typography variant="h4" color='grey' gutterBottom>
+        <Grid item xs={8} sx={{ textAlign: "left" }}>
+          <Typography variant="h4" color="grey" gutterBottom>
             Branches
           </Typography>
         </Grid>
-        <Grid item xs={4} sx={{textAlign:'right'}}>
-          <Button variant="outlined" onClick={() => edit(null)}>New Branch</Button>
+        <Grid item xs={4} sx={{ textAlign: "right" }}>
+          <Button variant="outlined" onClick={() => edit(null)}>
+            New Branch
+          </Button>
         </Grid>
       </Grid>
 
@@ -154,7 +169,7 @@ const Branches = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      
+
       <Dialog
         open={open}
         onClose={handleClose}

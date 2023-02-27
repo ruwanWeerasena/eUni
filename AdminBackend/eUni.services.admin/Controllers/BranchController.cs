@@ -63,18 +63,18 @@ public class BranchController : ControllerBase
         }
     }
 
-    [HttpPut("{BranchId:int}")]
+    [HttpPut("{branchId:int}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Update(int BranchId, [FromBody] Branch b)
+    public async Task<IActionResult> Update(int branchId, [FromBody] Branch b)
     {
         if (b is null)
         {
             return BadRequest();
         }
 
-        Branch? existing = await  _branchRepository.GetBrancheByIdAsync(BranchId);
+        Branch? existing = await  _branchRepository.GetBrancheByIdAsync(branchId);
 
 
         if (existing is null)
@@ -84,28 +84,28 @@ public class BranchController : ControllerBase
 
         
 
-        Branch? updated =  await _branchRepository.updateAsync(BranchId,b);
+        Branch? updated =  await _branchRepository.updateAsync(branchId,b);
 
-        Branch? isupdated = await  _branchRepository.GetBrancheByIdAsync(BranchId);
+        Branch? isupdated = await  _branchRepository.GetBrancheByIdAsync(branchId);
 
         return Ok(isupdated);
     }
 
 
-    [HttpDelete("{BranchId}")]
+    [HttpDelete("{branchId}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Delete(int BranchId)
+    public async Task<IActionResult> Delete(int branchId)
     {
-        Branch? existing = await _branchRepository.GetBrancheByIdAsync(BranchId);
+        Branch? existing = await _branchRepository.GetBrancheByIdAsync(branchId);
 
         if (existing is null)
         {
             return NotFound();
         }
 
-        bool? deleted = await _branchRepository.DeletAsync(BranchId);
+        bool? deleted = await _branchRepository.DeletAsync(branchId);
 
         if (deleted.HasValue && deleted.Value)
         {
@@ -113,7 +113,7 @@ public class BranchController : ControllerBase
         }
         else
         {
-            return BadRequest($"Branch {BranchId} was found but failed to delete");
+            return BadRequest($"Branch {branchId} was found but failed to delete");
         }
     }
    

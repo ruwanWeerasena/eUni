@@ -63,18 +63,18 @@ public class CourseController : ControllerBase
         }
     }
 
-    [HttpPut("{CourseId:int}")]
+    [HttpPut("{courseId:int}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Update(int CourseId, [FromBody] Course b)
+    public async Task<IActionResult> Update(int courseId, [FromBody] Course b)
     {
         if (b is null)
         {
             return BadRequest();
         }
 
-        Course? existing = await  _courseRepository.GetCourseByIdAsync(CourseId);
+        Course? existing = await  _courseRepository.GetCourseByIdAsync(courseId);
 
 
         if (existing is null)
@@ -84,28 +84,28 @@ public class CourseController : ControllerBase
 
         
 
-        Course? updated =  await _courseRepository.updateAsync(CourseId,b);
+        Course? updated =  await _courseRepository.updateAsync(courseId,b);
 
-        Course? isupdated = await  _courseRepository.GetCourseByIdAsync(CourseId);
+        Course? isupdated = await  _courseRepository.GetCourseByIdAsync(courseId);
 
         return Ok(isupdated);
     }
 
 
-    [HttpDelete("{CourseId}")]
+    [HttpDelete("{courseId:int}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Delete(int CourseId)
+    public async Task<IActionResult> Delete(int courseId)
     {
-        Course? existing = await _courseRepository.GetCourseByIdAsync(CourseId);
+        Course? existing = await _courseRepository.GetCourseByIdAsync(courseId);
 
         if (existing is null)
         {
             return NotFound();
         }
 
-        bool? deleted = await _courseRepository.DeletAsync(CourseId);
+        bool? deleted = await _courseRepository.DeletAsync(courseId);
 
         if (deleted.HasValue && deleted.Value)
         {
@@ -113,7 +113,7 @@ public class CourseController : ControllerBase
         }
         else
         {
-            return BadRequest($"Course {CourseId} was found but failed to delete");
+            return BadRequest($"Course {courseId} was found but failed to delete");
         }
     }
    

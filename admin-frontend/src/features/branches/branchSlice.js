@@ -16,7 +16,9 @@ export const createBranch = createAsyncThunk(
 export const retrieveBranches = createAsyncThunk(
   "branches/retrieve",
   async () => {
+    console.log(3)
     const res = await BranchService.getAll();
+    console.log(4)
     return res.data;
   }
 );
@@ -44,10 +46,11 @@ const branchSlice = createSlice({
     [createBranch.fulfilled]: (state, action) => {
       state.branchList.push(action.payload);
     },
-    [retrieveBranches.pending]: (state, action) => {
-      return { ...state, status: "loading" };
-    },
+    // [retrieveBranches.pending]: (state, action) => {
+    //   return { ...state, status: "loading" };
+    // },
     [retrieveBranches.fulfilled]: (state, action) => {
+      console.log(5)
       return { branchList: [...action.payload], status: "succeeded" };
     },
     [retrieveBranches.rejected]: (state, action) => {

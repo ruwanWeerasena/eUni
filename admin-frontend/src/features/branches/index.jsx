@@ -77,10 +77,12 @@ const Branches = () => {
   };
 
   const branches = useSelector((state) => state.branches?.branchList);
+  console.log(2, branches)
 
   const loadingStatus = useSelector((state) => state.branches?.status);
 
   useEffect(() => {
+    console.log(1)
     dispatch(retrieveBranches());
   }, []);
 

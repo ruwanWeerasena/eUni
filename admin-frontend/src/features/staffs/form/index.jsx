@@ -53,7 +53,6 @@ const StaffForm = () => {
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("values", values.staffId);
       if (values.staffId) {
         dispatch(updateStaff({ id: values.staffId, data: values }));
       } else {

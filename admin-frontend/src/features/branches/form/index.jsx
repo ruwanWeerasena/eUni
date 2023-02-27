@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Button, Grid, Box } from "@mui/material";
+import { Button, Grid, Box,CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createBranch, updateBranch } from "../branchSlice";
 
 const validationSchema = yup.object({
-        name:yup.string().max(25,"must be 25 char or less").required("required"),
-        address:yup.string().required("required"),
-        email:yup.string().email("invalid email").required("required"),
-        contactPerson:yup.string().required("required"),
-        contactNumber:yup.string().required("required"),
+  name: yup.string().max(25, "must be 25 char or less").required("required"),
+  address: yup.string().required("required"),
+  email: yup.string().email("invalid email").required("required"),
+  contactPerson: yup.string().required("required"),
+  contactNumber: yup.string().required("required"),
 });
 
 // email: yup
@@ -30,16 +30,14 @@ const BranchForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-    const selectBranchById = (branches, id) => {
-      
-        
+  const selectBranchById = (branches, id) => {
     if (id != "null") {
       return branches.find((branch) => branch.branchId == id);
     } else {
       return {
         id: null,
         name: "",
-        email:"",
+        email: "",
         address: "",
         contactNumber: "",
         contactPerson: "",
@@ -47,27 +45,32 @@ const BranchForm = () => {
     }
   };
 
-  const staff = useSelector((state) => selectBranchById(state.branches.branchList, id));
+  const staff = useSelector((state) =>
+    selectBranchById(state.branches.branchList, id)
+  );
 
   const formik = useFormik({
     initialValues: staff,
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("values", values.branchId);
       if (values.branchId) {
         dispatch(updateBranch({ id: values.branchId, data: values }));
       } else {
         dispatch(createBranch(values));
       }
-
-      navigate("/branches");
     },
   });
 
+  const modifyingStatus = useSelector((state) => state.branches?.modifyingStatus);
+
+  if (modifyingStatus === "succeeded") {
+    navigate("/branches");
+  }
 
   return (
     <div>
+      {modifyingStatus === "pending" && <CircularProgress />}
       <Box sx={{ flexGrow: 1 }}>
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
@@ -132,12 +135,22 @@ const BranchForm = () => {
                 label="Contact Person"
                 value={formik.values?.contactPerson}
                 onChange={formik.handleChange}
-                error={formik.touched.contactPerson && Boolean(formik.errors.contactPerson)}
-                helperText={formik.touched.contactPerson && formik.errors.contactPerson}
+                error={
+                  formik.touched.contactPerson &&
+                  Boolean(formik.errors.contactPerson)
+                }
+                helperText={
+                  formik.touched.contactPerson && formik.errors.contactPerson
+                }
               />
             </Grid>
-            <Grid item xs={12} >
-              <Button color="primary" variant="contained" fullWidth type="submit">
+            <Grid item xs={12}>
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                type="submit"
+              >
                 Submit
               </Button>
             </Grid>

@@ -60,9 +60,6 @@ const BatchForm = () => {
     selectBatchById(state.batches.batchList, id)
   );
 
-  console.log("batchccccccc", batch);
-
-
   const branches = useSelector((state) => {
     const list = state.branches?.branchList;
     return [{ branchId: 0, name: "Select Branch" }, ...list];
@@ -96,8 +93,6 @@ const BatchForm = () => {
       navigate("/batches");
     },
   });
-
-  console.log(11, formik.values);
 
   return (
     <div>

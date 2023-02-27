@@ -111,7 +111,7 @@ const Batches = () => {
           </TableHead>
           <TableBody>
             {batches?.map((batch) => (
-              <StyledTableRow key={batch.staffId}>
+              <StyledTableRow key={batch.batchId}>
                 <StyledTableCell component="th" scope="row">
                   {batch.name}
                 </StyledTableCell>
@@ -121,7 +121,7 @@ const Batches = () => {
                 <StyledTableCell>{batch.endDate}</StyledTableCell>
                 <StyledTableCell>
                   <IconButton
-                    onClick={() => onDelete(batch.branchId)}
+                    onClick={() => onDelete(batch.batchId)}
                     aria-label="delete"
                   >
                     <DeleteIcon />

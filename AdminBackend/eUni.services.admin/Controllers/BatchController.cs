@@ -72,18 +72,18 @@ public class BatchController : ControllerBase
         }
     }
 
-    [HttpPut("{BatchId:int}")]
+    [HttpPut("{batchId:int}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Update(int BatchId, [FromBody] Batch b)
+    public async Task<IActionResult> Update(int batchId, [FromBody] Batch b)
     {
         if (b is null)
         {
             return BadRequest();
         }
 
-        Batch? existing = await  _batchRepository.GetBatcheByIdAsync(BatchId);
+        Batch? existing = await  _batchRepository.GetBatcheByIdAsync(batchId);
 
 
         if (existing is null)
@@ -93,28 +93,28 @@ public class BatchController : ControllerBase
 
         
 
-        Batch? updated =  await _batchRepository.updateAsync(BatchId,b);
+        Batch? updated =  await _batchRepository.updateAsync(batchId,b);
 
-        Batch? isupdated = await  _batchRepository.GetBatcheByIdAsync(BatchId);
+        Batch? isupdated = await  _batchRepository.GetBatcheByIdAsync(batchId);
 
         return Ok(isupdated);
     }
 
 
-    [HttpDelete("{BatchId}")]
+    [HttpDelete("{batchId}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Delete(int BatchId)
+    public async Task<IActionResult> Delete(int batchId)
     {
-        Batch? existing = await _batchRepository.GetBatcheByIdAsync(BatchId);
+        Batch? existing = await _batchRepository.GetBatcheByIdAsync(batchId);
 
         if (existing is null)
         {
             return NotFound();
         }
 
-        bool? deleted = await _batchRepository.DeletAsync(BatchId);
+        bool? deleted = await _batchRepository.DeletAsync(batchId);
 
         if (deleted.HasValue && deleted.Value)
         {
@@ -122,7 +122,7 @@ public class BatchController : ControllerBase
         }
         else
         {
-            return BadRequest($"Batch {BatchId} was found but failed to delete");
+            return BadRequest($"Batch {batchId} was found but failed to delete");
         }
     }
    

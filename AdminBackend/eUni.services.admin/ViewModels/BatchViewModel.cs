@@ -5,8 +5,8 @@ namespace eUni.services.admin.ViewModels
         public int BatchId { get; set; }
         public int CourseId { get; set; }
         public int BranchId { get; set; }
-        public int StaffId { get; set; }
-        public int LecturerId { get; set; }
+        public int InchargeStaffId { get; set; }
+        public int InchargeLecturerId { get; set; }
         public string Name { get; set; }
         public string CourseName { get; set; }
         public string BranchName { get; set; }

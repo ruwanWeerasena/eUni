@@ -59,27 +59,28 @@ const BatchForm = () => {
   const batch = useSelector((state) =>
     selectBatchById(state.batches.batchList, id)
   );
+
+  console.log("batchccccccc", batch);
+
+
   const branches = useSelector((state) => {
     const list = state.branches?.branchList;
     return [{ branchId: 0, name: "Select Branch" }, ...list];
   });
   const staffs = useSelector((state) => {
     const list = state.staffs?.staffList;
-    console.log("list", list);
-    return [{ staffId: 0, name: "Select Staff" }, ...list];
+    return [{ inchargeStaffId: 0, name: "Select Staff" }, ...list];
   });
 
   const lecturers = useSelector((state) => {
     const list = state.lecturers?.lecturerList;
-    console.log("list", list);
-    return [{ lecturerId: 0, name: "Select Lecturer" }, ...list];
+    return [{ inchargeLecturerId: 0, name: "Select Lecturer" }, ...list];
   });
 
   const courses = useSelector(getAllCourses.selectAll);
 
   const batches = useSelector((state) => state.batches);
 
-  console.log("batch", batch);
 
   const formik = useFormik({
     initialValues: batch,

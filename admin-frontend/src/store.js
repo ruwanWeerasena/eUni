@@ -6,6 +6,7 @@ import branchesReducer from './features/branches/branchSlice'
 import studentsReducer from './features/students/studentSlice'
 import lecturerReducer from './features/lecturers/lecturerSlice'
 import coursesReducer from './features/courses/courseSlice'
+import enrollmentsReducer from './features/enrollments/enrollmentSlice'
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     branches: branchesReducer,
     students: studentsReducer,
     lecturers: lecturerReducer,
-    courses: coursesReducer
+    courses: coursesReducer,
+    enrollments :enrollmentsReducer
   },
 })
 

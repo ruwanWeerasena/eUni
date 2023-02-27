@@ -21,6 +21,10 @@ public class BatchRepository : IBatchRepository
     {
         return await _db.Batchs.FindAsync(id);
     }
+    public async Task<List<Batch>?> GetBatchesByCourseIdAsync(int id)
+    {
+        return await _db.Batchs.Where(b=>b.CourseId==id).ToListAsync();
+    }
     public async Task<Batch?> CreateAsync(Batch b)
     {
         EntityEntry<Batch> added = await _db.Batchs.AddAsync(b);

@@ -15,6 +15,15 @@ namespace eUni.services.admin
                 .ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Staff.Name))
                 .ForMember(dest => dest.LecturerId, opt => opt.MapFrom(src => src.InchargeLecturerId))
                 .ForMember(dest => dest.StaffId, opt => opt.MapFrom(src => src.InchargeStaffId));
+
+            CreateMap<Enrollment, EnrollmentViewModel>()
+                .ForMember(dest => dest.BatchName, opt => opt.MapFrom(src => src.Batch.Name))
+                .ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Staff.Name))
+                .ForMember(dest => dest.StudentName, opt => opt.MapFrom(src => src.Student.Name))
+                .ForMember(dest => dest.BatchDiscountCriteria, opt => opt.MapFrom(src => src.BatchDiscount.Criteria))
+                .ForMember(dest => dest.BatchDiscountsPercentage, opt => opt.MapFrom(src => src.BatchDiscount.Percentage));
+                // .ForMember(dest => dest.LecturerId, opt => opt.MapFrom(src => src.InchargeLecturerId))
+                // .ForMember(dest => dest.StaffId, opt => opt.MapFrom(src => src.InchargeStaffId));
         }
     }
 }

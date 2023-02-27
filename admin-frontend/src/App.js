@@ -20,6 +20,8 @@ import LecturersPage from "./features/lecturers";
 import LecturerForm from "./features/lecturers/form";
 import CoursesPage from "./features/courses";
 import CourseForm from "./features/courses/form";
+import EnrollmentPage from "./features/enrollments";
+import EnrollmentForm from "./features/enrollments/form";
 
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
             <Route path="/lecturers/:id" element={<LecturerForm />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:id" element={<CourseForm />} />
+            <Route path="/enrollments" element={<EnrollmentPage />} />
+            <Route path="/enrollments/:id" element={<EnrollmentForm />} />
           </Routes>
         </Container>
         <Footer />

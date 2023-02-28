@@ -9,7 +9,7 @@ const http = axios.create({
 });
 
 const getAll = () => {
-  console.log('/courses')
+  
   return http.get("/course");
 };
 

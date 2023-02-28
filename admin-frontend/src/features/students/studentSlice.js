@@ -24,6 +24,8 @@ export const retrieveStudent = createAsyncThunk(
   }
 );
 
+
+
 export const updateStudent = createAsyncThunk(
   "student/update",
   async ({ id, data }) => {

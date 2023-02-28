@@ -80,7 +80,7 @@ extraReducers: {
     return {...state,status:'loading'}
   },
   [retrieveBatchByCourse.fulfilled]:(state,action)=>{
-    console.log(23,action)
+    
     return {batchList:[...action.payload], status:'succeeded'}
   }
 },

@@ -10,6 +10,7 @@ const initialState = {enrollmentList:[], status: "idle", error: null};
 export const createEnrollment = createAsyncThunk(
   "enrollment/create",
   async (enrollment) => {
+    console.log('thunk',enrollment)
     const res = await EnrollmentService.create(enrollment);
     return res.data;
   }

@@ -20,6 +20,7 @@ import LecturersPage from "./features/lecturers";
 import LecturerForm from "./features/lecturers/form";
 import CoursesPage from "./features/courses";
 import CourseForm from "./features/courses/form";
+import Notification from './components/notification'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
+        <Notification />
         <Container fixed sx={{minHeight:'75vh',pt:2,pb:2}}>
           <Routes>
             <Route path="/batches" element={<BatchesPage />} />

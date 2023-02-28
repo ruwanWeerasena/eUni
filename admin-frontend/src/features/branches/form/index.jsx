@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Button, Grid, Box,CircularProgress } from "@mui/material";
+import { Button, Grid, Box, CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createBranch, updateBranch } from "../branchSlice";
+import {
+  showMessage,
+  closeNotification,
+} from "../../../features/notifications/notificationSlice";
 
 const validationSchema = yup.object({
   name: yup.string().max(25, "must be 25 char or less").required("required"),
@@ -49,6 +53,8 @@ const BranchForm = () => {
     selectBranchById(state.branches.branchList, id)
   );
 
+  const error = useSelector((state) => state.branches.error);
+
   const formik = useFormik({
     initialValues: staff,
     validationSchema: validationSchema,
@@ -62,10 +68,33 @@ const BranchForm = () => {
     },
   });
 
-  const modifyingStatus = useSelector((state) => state.branches?.modifyingStatus);
+  const modifyingStatus = useSelector(
+    (state) => state.branches?.modifyingStatus
+  );
 
   if (modifyingStatus === "succeeded") {
+    dispatch(
+      showMessage({
+        message: "Branch has been successfully created."+Math.random() ,
+        type: "info",
+        autoClose: true,
+        open: true,
+        remainingTime: 3000,
+      })
+    );
     navigate("/branches");
+  }
+
+  if (error) {
+    dispatch(
+      showMessage({
+        message: "branch creation error!",
+        type: "error",
+        autoClose: true,
+        open: true,
+        remainingTime: 3000,
+      })
+    );
   }
 
   return (

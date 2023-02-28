@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { retrieveBranches, deleteBranch, resetModifying } from "./branchSlice";
+
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -72,7 +73,7 @@ const Branches = () => {
 
   const deleteConfirm = async () => {
     dispatch(deleteBranch({ id: selectedDeleteId })).then((x) => {
-      console.log(2)
+      console.log(2);
       dispatch(resetModifying());
     });
     //dispatch(retrieveBranches());
@@ -86,9 +87,7 @@ const Branches = () => {
     (state) => state.branches?.modifingStatus
   );
 
-  const test = useSelector((state) => state.branches);
-
-  console.log(3, test)
+  const error = useSelector((state) => state.branches?.error);
 
   useEffect(() => {
     if (branches.length === 0) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveStaffs, deleteStaff } from "./staffSlice";
+import { retrieveStaffs, deleteStaff, resetModifying } from "./staffSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -26,7 +26,7 @@ import {
   DialogContentText,
   DialogActions,
   Grid,
-  Typography
+  Typography,
 } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -67,25 +67,33 @@ const Staffs = () => {
   };
 
   const deleteConfirm = async () => {
-    dispatch(deleteStaff({id:selectedDeleteId}));
+    dispatch(deleteStaff({ id: selectedDeleteId })).then((x) => {
+      dispatch(resetModifying());
+    });
     setOpen(false);
   };
 
   const staffs = useSelector((state) => state.staffs.staffList);
-  const globalstate = useSelector((state)=>state);
-  const loadingStatus = useSelector((state) => state.staffs.status);
+
+  const fetchingStatus = useSelector((state) => state.staffs?.loadingStatus);
+  const modifyingStatus = useSelector((state) => state.staffs?.modifingStatus);
+
+  const error = useSelector((state) => state.branches?.error);
 
   useEffect(() => {
-    dispatch(retrieveStaffs());
+    if (staffs.length === 0) {
+      dispatch(retrieveStaffs());
+    } else {
+      dispatch(resetModifying());
+    }
   }, []);
 
+  if (fetchingStatus === "loading") {
+    return <CircularProgress />;
+  }
 
-  if (loadingStatus === "loading") {
-    return (
-      <div className="todo-list">
-        <div className="loader" />
-      </div>
-    );
+  if (modifyingStatus === "pending") {
+    return <CircularProgress />;
   }
 
   const edit = (id) => {
@@ -94,15 +102,16 @@ const Staffs = () => {
 
   return (
     <div>
-      
       <Grid container>
-        <Grid item xs={8} sx={{textAlign:'left'}}>
-          <Typography variant="h4" color='grey' gutterBottom>
+        <Grid item xs={8} sx={{ textAlign: "left" }}>
+          <Typography variant="h4" color="grey" gutterBottom>
             Staffs
           </Typography>
         </Grid>
-        <Grid item xs={4} sx={{textAlign:'right'}}>
-          <Button variant="outlined" onClick={() => edit(null)}>New Staff</Button>
+        <Grid item xs={4} sx={{ textAlign: "right" }}>
+          <Button variant="outlined" onClick={() => edit(null)}>
+            New Staff
+          </Button>
         </Grid>
       </Grid>
 
@@ -128,7 +137,10 @@ const Staffs = () => {
                 <StyledTableCell>{staff.email}</StyledTableCell>
                 <StyledTableCell>{staff.mobile}</StyledTableCell>
                 <StyledTableCell>
-                  <IconButton onClick={() => onDelete(staff.staffId)} aria-label="delete">
+                  <IconButton
+                    onClick={() => onDelete(staff.staffId)}
+                    aria-label="delete"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>
@@ -145,16 +157,14 @@ const Staffs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    
+
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete Staff"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Delete Staff"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure to delete Staff?

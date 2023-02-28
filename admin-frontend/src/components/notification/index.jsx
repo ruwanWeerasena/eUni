@@ -42,8 +42,12 @@ const Notification = () => {
     return color;
   };
 
+  const height = isOpen ? "50px" : "10px";
+
+  console.log("height", height, isOpen);
+
   return (
-    <div style={{ color: getFontColor(type) }}>
+    <div style={{ color: getFontColor(type), height: height }}>
       {message}
       {!autoClose && <button onClick={closeNotification}>close</button>}
     </div>

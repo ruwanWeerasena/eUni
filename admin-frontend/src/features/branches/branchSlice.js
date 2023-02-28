@@ -53,6 +53,10 @@ const branchSlice = createSlice({
       state.branchList.push(action.payload);
       state.modifyingStatus = "succeeded";
     },
+    [createBranch.rejected]: (state, action) => {
+      state.modifyingStatus = "failed";
+      state.error = action.payload
+    },
     [retrieveBranches.pending]: (state, action) => {
       return { ...state, loadingStatus: "loading" };
     },
@@ -60,7 +64,7 @@ const branchSlice = createSlice({
       return { branchList: [...action.payload], loadingStatus: "succeeded" };
     },
     [retrieveBranches.rejected]: (state, action) => {
-      return { ...state, status: "failed", error: action.payload };
+      return { ...state, loadingStatus: "failed", error: action.payload };
     },
     [updateBranch.pending]: (state, action) => {
       state.modifyingStatus = "pending";
@@ -75,6 +79,10 @@ const branchSlice = createSlice({
       };
       state.modifyingStatus = "succeeded";
     },
+    [updateBranch.rejected]: (state, action) => {
+      state.modifyingStatus = "failed";
+      state.error = action.payload;
+    },
     [deleteBranch.pending]: (state, action) => {
       state.modifyingStatus = "pending";
     },
@@ -86,6 +94,10 @@ const branchSlice = createSlice({
       console.log(1)
       state.branchList.splice(index, 1);
       state.modifyingStatus = "succeeded";
+    },
+    [deleteBranch.rejected]: (state, action) => {
+      state.modifyingStatus = "failed";
+      state.error = action.payload
     },
   },
 });

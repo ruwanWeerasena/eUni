@@ -81,10 +81,12 @@ const Staffs = () => {
 
   const staffs = useSelector((state) => state.staffs.staffList);
 
-  const fetchingStatus = useSelector((state) => state.staffs?.loadingStatus);
-  const modifyingStatus = useSelector((state) => state.staffs?.modifingStatus);
+  const status = useSelector((state) => state.staffs?.status);
+  const operation = useSelector((state) => state.staffs?.operation);
 
-  const error = useSelector((state) => state.branches?.error);
+  const error = useSelector((state) => state.staffs?.error);
+
+
 
   useEffect(() => {
     if (staffs.length === 0) {
@@ -95,24 +97,41 @@ const Staffs = () => {
   }, []);
 
   useEffect(() => {
-    if (error) {
-      dispatch(
-        showMessage({
-          message: "Staff has been successfully created." + Math.random(),
-          type: "error",
-          autoClose: true,
-          open: true,
-          remainingTime: 3000,
-        })
-      );
+    if (status === "succeeded") {
+      if (operation === "deleting") {
+        console.log('aaaaaaaaaaaa', status, operation)
+        dispatch(
+          showMessage({
+            message: "Staff members has been deleted successfully",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
     }
-  }, [error]);
 
-  if (fetchingStatus === "loading") {
+    if (status === "failed") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "Staff members deletion fail",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
+
+  if (status === "loading") {
     return <CircularProgress />;
   }
 
-  if (modifyingStatus === "pending") {
+  if (status === "pending") {
     return <CircularProgress />;
   }
 

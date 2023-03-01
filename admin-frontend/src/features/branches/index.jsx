@@ -30,6 +30,11 @@ import {
   Grid,
 } from "@mui/material";
 
+import {
+  showMessage,
+  closeNotification,
+} from "../../features/notifications/notificationSlice";
+
 import "../../App.css";
 import { grey } from "@mui/material/colors";
 
@@ -82,9 +87,9 @@ const Branches = () => {
 
   const branches = useSelector((state) => state.branches?.branchList);
 
-  const fetchingStatus = useSelector((state) => state.branches?.loadingStatus);
-  const modifyingStatus = useSelector(
-    (state) => state.branches?.modifingStatus
+  const status = useSelector((state) => state.branches?.status);
+  const operation = useSelector(
+    (state) => state.branches?.operation
   );
 
   const error = useSelector((state) => state.branches?.error);
@@ -101,11 +106,45 @@ const Branches = () => {
     navigate(`/branchesx/${id}`);
   };
 
-  if (fetchingStatus === "loading") {
+  console.log(77, status, operation)
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      if (operation === "deleting") {
+        console.log('aaaaaaaaaaaa', status, operation)
+        dispatch(
+          showMessage({
+            message: "Staff members has been deleted successfully",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+
+    if (status === "failed") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "Staff members deletion fail",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
+
+
+  if (status === "loading") {
     return <CircularProgress />;
   }
 
-  if (modifyingStatus === "pending") {
+  if (status === "pending") {
     return <CircularProgress />;
   }
 

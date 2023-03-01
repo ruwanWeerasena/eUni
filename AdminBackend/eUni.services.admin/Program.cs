@@ -15,10 +15,10 @@ builder.Services.AddScoped<ILecturerRepository, LecturerRepositoy>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddCors();
 
-builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
-builder.Services.AddAuthentication();
+// builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
+// builder.Services.AddAuthentication();
 
-builder.Services.AddAuthorization();
+// builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EUniDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
@@ -37,8 +37,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-app.UseAuthentication();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 app.MapControllers();
 

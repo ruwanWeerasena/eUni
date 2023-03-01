@@ -27,7 +27,13 @@ import {
   DialogActions,
   Grid,
   Typography,
+  CircularProgress,
 } from "@mui/material";
+
+import {
+  showMessage,
+  closeNotification,
+} from "../../features/notifications/notificationSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -87,6 +93,20 @@ const Staffs = () => {
       dispatch(resetModifying());
     }
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      dispatch(
+        showMessage({
+          message: "Staff has been successfully created." + Math.random(),
+          type: "error",
+          autoClose: true,
+          open: true,
+          remainingTime: 3000,
+        })
+      );
+    }
+  }, [error]);
 
   if (fetchingStatus === "loading") {
     return <CircularProgress />;

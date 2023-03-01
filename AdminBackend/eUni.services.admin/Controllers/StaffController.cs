@@ -19,6 +19,8 @@ public class StaffController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetAllStaff()
     {
+        throw new Exception("this is exception xxxxxxxxxxxxxxxxxxxxxx");
+
         return Ok(await _staffRepository.GetAllStaffAsync());
     }
 

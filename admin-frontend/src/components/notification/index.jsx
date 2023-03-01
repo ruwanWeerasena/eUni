@@ -22,8 +22,6 @@ const Notification = () => {
     setIsOpen(false);
   };
 
-  console.log("noti params", isOpen);
-
   const getFontColor = (t) => {
     let color = "green";
 
@@ -43,8 +41,6 @@ const Notification = () => {
   };
 
   const height = isOpen ? "50px" : "10px";
-
-  console.log("height", height, isOpen);
 
   return (
     <div style={{ color: getFontColor(type), height: height }}>

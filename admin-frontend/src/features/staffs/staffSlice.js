@@ -14,10 +14,18 @@ export const createStaff = createAsyncThunk("staffs/create", async (staff) => {
   return res.data;
 });
 
-export const retrieveStaffs = createAsyncThunk("staffs/retrieve", async () => {
-  const res = await StaffService.getAll();
-  return res.data;
-});
+export const retrieveStaffs = createAsyncThunk(
+  "staffs/retrieve",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await StaffService.getAll();
+      return res.data;
+    } catch (error) {
+      //console.log("loading eror", error.response.data);
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const updateStaff = createAsyncThunk(
   "staffs/update",
@@ -38,7 +46,7 @@ const staffSlice = createSlice({
   reducers: {
     resetModifying: (state) => {
       state.modifyingStatus = "idle";
-    }
+    },
   },
   extraReducers: {
     [createStaff.pending]: (state, action) => {
@@ -50,7 +58,7 @@ const staffSlice = createSlice({
     },
     [createStaff.rejected]: (state, action) => {
       state.modifyingStatus = "failed";
-      state.error = action.payload;
+      state.error = action;
     },
     [retrieveStaffs.pending]: (state, action) => {
       return { ...state, loadingStatus: "loading" };
@@ -60,7 +68,8 @@ const staffSlice = createSlice({
     },
     [retrieveStaffs.rejected]: (state, action) => {
       state.loadingStatus = "failed";
-      state.error = action.payload;
+      console.log("error", action.payload);
+      state.error = action.error;
     },
     [updateStaff.pending]: (state, action) => {
       state.modifyingStatus = "pending";
@@ -96,6 +105,6 @@ const staffSlice = createSlice({
 
 const { reducer } = staffSlice;
 
-export const { resetModifying} = staffSlice.actions;
+export const { resetModifying } = staffSlice.actions;
 
 export default reducer;

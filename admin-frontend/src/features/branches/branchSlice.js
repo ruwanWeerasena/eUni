@@ -3,11 +3,17 @@ import { useSelector } from "react-redux";
 
 import BranchService from "./service";
 
-const initialState = { branchList: [], modifyingStatus:'idle', loadingStatus: "idle", error: null };
+const initialState = {
+  branchList: [],
+  status: "idle",
+  operation: "",
+  error: null,
+};
 
 export const createBranch = createAsyncThunk(
   "branches/create",
   async (branch) => {
+    console.log('thunk');
     const res = await BranchService.create({ ...branch, batches: null });
     return res.data;
   }
@@ -42,28 +48,41 @@ const branchSlice = createSlice({
   initialState,
   reducers: {
     resetModifying: (state) => {
-      state.modifyingStatus = "idle";
-    }
+      state.status = "idle";
+    },
   },
   extraReducers: {
     [createBranch.pending]: (state, action) => {
-      return { ...state, modifyingStatus: "pending" };
+      state.status = "pending";
+      state.operation = "inserting";
     },
     [createBranch.fulfilled]: (state, action) => {
       state.branchList.push(action.payload);
-      state.modifyingStatus = "succeeded";
+      state.operation = "inserting";
+      state.status = "succeeded";
+    },
+    [createBranch.rejected]: (state, action) => {
+      state.operation = "inserting";
+      state.status = "failed";
+      state.error = action.error;
     },
     [retrieveBranches.pending]: (state, action) => {
-      return { ...state, loadingStatus: "loading" };
+      state.operation = "loading";
+      state.status = "loading";
     },
     [retrieveBranches.fulfilled]: (state, action) => {
-      return { branchList: [...action.payload], loadingStatus: "succeeded" };
+      state.branchList = action.payload
+      state.operation = "loading";
+      state.status = "succeeded";
     },
     [retrieveBranches.rejected]: (state, action) => {
-      return { ...state, status: "failed", error: action.payload };
+      state.operation = "loading";
+      state.status = "failed";
+      state.error = action.error;
     },
     [updateBranch.pending]: (state, action) => {
-      state.modifyingStatus = "pending";
+      state.operation = "updating";
+      state.status = "pending";
     },
     [updateBranch.fulfilled]: (state, action) => {
       const index = state.branchList.findIndex(
@@ -73,25 +92,36 @@ const branchSlice = createSlice({
         ...state.branchList[index],
         ...action.payload,
       };
-      state.modifyingStatus = "succeeded";
+      state.operation = "updating";
+      state.status = "succeeded";
+    },
+    [updateBranch.rejected]: (state, action) => {
+      state.operation = "updating";
+      state.status = "failed";
+      state.error = action.error;
     },
     [deleteBranch.pending]: (state, action) => {
-      state.modifyingStatus = "pending";
+      state.operation = "deleting";
+      state.status = "pending";
     },
     [deleteBranch.fulfilled]: (state, action) => {
       let index = state.branchList.findIndex(
         ({ branchId }) => branchId === action.payload.id
       );
-
-      console.log(1)
       state.branchList.splice(index, 1);
-      state.modifyingStatus = "succeeded";
+      state.operation = "deleting";
+      state.status = "succeeded";
+    },
+    [deleteBranch.rejected]: (state, action) => {
+      state.operation = "deleting";
+      state.status = "failed";
+      state.error = action.error;
     },
   },
 });
 
 const { reducer } = branchSlice;
 
-export const { resetModifying} = branchSlice.actions;
+export const { resetModifying } = branchSlice.actions;
 
 export default reducer;

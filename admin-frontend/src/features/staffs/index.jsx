@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveStaffs, deleteStaff } from "./staffSlice";
+import { retrieveStaffs, deleteStaff, resetModifying } from "./staffSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -26,8 +26,14 @@ import {
   DialogContentText,
   DialogActions,
   Grid,
-  Typography
+  Typography,
+  CircularProgress,
 } from "@mui/material";
+
+import {
+  showMessage,
+  closeNotification,
+} from "../../features/notifications/notificationSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -67,25 +73,66 @@ const Staffs = () => {
   };
 
   const deleteConfirm = async () => {
-    dispatch(deleteStaff({id:selectedDeleteId}));
+    dispatch(deleteStaff({ id: selectedDeleteId })).then((x) => {
+      dispatch(resetModifying());
+    });
     setOpen(false);
   };
 
   const staffs = useSelector((state) => state.staffs.staffList);
-  const globalstate = useSelector((state)=>state);
-  const loadingStatus = useSelector((state) => state.staffs.status);
+
+  const status = useSelector((state) => state.staffs?.status);
+  const operation = useSelector((state) => state.staffs?.operation);
+
+  const error = useSelector((state) => state.staffs?.error);
+
+
 
   useEffect(() => {
-    dispatch(retrieveStaffs());
+    if (staffs.length === 0) {
+      dispatch(retrieveStaffs());
+    } else {
+      dispatch(resetModifying());
+    }
   }, []);
 
+  useEffect(() => {
+    if (status === "succeeded") {
+      if (operation === "deleting") {
+        console.log('aaaaaaaaaaaa', status, operation)
+        dispatch(
+          showMessage({
+            message: "Staff members has been deleted successfully",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
 
-  if (loadingStatus === "loading") {
-    return (
-      <div className="todo-list">
-        <div className="loader" />
-      </div>
-    );
+    if (status === "failed") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "Staff members deletion fail",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
+
+  if (status === "loading") {
+    return <CircularProgress />;
+  }
+
+  if (status === "pending") {
+    return <CircularProgress />;
   }
 
   const edit = (id) => {
@@ -94,15 +141,16 @@ const Staffs = () => {
 
   return (
     <div>
-      
       <Grid container>
-        <Grid item xs={8} sx={{textAlign:'left'}}>
-          <Typography variant="h4" color='grey' gutterBottom>
+        <Grid item xs={8} sx={{ textAlign: "left" }}>
+          <Typography variant="h4" color="grey" gutterBottom>
             Staffs
           </Typography>
         </Grid>
-        <Grid item xs={4} sx={{textAlign:'right'}}>
-          <Button variant="outlined" onClick={() => edit(null)}>New Staff</Button>
+        <Grid item xs={4} sx={{ textAlign: "right" }}>
+          <Button variant="outlined" onClick={() => edit(null)}>
+            New Staff
+          </Button>
         </Grid>
       </Grid>
 
@@ -128,7 +176,10 @@ const Staffs = () => {
                 <StyledTableCell>{staff.email}</StyledTableCell>
                 <StyledTableCell>{staff.mobile}</StyledTableCell>
                 <StyledTableCell>
-                  <IconButton onClick={() => onDelete(staff.staffId)} aria-label="delete">
+                  <IconButton
+                    onClick={() => onDelete(staff.staffId)}
+                    aria-label="delete"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>
@@ -145,16 +196,14 @@ const Staffs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    
+
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete Staff"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Delete Staff"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure to delete Staff?

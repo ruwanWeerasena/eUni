@@ -22,8 +22,6 @@ const Notification = () => {
     setIsOpen(false);
   };
 
-  console.log("noti params", isOpen);
-
   const getFontColor = (t) => {
     let color = "green";
 
@@ -42,8 +40,10 @@ const Notification = () => {
     return color;
   };
 
+  const height = isOpen ? "50px" : "10px";
+
   return (
-    <div style={{ color: getFontColor(type) }}>
+    <div style={{ color: getFontColor(type), height: height }}>
       {message}
       {!autoClose && <button onClick={closeNotification}>close</button>}
     </div>

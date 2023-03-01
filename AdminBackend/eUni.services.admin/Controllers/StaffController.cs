@@ -19,6 +19,8 @@ public class StaffController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetAllStaff()
     {
+        //return StatusCode(500, "this is error xxxxxxxxxxxxxxx");
+
         return Ok(await _staffRepository.GetAllStaffAsync());
     }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Button, Grid, Box } from "@mui/material";
@@ -7,24 +7,26 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createStaff, updateStaff } from "../staffSlice";
 
-const validationSchema = yup.object({
+import { showMessage } from "../../../features/notifications/notificationSlice";
 
-  name: yup.string().min(3,"Enter a valid Name").required("Name is required"),
-  address: yup.string().min(5,"Enter a valid address").required("Address is required"),
-  email: yup.string().email("Enter a valid email").required("Email is required"),
-  dateOfBirth: yup.string().required("Date Of Birth is required"),
-  mobile: yup.string().matches(/^[0][0-9]{9}$/,"Mobile format - 0xxxxxxxxx ").required(" Mobile number is required"),
+const validationSchema = yup.object({});
 
-});
-
-// email: yup
-// .string("Enter your email")
-// .email("Enter a valid email")
-// .required("Email is required"),
-// password: yup
-// .string("Enter your password")
-// .min(8, "Password should be of minimum 8 characters length")
-// .required("Password is required"),
+// const validationSchema = yup.object({
+//   name: yup.string().min(3, "Enter a valid Name").required("Name is required"),
+//   address: yup
+//     .string()
+//     .min(5, "Enter a valid address")
+//     .required("Address is required"),
+//   email: yup
+//     .string()
+//     .email("Enter a valid email")
+//     .required("Email is required"),
+//   dateOfBirth: yup.string().required("Date Of Birth is required"),
+//   mobile: yup
+//     .string()
+//     .matches(/^[0][0-9]{9}$/, "Mobile format - 0xxxxxxxxx ")
+//     .required(" Mobile number is required"),
+// });
 
 const StaffForm = () => {
   const { id } = useParams();
@@ -46,7 +48,67 @@ const StaffForm = () => {
     }
   };
 
-  const staff = useSelector((state) => selectStaffById(state.staffs.staffList, id));
+  const staff = useSelector((state) =>
+    selectStaffById(state.staffs.staffList, id)
+  );
+
+  const status = useSelector((state) => state.staffs?.status);
+
+  const operation = useSelector((state) => state.staffs?.operation);
+
+  const error = useSelector((state) => state.staffs.error);
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "staff has been successfully created.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "Staff has been successfully updated.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+
+      navigate("/staffs");
+    }
+
+    if (status === "failed") {
+      if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "Staff creation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "Staff updation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
 
   const formik = useFormik({
     initialValues: staff,
@@ -58,11 +120,8 @@ const StaffForm = () => {
       } else {
         dispatch(createStaff(values));
       }
-
-      navigate("/staffs");
     },
   });
-
 
   return (
     <div>
@@ -135,7 +194,12 @@ const StaffForm = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button color="primary" variant="contained" fullWidth type="submit">
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                type="submit"
+              >
                 Submit
               </Button>
             </Grid>

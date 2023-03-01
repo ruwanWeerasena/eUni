@@ -49,20 +49,80 @@ const BranchForm = () => {
     }
   };
 
-  const staff = useSelector((state) =>
+  const branch = useSelector((state) =>
     selectBranchById(state.branches.branchList, id)
   );
 
-  const error = useSelector((state) => state.branches.error);
+  const status = useSelector((state) => state.branches?.status);
+
+  const operation = useSelector((state) => state.branches?.operation);
+
+  console.log(56, status, operation)
+
+  const error = useSelector((state) => state.branches?.error);
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      if (operation === "inserting") {
+        console.log(1234)
+        dispatch(
+          showMessage({
+            message: "Branch has been successfully created.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "Branch has been successfully updated.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+
+      navigate("/branches");
+    }
+
+    if (status === "failed") {
+      if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "Branch creation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "Branch updation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
 
   const formik = useFormik({
-    initialValues: staff,
+    initialValues: branch,
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       if (values.branchId) {
         dispatch(updateBranch({ id: values.branchId, data: values }));
       } else {
+        console.log('insert', values)
         dispatch(createBranch(values));
       }
     },
@@ -71,31 +131,6 @@ const BranchForm = () => {
   const modifyingStatus = useSelector(
     (state) => state.branches?.modifyingStatus
   );
-
-  if (modifyingStatus === "succeeded") {
-    dispatch(
-      showMessage({
-        message: "Branch has been successfully created."+Math.random() ,
-        type: "info",
-        autoClose: true,
-        open: true,
-        remainingTime: 3000,
-      })
-    );
-    navigate("/branches");
-  }
-
-  if (error) {
-    dispatch(
-      showMessage({
-        message: "branch creation error!",
-        type: "error",
-        autoClose: true,
-        open: true,
-        remainingTime: 3000,
-      })
-    );
-  }
 
   return (
     <div>

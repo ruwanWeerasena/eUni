@@ -12,15 +12,15 @@ public class Enrollment
     public virtual Batch? Batch { get; set; }
     [ForeignKey("Staff")]
     public int? StaffId { get; set; }
-    public virtual Staff Staff {get;set;}
+    public virtual Staff? Staff {get;set;}
 
      [ForeignKey("Student")]
     public int? StudentId { get; set; }
-    public virtual Student Student {get;set;}
+    public virtual Student? Student {get;set;}
 
      [ForeignKey("BatchDiscount")]
     public int? BatchDiscountId { get; set; }
-    public virtual BatchDiscount BatchDiscount {get;set;}
+    public virtual BatchDiscount? BatchDiscount {get;set;}
 
 
 }

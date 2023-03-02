@@ -19,6 +19,9 @@ const get = id => {
 const create = data => {
   return http.post("/enrollment", data);
 };
+const createBulk = data => {
+  return http.post("/enrollment/bulk", data);
+};
 
 // const update = (id, data) => {
 //   return http.put(`/lecturer/${id}`, data);
@@ -33,6 +36,7 @@ const EnrollmentService = {
   getAll,
   get,
   create,
+  createBulk
   // update,
   // remove,
 };

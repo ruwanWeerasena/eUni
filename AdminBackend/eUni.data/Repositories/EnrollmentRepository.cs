@@ -41,6 +41,20 @@ public class EnrollmentRepository : IEnrollmentRepository
 
         return null;
     }
+
+    public async Task<bool?> CreateMultipleAsync(Enrollment[] e)
+    {
+        await _db.Enrollments.AddRangeAsync(e);
+
+        int affected = await _db.SaveChangesAsync();
+        // Console.WriteLine("-------------------------------------------------"+affected);
+        if(affected == 2)
+        {
+            return true;
+        }
+
+        return false;
+    }
     public async Task<Enrollment?> GetEnrollmentByIdAsync(int id)
     {
         Enrollment? e = await _db.Enrollments.FindAsync(id);

@@ -15,6 +15,14 @@ export const createEnrollment = createAsyncThunk(
     return res.data;
   }
 );
+export const createEnrollmentBulk = createAsyncThunk(
+  "enrollment/createBulk",
+  async (enrollmentlist) => {
+    
+    const res = await EnrollmentService.createBulk(enrollmentlist);
+    return res.data;
+  }
+);
 
 export const retrieveEnrollments = createAsyncThunk(
   "enrollment/retrieve",

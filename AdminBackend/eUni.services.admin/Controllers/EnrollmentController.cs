@@ -67,6 +67,29 @@ public class EnrollmentController : ControllerBase
         }
     }
 
+    [HttpPost("bulk")]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> CreateBulkTransfer([FromBody] Enrollment[] e)
+    {
+        if (e is null)
+        {
+            return BadRequest();
+        }
+
+        bool? isadded = await _enrollmentRepository.CreateMultipleAsync(e);
+
+
+        if (isadded is null)
+        {
+            return BadRequest("Repository failed to add enrollmet");
+        }
+        else
+        {
+            return Ok(isadded);
+        }
+    }
+
     // [HttpPut("{BatchId:int}")]
     // [ProducesResponseType(204)]
     // [ProducesResponseType(400)]

@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { retrieveStudent } from '../../students/studentSlice';
 import { retrieveBatches } from '../../batches/batchesSlice';
-import { retrieveEnrollments,createEnrollmentBulk } from '../../enrollments/enrollmentSlice';
+import { retrieveEnrollments } from '../../enrollments/enrollmentSlice';
 import {Grid,InputLabel,MenuItem,FormControl,Select,Button} from '@mui/material';
 import * as yup from "yup";
 import {Formik ,Field ,Form} from "formik";
 import MyDataGrid from './MyDataGrid';
-import {useNavigate} from 'react-router-dom'
 
 const Test=()=> {
  
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [selectedStudents,setSelectedStudents] = useState([]);
     const [currentBatch,setCurrentBatch] = useState('');
     const [dataGridData , setDataGridData] = useState(null)
@@ -65,12 +63,10 @@ const Test=()=> {
       
     
         }
-        const enrollmentlist = selectedStudents.map(({studentId,staffId,batchDiscountId,installmentMethod})=>{
+        const newlist = selectedStudents.map(({studentId,staffId,batchDiscountId,installmentMethod})=>{
             return{studentId,staffId,batchDiscountId,installmentMethod,...data}
         })
-        console.log('enrollmentlist',enrollmentlist);
-        dispatch(createEnrollmentBulk(enrollmentlist));
-        navigate("../enrollment/view")
+        console.log('newlist',newlist)
       }
       const getStudentList = ()=>{
         if(  students && enrollments){

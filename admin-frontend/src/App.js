@@ -20,7 +20,16 @@ import LecturersPage from "./features/lecturers";
 import LecturerForm from "./features/lecturers/form";
 import CoursesPage from "./features/courses";
 import CourseForm from "./features/courses/form";
+
 import Notification from './components/notification'
+
+import EnrollmentOption from "./features/enrollments";
+import EnrollmentForm from "./features/enrollments/form";
+import EnrollmentPage from "./features/enrollments/enrollmentsPage";
+import EnrollmentBulk from "./features/enrollments/form/enrollmentBulk";
+import Test from "./features/enrollments/form/Test";
+
+
 
 
 function App() {
@@ -45,6 +54,11 @@ function App() {
             <Route path="/lecturers/:id" element={<LecturerForm />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:id" element={<CourseForm />} />
+            <Route path="/enrollment" element={<EnrollmentOption />} />
+            <Route path="/enrollment/view" element={<EnrollmentPage />} />
+            <Route path="/enrollment/new" element={<EnrollmentForm />} />
+            <Route path="/enrollment/bulk" element={<EnrollmentBulk />} />
+            <Route path="/enrollment/Test" element={<Test />} />
           </Routes>
         </Container>
         <Footer />

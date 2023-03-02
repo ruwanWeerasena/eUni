@@ -9,6 +9,7 @@ const http = axios.create({
 });
 
 const getAll = () => {
+
   return http.get("/course");
 };
 

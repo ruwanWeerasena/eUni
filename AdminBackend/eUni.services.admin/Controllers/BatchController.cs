@@ -28,8 +28,6 @@ public class BatchController : ControllerBase
         var list = await _batchRepository.GetBatchesAsync();
         var mappedList = list.Select(s => _mapper.Map<BatchViewModel>(s)).ToList();
 
-
-        //Thread.Sleep(3000);
         return Ok(mappedList);
     }
 
@@ -46,6 +44,17 @@ public class BatchController : ControllerBase
         }
 
         return Ok(branch);
+    }
+
+     [HttpGet("Course/{CourseId}")]
+    [ProducesResponseType(404)]
+    public async Task<IActionResult> GetBatchByCourseId(int CourseId)
+    {
+        var batchlist =  await _batchRepository.GetBatchesByCourseIdAsync(CourseId);
+
+       
+
+        return Ok(batchlist);
     }
 
     [HttpPost]

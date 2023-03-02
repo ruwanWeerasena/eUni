@@ -8,6 +8,8 @@ import lecturerReducer from './features/lecturers/lecturerSlice'
 import coursesReducer from './features/courses/courseSlice'
 import notificationReducer from './features/notifications/notificationSlice'
 
+import enrollmentsReducer from './features/enrollments/enrollmentSlice'
+
 const store = configureStore({
   reducer: {
     // Define a top-level state field named `todos`, handled by `todosReducer`
@@ -17,7 +19,8 @@ const store = configureStore({
     students: studentsReducer,
     lecturers: lecturerReducer,
     courses: coursesReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    enrollments :enrollmentsReducer
   },
 })
 

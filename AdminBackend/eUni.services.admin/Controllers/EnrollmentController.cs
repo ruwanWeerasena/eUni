@@ -27,7 +27,7 @@ public class EnrollmentController : ControllerBase
         var list = await _enrollmentRepository.GetEnrollmentsAsync();
         var mappedList = list.Select(e => _mapper.Map<EnrollmentViewModel>(e)).ToList();
 
-        //Thread.Sleep(3000);
+        Thread.Sleep(3000);
         return Ok(mappedList);
     }
 
@@ -43,6 +43,8 @@ public class EnrollmentController : ControllerBase
         return Ok(mappedList);
     }
 
+
+
     [HttpPost]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
@@ -52,19 +54,27 @@ public class EnrollmentController : ControllerBase
         {
             return BadRequest();
         }
+        Enrollment? checkexisting = await _enrollmentRepository.GetEnrollmentByStudentandBatchAsync((int)e.StudentId,(int)e.BatchId);
 
-        Enrollment? addedEnrollement = await _enrollmentRepository.CreateAsync(e);
-
-        Enrollment? isadded = await _enrollmentRepository.GetEnrollmentByIdAsync(e.EnrollmentId);
-
-        if (isadded is null)
+        if(checkexisting is null)
         {
-            return BadRequest("Repository failed to add enrollmet");
-        }
-        else
+            Enrollment? addedEnrollement = await _enrollmentRepository.CreateAsync(e);
+            Enrollment? isadded = await _enrollmentRepository.GetEnrollmentByIdAsync(e.EnrollmentId);
+            if (isadded is null)
+            {
+                return BadRequest("Repository failed to add enrollmet");
+            }
+            else
+            {
+                return Ok(isadded);
+            }
+
+        }else
         {
-            return Ok(isadded);
+            return BadRequest("This Student already enrolled for this batch");
         }
+
+
     }
 
     [HttpPost("bulk")]
@@ -77,16 +87,16 @@ public class EnrollmentController : ControllerBase
             return BadRequest();
         }
 
-        bool? isadded = await _enrollmentRepository.CreateMultipleAsync(e);
+        bool isadded = await _enrollmentRepository.CreateMultipleAsync(e);
 
 
-        if (isadded is null)
+        if (isadded)
         {
-            return BadRequest("Repository failed to add enrollmet");
+            return Ok(isadded);
         }
         else
         {
-            return Ok(isadded);
+            return BadRequest("Repository failed to add enrollmet");
         }
     }
 

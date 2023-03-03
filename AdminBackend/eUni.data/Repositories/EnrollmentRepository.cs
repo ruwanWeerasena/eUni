@@ -42,22 +42,33 @@ public class EnrollmentRepository : IEnrollmentRepository
         return null;
     }
 
-    public async Task<bool?> CreateMultipleAsync(Enrollment[] e)
+    public async Task<bool> CreateMultipleAsync(Enrollment[] e)
     {
-        await _db.Enrollments.AddRangeAsync(e);
-
-        int affected = await _db.SaveChangesAsync();
-        // Console.WriteLine("-------------------------------------------------"+affected);
-        if(affected == 2)
+            await _db.Enrollments.AddRangeAsync(e);
+        try
         {
+            int affected = await _db.SaveChangesAsync();
+          
             return true;
         }
+        catch (System.Exception)
+        {
+            Console.WriteLine("----------------------ffff-----");
+            
+            return false;
+        }
 
-        return false;
     }
     public async Task<Enrollment?> GetEnrollmentByIdAsync(int id)
     {
         Enrollment? e = await _db.Enrollments.FindAsync(id);
+        return e;
+
+    }
+    public async Task<Enrollment?> GetEnrollmentByStudentandBatchAsync(int studentid,int batchid)
+    {
+        // .Where(e=> e.StudentId==studentid )
+        Enrollment? e = await _db.Enrollments.FirstOrDefaultAsync(enrollment=>enrollment.BatchId==batchid && enrollment.StudentId==studentid);
         return e;
 
     }

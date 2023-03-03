@@ -17,7 +17,6 @@ const MyDataGrid= ({rows,columns,rowsPerPageOptions,setSelectedStudents,setDataG
         checkboxSelection
         onSelectionModelChange={(ids) => {
             const selectedIDs = new Set(ids);
-            console.log(ids)
             const selectedRowData = rows.filter((row) =>
             selectedIDs.has(row.id)
             );

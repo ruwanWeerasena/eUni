@@ -27,7 +27,7 @@ public class BatchController : ControllerBase
     {
         var list = await _batchRepository.GetBatchesAsync();
         var mappedList = list.Select(s => _mapper.Map<BatchViewModel>(s)).ToList();
-
+        Thread.Sleep(2000);
         return Ok(mappedList);
     }
 

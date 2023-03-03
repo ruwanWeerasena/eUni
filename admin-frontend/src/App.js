@@ -27,7 +27,6 @@ import EnrollmentOption from "./features/enrollments";
 import EnrollmentForm from "./features/enrollments/form";
 import EnrollmentPage from "./features/enrollments/enrollmentsPage";
 import EnrollmentBulk from "./features/enrollments/form/enrollmentBulk";
-import Test from "./features/enrollments/form/Test";
 
 
 
@@ -58,7 +57,6 @@ function App() {
             <Route path="/enrollment/view" element={<EnrollmentPage />} />
             <Route path="/enrollment/new" element={<EnrollmentForm />} />
             <Route path="/enrollment/bulk" element={<EnrollmentBulk />} />
-            <Route path="/enrollment/Test" element={<Test />} />
           </Routes>
         </Container>
         <Footer />

@@ -67,13 +67,15 @@ const branchSlice = createSlice({
       state.error = action.error;
     },
     [retrieveBranches.pending]: (state, action) => {
-      state.operation = "loading";
-      state.status = "loading";
+      // state.operation = "loading";
+      // state.status = "loading";
+      return {...state, status:'loading',operation:"loading"}
     },
     [retrieveBranches.fulfilled]: (state, action) => {
-      state.branchList = action.payload
-      state.operation = "loading";
-      state.status = "succeeded";
+      // state.branchList = action.payload
+      // state.operation = "loading";
+      // state.status = "succeeded";
+      return {...state,branchList:action.payload,operation:"loading",status:"succeeded"}
     },
     [retrieveBranches.rejected]: (state, action) => {
       state.operation = "loading";

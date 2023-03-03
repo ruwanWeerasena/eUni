@@ -3,13 +3,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { retrieveStudent } from '../../students/studentSlice';
 import { retrieveBatches } from '../../batches/batchesSlice';
 import { retrieveEnrollments,createEnrollmentBulk } from '../../enrollments/enrollmentSlice';
-import {Grid,InputLabel,MenuItem,FormControl,Select,Button} from '@mui/material';
+import {Grid,InputLabel,MenuItem,FormControl,Select,Button,CircularProgress} from '@mui/material';
 import * as yup from "yup";
 import {Formik ,Field ,Form} from "formik";
 import MyDataGrid from './MyDataGrid';
 import {useNavigate} from 'react-router-dom'
+import {
+    showMessage,
+    closeNotification,
+  } from "../../../features/notifications/notificationSlice";
 
-const Test=()=> {
+const EnrollmentBulk=()=> {
+   
+    const validationSchema = yup.object({
+
+        // currentBatch: yup.string().required("required"),
+        targetBatch: yup.string().required("required"),
+      
+      
+      });
  
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -46,44 +58,97 @@ const Test=()=> {
         dispatch(retrieveBatches())
     },[])
 
-    useEffect(()=>{
-        
-    },[])
+    const status = useSelector((state) => state.enrollments?.status);
+    const operation = useSelector((state) => state.enrollments?.operation);
     
+    useEffect(() => {
+        if (status.modifyingStatus === "succeeded") {
+          if (operation === "inserting") {
+            console.log(1234)
+            dispatch(
+              showMessage({
+                message: "Enrollment has been successfully created.",
+                type: "info",
+                autoClose: true,
+                open: true,
+                remainingTime: 3000,
+              })
+            );
+          } else if (operation === "updating") {
+            dispatch(
+              showMessage({
+                message: "Enrollment has been successfully updated.",
+                type: "info",
+                autoClose: true,
+                open: true,
+                remainingTime: 3000,
+              })
+            );
+          }
+    
+          navigate("/enrollment/view");
+        }
+    
+        if (status.modifyingStatus === "failed") {
+          if (operation === "inserting") {
+            dispatch(
+              showMessage({
+                message: "Enrollment creation failed",
+                type: "error",
+                autoClose: true,
+                open: true,
+                remainingTime: 3000,
+              })
+            );
+          } else if (operation === "updating") {
+            dispatch(
+              showMessage({
+                message: "Enrollment updation failed",
+                type: "error",
+                autoClose: true,
+                open: true,
+                remainingTime: 3000,
+              })
+            );
+          }
+        }
+      }, [status, operation]);
+
+
     const students = useSelector((state)=>state.students.studentlist);
     const batches = useSelector((state)=>state.batches.batchList);
     const enrollments = useSelector((state)=>state.enrollments.enrollmentList);
 
 
+
     const transfer = ({targetBatch})=>{
-        let date = new Date()
-        const data = {
-        //   installmentMethod :installmentMethod,
-          enrollmentDate :date.getFullYear()+"-"+ (date.getMonth()<10?"0"+date.getMonth():date.getMonth())+"-" +(date.getDate()<10?"0"+date.getDate():date.getDate()) ,
-          batchId :targetBatch
-         
-      
-    
+        if(selectedStudents.length && targetBatch){
+            let date = new Date()
+            const data = {
+            enrollmentDate :date.getFullYear()+"-"+ (date.getMonth()<10?"0"+date.getMonth():date.getMonth())+"-" +(date.getDate()<10?"0"+date.getDate():date.getDate()) ,
+            batchId :targetBatch
+            }
+            const enrollmentlist = selectedStudents.map(({studentId,staffId,batchDiscountId,installmentMethod})=>{
+                return{studentId,staffId,batchDiscountId,installmentMethod,...data}
+            })
+            dispatch(createEnrollmentBulk(enrollmentlist));
         }
-        const enrollmentlist = selectedStudents.map(({studentId,staffId,batchDiscountId,installmentMethod})=>{
-            return{studentId,staffId,batchDiscountId,installmentMethod,...data}
-        })
-        console.log('enrollmentlist',enrollmentlist);
-        dispatch(createEnrollmentBulk(enrollmentlist));
-        navigate("../enrollment/view")
+        
       }
+
+
       const getStudentList = ()=>{
         if(  students && enrollments){
             const relavantenrollmentlist = enrollments.filter((e)=>e.batchId == currentBatch);
             
  
 
-            const res2 = relavantenrollmentlist.map((e)=>{
+            const result = relavantenrollmentlist.map((e)=>{
                 const student = students.find((element)=> element.studentId==e.studentId)
                 return {...e,studentName:student.name,mobile:student.mobile}
             })
             
-             return res2;
+             return result;
         }
       }
       
@@ -99,15 +164,20 @@ const Test=()=> {
         CurrentBatch:'',
         targetBatch:''
       }
+      const Status = useSelector((state) => state.enrollments?.status);
+      if(Status.retrievingStatus=="loading"){
+        return  <CircularProgress />
+      }
       
   return (
 
     <Formik
-    initialValues={initialValues}
-    onSubmit={ (values) => {
- 
-        transfer(values);
-    }}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={ (values) => {
+        
+                transfer(values);
+            }}
     >
     <Form>
     <Grid container spacing={2} >
@@ -199,4 +269,4 @@ const Test=()=> {
   )
 }
 
-export default Test
+export default EnrollmentBulk;

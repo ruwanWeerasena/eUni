@@ -79,7 +79,7 @@ const Enrollments = () => {
   const enrollments = useSelector((state) => state.enrollments?.enrollmentList);
 
 
-  const loadingStatus = useSelector((state) => state.enrollments?.status);
+  const Status = useSelector((state) => state.enrollments?.status);
 
   useEffect(() => {
     dispatch(retrieveEnrollments());
@@ -87,7 +87,7 @@ const Enrollments = () => {
 
 
 
-  if (loadingStatus === "loading") {
+  if (Status.retrievingStatus === "loading") {
     return (
       <CircularProgress />
     );

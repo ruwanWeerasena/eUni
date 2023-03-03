@@ -53,6 +53,8 @@ public class EUniDBContext : DbContext
             .WithOne(s => s.Student)
             .HasForeignKey(fk => fk.StudentId)
             .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<Enrollment>()
+            .HasIndex(e => new {e.StudentId , e.BatchId}).IsUnique();
 
         SeedBranches(modelBuilder);
         SeedStaff(modelBuilder);

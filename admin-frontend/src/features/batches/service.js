@@ -28,6 +28,10 @@ const remove = id => {
   return http.delete(`/batch/${id}`);
 };
 
+const getByCourseId = id => {
+  return http.get(`batch/course/${id}`);
+
+};
 
 const BatchService = {
   getAll,
@@ -35,6 +39,7 @@ const BatchService = {
   create,
   update,
   remove,
+  getByCourseId
 };
 
 export default BatchService;

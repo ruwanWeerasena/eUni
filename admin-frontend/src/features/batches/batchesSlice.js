@@ -39,6 +39,14 @@ async ({ id }) => {
 }
 );
 
+export const retrieveBatchByCourse = createAsyncThunk(
+  "batches/CourseId/retrieve",
+  async ({id})=>{
+    const res = await BatchService.getByCourseId(id);
+    return res.data;
+  }
+);
+
 const branchSlice = createSlice({
 name: "batches",
 initialState,
@@ -68,6 +76,13 @@ extraReducers: {
     let index = state.findIndex(({ id }) => id === action.payload.id);
     state.batchList.splice(index, 1);
   },
+  [retrieveBatchByCourse.pending]:(state,action)=>{
+    return {...state,status:'loading'}
+  },
+  [retrieveBatchByCourse.fulfilled]:(state,action)=>{
+    
+    return {batchList:[...action.payload], status:'succeeded'}
+  }
 },
 });
 

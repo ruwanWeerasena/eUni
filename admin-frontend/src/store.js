@@ -7,6 +7,7 @@ import studentsReducer from "./features/students/studentSlice";
 import lecturerReducer from "./features/lecturers/lecturerSlice";
 import coursesReducer from "./features/courses/courseSlice";
 import notificationReducer from "./features/notifications/notificationSlice";
+import enrollmentsReducer from './features/enrollments/enrollmentSlice'
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
@@ -17,20 +18,8 @@ const rootReducer = combineReducers({
   lecturers: lecturerReducer,
   courses: coursesReducer,
   notification: notificationReducer,
+  enrollments :enrollmentsReducer
 });
-
-// const store = configureStore({
-//   reducer: {
-//     // Define a top-level state field named `todos`, handled by `todosReducer`
-//     batches: batchesReducer,
-//     staffs: staffsReducer,
-//     branches: branchesReducer,
-//     students: studentsReducer,
-//     lecturers: lecturerReducer,
-//     courses: coursesReducer,
-//     notification: notificationReducer,
-//   },
-// });
 
 export const setupStore = preloadedState => {
   return configureStore({
@@ -39,4 +28,3 @@ export const setupStore = preloadedState => {
   })
 }
 
-//export default store;

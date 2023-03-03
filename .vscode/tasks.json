@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AdminBackend/eUni.services.admin/eUni.services.admin.csproj",
+                "${workspaceFolder}/AdminBackend/build.proj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

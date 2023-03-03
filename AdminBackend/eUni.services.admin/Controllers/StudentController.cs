@@ -25,7 +25,7 @@ public class StudentController : ControllerBase
 
     [HttpGet("{id}")]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var student =  await _studentrepository.GetStudentByIdAsync(id);
 

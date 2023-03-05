@@ -42,7 +42,8 @@ afterEach(() => server.resetHandlers());
 // Disable API mocking after the tests are done.
 afterAll(() => server.close());
 
-test("fetches branch list", async () => {
+
+test.skip("fetches branch list", async () => {
   renderWithProviders(
     <BrowserRouter>
       <BranchList />

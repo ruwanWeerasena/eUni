@@ -114,23 +114,27 @@ const BranchForm = () => {
     }
   }, [status, operation]);
 
+  const handleSubmit = async values => {
+    if (values.branchId) {
+      dispatch(updateBranch({ id: values.branchId, data: values }));
+    } else {
+      console.log('insert', values)
+      dispatch(createBranch(values));
+    }
+  }
+
   const formik = useFormik({
     initialValues: branch,
     validationSchema: validationSchema,
     enableReinitialize: true,
-    onSubmit: (values) => {
-      if (values.branchId) {
-        dispatch(updateBranch({ id: values.branchId, data: values }));
-      } else {
-        console.log('insert', values)
-        dispatch(createBranch(values));
-      }
-    },
+    onSubmit: {handleSubmit},
   });
 
   const modifyingStatus = useSelector(
     (state) => state.branches?.modifyingStatus
   );
+
+    console.log('yy', typeof id)
 
   return (
     <div>
@@ -215,7 +219,7 @@ const BranchForm = () => {
                 fullWidth
                 type="submit"
               >
-                Submit
+                { id == 'null' ? 'Insert':'Update'}
               </Button>
             </Grid>
           </Grid>

@@ -60,7 +60,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("InchargeLecturerId");
 
-                    b.ToTable("Batchs");
+                    b.ToTable("Batchs", (string)null);
 
                     b.HasData(
                         new
@@ -138,7 +138,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("BatchId");
 
-                    b.ToTable("BatchDiscounts");
+                    b.ToTable("BatchDiscounts", (string)null);
 
                     b.HasData(
                         new
@@ -182,7 +182,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("BatchId");
 
-                    b.ToTable("BatchPaymentShedules");
+                    b.ToTable("BatchPaymentShedules", (string)null);
                 });
 
             modelBuilder.Entity("eUni.data.Entities.BatchTimeShedule", b =>
@@ -210,7 +210,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("BatchId");
 
-                    b.ToTable("BatchTimeShedules");
+                    b.ToTable("BatchTimeShedules", (string)null);
                 });
 
             modelBuilder.Entity("eUni.data.Entities.Branch", b =>
@@ -243,7 +243,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("BranchId");
 
-                    b.ToTable("Branchs");
+                    b.ToTable("Branchs", (string)null);
 
                     b.HasData(
                         new
@@ -296,7 +296,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
 
                     b.HasData(
                         new
@@ -356,7 +356,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", (string)null);
 
                     b.HasData(
                         new
@@ -482,7 +482,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("LecturerId");
 
-                    b.ToTable("Lecturers");
+                    b.ToTable("Lecturers", (string)null);
 
                     b.HasData(
                         new
@@ -528,7 +528,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("LecturerId");
 
-                    b.ToTable("LecturerBatches");
+                    b.ToTable("LecturerBatches", (string)null);
                 });
 
             modelBuilder.Entity("eUni.data.Entities.Staff", b =>
@@ -560,7 +560,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("StaffId");
 
-                    b.ToTable("Staffs");
+                    b.ToTable("Staffs", (string)null);
 
                     b.HasData(
                         new
@@ -620,7 +620,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
 
                     b.HasData(
                         new
@@ -781,7 +781,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentPayments");
+                    b.ToTable("StudentPayments", (string)null);
                 });
 
             modelBuilder.Entity("eUni.data.Entities.Batch", b =>

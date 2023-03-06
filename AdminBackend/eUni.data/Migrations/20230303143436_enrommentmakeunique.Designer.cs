@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eUni.data;
 
@@ -11,9 +12,10 @@ using eUni.data;
 namespace eUni.data.Migrations
 {
     [DbContext(typeof(EUniDBContext))]
-    partial class EUniDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230303143436_enrommentmakeunique")]
+    partial class enrommentmakeunique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,10 +62,9 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("InchargeLecturerId");
 
-                    b.ToTable("Batchs", (string)null);
-
                     b.HasIndex("InchargeStaffId");
 
+                    b.ToTable("Batchs");
 
                     b.HasData(
                         new
@@ -141,7 +142,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("BatchId");
 
-                    b.ToTable("BatchDiscounts", (string)null);
+                    b.ToTable("BatchDiscounts");
 
                     b.HasData(
                         new
@@ -185,7 +186,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("BatchId");
 
-                    b.ToTable("BatchPaymentShedules", (string)null);
+                    b.ToTable("BatchPaymentShedules");
                 });
 
             modelBuilder.Entity("eUni.data.Entities.BatchTimeShedule", b =>
@@ -213,7 +214,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("BatchId");
 
-                    b.ToTable("BatchTimeShedules", (string)null);
+                    b.ToTable("BatchTimeShedules");
                 });
 
             modelBuilder.Entity("eUni.data.Entities.Branch", b =>
@@ -246,7 +247,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("BranchId");
 
-                    b.ToTable("Branchs", (string)null);
+                    b.ToTable("Branchs");
 
                     b.HasData(
                         new
@@ -299,7 +300,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
 
                     b.HasData(
                         new
@@ -361,7 +362,7 @@ namespace eUni.data.Migrations
                         .IsUnique()
                         .HasFilter("[StudentId] IS NOT NULL AND [BatchId] IS NOT NULL");
 
-                    b.ToTable("Enrollments", (string)null);
+                    b.ToTable("Enrollments");
 
                     b.HasData(
                         new
@@ -487,7 +488,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("LecturerId");
 
-                    b.ToTable("Lecturers", (string)null);
+                    b.ToTable("Lecturers");
 
                     b.HasData(
                         new
@@ -533,7 +534,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("LecturerId");
 
-                    b.ToTable("LecturerBatches", (string)null);
+                    b.ToTable("LecturerBatches");
                 });
 
             modelBuilder.Entity("eUni.data.Entities.Staff", b =>
@@ -565,7 +566,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("StaffId");
 
-                    b.ToTable("Staffs", (string)null);
+                    b.ToTable("Staffs");
 
                     b.HasData(
                         new
@@ -625,7 +626,7 @@ namespace eUni.data.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
 
                     b.HasData(
                         new
@@ -786,7 +787,7 @@ namespace eUni.data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentPayments", (string)null);
+                    b.ToTable("StudentPayments");
                 });
 
             modelBuilder.Entity("eUni.data.Entities.Batch", b =>

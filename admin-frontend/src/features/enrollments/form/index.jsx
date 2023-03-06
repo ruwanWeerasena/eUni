@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Box } from "@mui/material";
+import { Button, Grid, Box ,CircularProgress } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -14,7 +14,10 @@ import  {createEnrollment} from "../enrollmentSlice"
 import * as yup from "yup";
 import {Formik , Field ,Form} from "formik";
 import SelectBatch from "./SelectBatch";
-
+import {
+  showMessage,
+  closeNotification,
+} from "../../../features/notifications/notificationSlice";
 
 
 
@@ -38,12 +41,68 @@ const EnrollmentForm = () => {
   const students = useSelector((state)=>state.students.studentlist);
   const batches = useSelector((state)=>state.batches?.batchList);
 
+  const status = useSelector((state) => state.enrollments?.status);
+  const operation = useSelector((state) => state.enrollments?.operation);
+
   useEffect(()=>{
+    console.log("inside ");
     dispatch(retrieveCourses());
     dispatch(retrieveStudent());
     dispatch(retrieveBatches())
   },[])
   
+  useEffect(() => {
+    if (status.modifyingStatus === "succeeded") {
+      if (operation === "inserting") {
+        console.log(1234)
+        dispatch(
+          showMessage({
+            message: "Enrollment has been successfully created.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "Enrollment has been successfully updated.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+
+      navigate("/enrollment/view");
+    }
+
+    if (status.modifyingStatus === "failed") {
+      if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "Enrollment creation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "Enrollment updation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
   const installmentOptions = ['Cash','Card'];
   const getStudent = ()=>{
 
@@ -58,6 +117,7 @@ const EnrollmentForm = () => {
 
   const getBatch = (batch)=>{
     const b = batches.filter((itm)=>itm.batchId===batch);
+    console.log("batch",b[0]);
     return b[0];
   }
   const initialValues = {
@@ -72,18 +132,22 @@ const EnrollmentForm = () => {
       installmentMethod :installmentMethod,
       enrollmentDate :date.getFullYear()+"-"+ (date.getMonth()<10?"0"+date.getMonth():date.getMonth())+"-" +(date.getDate()<10?"0"+date.getDate():date.getDate()) ,
       batchId :batch,
-      staffId :getBatch(batch).staffId,
+      staffId :getBatch(batch).inchargeStaffId,
       batchDiscountId : null,
       studentId :student.studentId,
 
 
     }
-   
     dispatch( createEnrollment(data))
-    navigate("../enrollment/view")
+    // navigate("../enrollment/view")
   }
+  // const courseloadingStatus = useSelector((state) => state.courses?.status);
+  // const batchloadingStatus = useSelector((state) => state.batches?.status);
+  // const studentloadingStatus = useSelector((state) => state.students?.status);
+  // if(courseloadingStatus=="loading" || batchloadingStatus=="loading" || studentloadingStatus=="loading"){
+  //   return  <CircularProgress />
+  // }
  
-  console.log("ren")
   return (
    
     <Grid container spacing={2}>

@@ -7,17 +7,17 @@ import EditIcon from "@mui/icons-material/Edit";
 
 const BatchDiscountItem = ({
   discountItem,
-  setselectedDiscount,
+  setSelectedBatchDiscount,
   setOperation,
 }) => { 
   const edit = (item) => {
     setOperation("edit");
-    setselectedDiscount(item);
+    setSelectedBatchDiscount(item);
   };
 
   const del = (item) => {
     setOperation("delete");
-    setselectedDiscount(item);
+    setSelectedBatchDiscount(item);
   };
 
   return (

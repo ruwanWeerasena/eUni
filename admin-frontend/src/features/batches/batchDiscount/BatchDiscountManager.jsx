@@ -24,12 +24,12 @@ const BatchDiscountManager = ({
 }) => {
   const dispatch = useDispatch();
 
-  const discounts = useSelector(
-    (state) => state.batchdiscount?.batchdiscountList
-  );
+  // const discounts = useSelector(
+  //   (state) => state.batchdiscount?.batchdiscountList
+  // );
 
   // const discountslist = discounts.filter((d)=>d.batchId==batchId)
-  console.log(discounts);
+  console.log(batchDiscount);
 
   const reset = () => {
     setSelectedBatchDiscount({criteria:'', discountType: "", amount:'',percentage:'',batchId:batchId});
@@ -81,32 +81,32 @@ const BatchDiscountManager = ({
             </Button>
           )}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <TextField
             fullWidth
             id="criteria"
             name="criteria"
             label="criteria"
-            value={formik.values?.title}
+            value={formik.values?.criteria}
             onChange={formik.handleChange}
-            error={formik.touched.title && Boolean(formik.errors.title)}
-            helperText={formik.touched.title && formik.errors.title}
+            error={formik.touched.criteria && Boolean(formik.errors.criteria)}
+            helperText={formik.touched.criteria && formik.errors.criteria}
           />
         </Grid>
-        <Grid item xs={3}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
+        <Grid item xs={2}>
+          <TextField
+              fullWidth
               id="discountType"
               name="discountType"
-              value={formik.values?.paymentDate}
-              onChange={(date) => formik.setFieldValue("paymentDate", date)}
-              renderInput={(props) => <TextField {...props} />}
+              label="discountType"
+              value={formik.values?.discountType}
+              onChange={formik.handleChange}
+              error={formik.touched.discountType && Boolean(formik.errors.discountType)}
+              helperText={formik.touched.discountType && formik.errors.discountType}
             />
-          </LocalizationProvider>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <TextField
-            // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             fullWidth
             id="amount"
             name="amount"
@@ -117,30 +117,30 @@ const BatchDiscountManager = ({
             helperText={formik.touched.amount && formik.errors.amount}
           />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <TextField
             // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             fullWidth
             id="percentage"
             name="percentage"
             label="percentage"
-            value={formik.values?.amount}
+            value={formik.values?.percentage}
             onChange={formik.handleChange}
-            error={formik.touched.amount && Boolean(formik.errors.amount)}
-            helperText={formik.touched.amount && formik.errors.amount}
+            error={formik.touched.percentage && Boolean(formik.errors.percentage)}
+            helperText={formik.touched.percentage && formik.errors.percentage}
           />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <TextField
             // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             fullWidth
             id="batchId"
             name="batchId"
             label="batchId"
-            value={formik.values?.amount}
+            value={formik.values?.batchId}
             onChange={formik.handleChange}
-            error={formik.touched.amount && Boolean(formik.errors.amount)}
-            helperText={formik.touched.amount && formik.errors.amount}
+            error={formik.touched.batchId && Boolean(formik.errors.batchId)}
+            helperText={formik.touched.batchId && formik.errors.batchId}
           />
         </Grid>
         <Grid item xs={1}>

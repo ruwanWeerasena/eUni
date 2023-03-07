@@ -6,6 +6,7 @@ import BatchDiscountGrid from "./BatchDiscountGrid";
 
 const BatchDiscount = ({ batchId }) => {
   const [selectedBatchDiscount, setSelectedBatchDiscount] = useState({
+    batchDiscountId:"",
     criteria: "",
     discountType: "",
     amount: "",
@@ -20,18 +21,18 @@ const BatchDiscount = ({ batchId }) => {
         <BatchDiscountManager
           batchId={batchId}
           setSelectedBatchDiscount={setSelectedBatchDiscount}
-          BatchDiscount={selectedBatchDiscount}
+          batchDiscount={selectedBatchDiscount}
           operation={operation}
           setOperation={setOperation}
         />
       </Grid>
-      {/* <Grid item xs={12}>
+      <Grid item xs={12}>
         <BatchDiscountGrid
           batchId={batchId}
           setOperation={setOperation}
           setSelectedBatchDiscount={setSelectedBatchDiscount}
         />
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };

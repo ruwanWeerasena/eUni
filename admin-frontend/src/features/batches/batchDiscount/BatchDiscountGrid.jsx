@@ -9,7 +9,7 @@ import BatchDiscountItem from "./BatchDiscountItem";
 const BatchDiscountGrid = ({
   batchId,
   setOperation,
-  setselectedDiscount,
+  setSelectedBatchDiscount,
 }) => {
   const dispatch = useDispatch();
 
@@ -18,8 +18,9 @@ const BatchDiscountGrid = ({
   }, [batchId]);
 
   const discounts = useSelector(
-    (state) => state.batchdiscount?.batchdiscountList
+    (state) => state.batchDiscounts.batchDiscountList
   );
+
 
 const discountsList = discounts.filter((d)=>d.batchId==batchId);
 console.log("discountsList",discountsList);
@@ -27,7 +28,7 @@ console.log("discountsList",discountsList);
   return discountsList?.map((discount) => (
     <BatchDiscountItem key={discount.batchdiscountId}
       discountItem={discount}
-      setselectedDiscount={setselectedDiscount}
+      setSelectedBatchDiscount={setSelectedBatchDiscount}
       setOperation={setOperation}
     />
   ));

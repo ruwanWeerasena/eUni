@@ -5,11 +5,7 @@ import PaymentSheduleItem from "./PaymentSheduleItem";
 import { useSelector, useDispatch } from "react-redux";
 import { retrieveBatchPaymentShedules } from "./paymentShedultSlice";
 
-const SheduleGrid = ({
-  batchId,
-  setOperation,
-  setSelectedPaymentShedule,
-}) => {
+const SheduleGrid = ({ batchId, setOperation, setSelectedPaymentShedule }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,16 +16,20 @@ const SheduleGrid = ({
     (state) => state.batchPaymentShedules?.paymentSheduleList
   );
 
-  console.log('shedules', shedules)
+  console.log("shedules", shedules);
 
-
-  return shedules?.map((shedule) => (
-    <PaymentSheduleItem key={shedule.batchPaymentSheduleId}
-      sheduleItem={shedule}
-      setSelectedPaymentShedule={setSelectedPaymentShedule}
-      setOperation={setOperation}
-    />
-  ));
+  return (
+    <Grid container>
+      {shedules?.map((shedule) => (
+        <PaymentSheduleItem
+          key={shedule.batchPaymentSheduleId}
+          sheduleItem={shedule}
+          setSelectedPaymentShedule={setSelectedPaymentShedule}
+          setOperation={setOperation}
+        />
+      ))}
+    </Grid>
+  );
 };
 
 export default SheduleGrid;

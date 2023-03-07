@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button, Typography } from "@mui/material";
 
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,38 +21,18 @@ const PaymentSheduleItem = ({
   };
 
   return (
-    <Grid container>
+    <Grid item xs={12} sx={{borderBottom:1, display:"flex", margin:1, paddingBottom:1}}>
       <Grid item xs={1}>
-        <TextField
-          type="text"
-          value={sheduleItem.batchPaymentSheduleId}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+        <Typography>{sheduleItem.batchPaymentSheduleId}</Typography>
       </Grid>
       <Grid item xs={3}>
-        <TextField
-          type="text"
-          value={sheduleItem.title}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+        <Typography>{sheduleItem.title}</Typography>
       </Grid>
       <Grid item xs={3}>
-        <TextField
-          type="text"
-          value={sheduleItem.amount}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+      <Typography>{sheduleItem.amount}</Typography>
       </Grid>
       <Grid item xs={3}>
-        <TextField
-          type="text"
-          value={sheduleItem.paymentDate}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+      <Typography>{sheduleItem.paymentDate}</Typography>
       </Grid>
       <Grid item xs={1}>
         <IconButton onClick={() => edit(sheduleItem)} aria-label="update">

@@ -1,4 +1,4 @@
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -10,17 +10,20 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   createPaymentShedule,
   updateBatchPaymentShedule,
-  deleteBatchPaymentShedule
+  deleteBatchPaymentShedule,
 } from "./paymentShedultSlice";
 
-const validationSchema = yup.object({});
+const validationSchema = yup.object({
+  title: yup.string().required("required"),
+  amount: yup.number().required(),
+});
 
 const SheduleManager = ({
   paymentShedule,
   batchId,
   operation,
   setSelectedPaymentShedule,
-  setOperation
+  setOperation,
 }) => {
   const dispatch = useDispatch();
 
@@ -29,18 +32,22 @@ const SheduleManager = ({
   );
 
   const reset = () => {
-    setSelectedPaymentShedule({title:'', paymentDate: new Date(), amount:''});
-    setOperation('add')
-  }
+    setSelectedPaymentShedule({
+      title: "",
+      paymentDate: new Date(),
+      amount: "",
+    });
+    setOperation("add");
+  };
 
   const formik = useFormik({
-    initialValues: paymentShedule, 
+    initialValues: paymentShedule,
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       switch (operation) {
         case "add":
-          console.log('add')
+          console.log("add");
           dispatch(createPaymentShedule({ ...values, batchId: batchId }));
           break;
         case "edit":
@@ -56,26 +63,19 @@ const SheduleManager = ({
           );
           break;
         case "delete":
-          dispatch(deleteBatchPaymentShedule({id:paymentShedule.batchPaymentSheduleId}));
+          dispatch(
+            deleteBatchPaymentShedule({
+              id: paymentShedule.batchPaymentSheduleId,
+            })
+          );
           break;
       }
-
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container>
-        <Grid item xs={1}>
-          {paymentShedule.batchPaymentSheduleId && (
-            <Button
-              onClick={() => reset()}
-              variant="outlined"
-            >
-              Reset
-            </Button>
-          )}
-        </Grid>
         <Grid item xs={4}>
           <TextField
             fullWidth
@@ -113,13 +113,29 @@ const SheduleManager = ({
           />
         </Grid>
         <Grid item xs={1}>
-          <Button type="submit" variant="outlined">
-            {paymentShedule.batchPaymentSheduleId
-              ? operation === "edit"
-                ? "Update"
-                : "Delete"
-              : "Add"}
-          </Button>
+          <Box m={1} display="flex" justifyContent="center" alignItems="center">
+            <Button type="submit" variant="outlined">
+              {paymentShedule.batchPaymentSheduleId
+                ? operation === "edit"
+                  ? "Update"
+                  : "Delete"
+                : "Add"}
+            </Button>
+          </Box>
+        </Grid>
+        <Grid item xs={1}>
+          {paymentShedule.batchPaymentSheduleId && (
+            <Box
+              m={1}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Button onClick={() => reset()} variant="outlined">
+                Reset
+              </Button>
+            </Box>
+          )}
         </Grid>
       </Grid>
     </form>

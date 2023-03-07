@@ -13,7 +13,6 @@ const initialState = {
 export const createBranch = createAsyncThunk(
   "branches/create",
   async (branch) => {
-    console.log('thunk');
     const res = await BranchService.create({ ...branch, batches: null });
     return res.data;
   }

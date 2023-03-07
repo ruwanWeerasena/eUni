@@ -64,7 +64,7 @@ extraReducers: {
     return {...state,status:'failed', error:action.payload}
   },
   [updateBatch.fulfilled]: (state, action) => {
-    const index = state.findIndex(
+    const index = state.batchList.findIndex(
       (tutorial) => tutorial.id === action.payload.id
     );
     state.batchList[index] = {

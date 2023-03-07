@@ -14,9 +14,8 @@ const BatchManagement = () => {
         <BatchForm id={id} />
       </Grid>
       <Grid item xs={12}>
-        {id != 'null' && <PaymentShedule id={id} />}
+        {id != 'null' && <PaymentShedule batchId={id} />}
       </Grid>
-      <Grid item xs={12}></Grid>
     </Grid>
   );
 };

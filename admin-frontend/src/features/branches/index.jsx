@@ -78,7 +78,6 @@ const Branches = () => {
 
   const deleteConfirm = async () => {
     dispatch(deleteBranch({ id: selectedDeleteId })).then((x) => {
-      console.log(2);
       dispatch(resetModifying());
     });
     //dispatch(retrieveBranches());
@@ -106,12 +105,10 @@ const Branches = () => {
     navigate(`/branchesx/${id}`);
   };
 
-  console.log(77, status, operation)
-
   useEffect(() => {
     if (status === "succeeded") {
       if (operation === "deleting") {
-        console.log('aaaaaaaaaaaa', status, operation)
+   
         dispatch(
           showMessage({
             message: "Staff members has been deleted successfully",

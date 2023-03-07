@@ -40,6 +40,7 @@ public class BatchPaymentSheduleRepository : IBatchPaymentSheduleRepository
             old.BatchId = b.BatchId;
             old.PaymentDate = b.PaymentDate;
             old.Amount = b.Amount;
+            old.Title = b.Title;
         }
 
         int affected = await _db.SaveChangesAsync();

@@ -13,8 +13,7 @@ export const createPaymentShedule = createAsyncThunk(
   "batchPaymentShedule/create",
   async (paymentShedule) => {
     const res = await PaymentSheduleService.create({
-      ...paymentShedule,
-      batch: null,
+      ...paymentShedule
     });
     return res.data;
   }
@@ -81,9 +80,11 @@ const branchPaymentSheduleSlice = createSlice({
       state.status = "pending";
     },
     [updateBatchPaymentShedule.fulfilled]: (state, action) => {
-      const index = state.findIndex(
-        (paymentShedule) => paymentShedule.id === action.payload.id
+
+      const index = state.paymentSheduleList.findIndex(
+        (paymentShedule) => paymentShedule.batchPaymentSheduleId === action.payload.batchPaymentSheduleId
       );
+
       state.paymentSheduleList[index] = {
         ...state[index],
         ...action.payload,
@@ -101,7 +102,7 @@ const branchPaymentSheduleSlice = createSlice({
       state.status = "pending";
     },
     [deleteBatchPaymentShedule.fulfilled]: (state, action) => {
-      let index = state.findIndex(({ id }) => id === action.payload.id);
+      let index = state.paymentSheduleList.findIndex(({ id }) => id === action.payload.id);
       state.paymentSheduleList.splice(index, 1);
       state.operation = "deleting";
       state.status = "succeeded";

@@ -57,7 +57,7 @@ public class BatchPaymentSheduleController : ControllerBase
 
         BatchPaymentShedule? addedbranchPaymentShedule = await _batchPaymentSheduleRepository.CreateAsync(b);
 
-        BatchPaymentShedule? isadded = await _batchPaymentSheduleRepository.GetBatchPaymentSheduleByIdAsync(b.BatchId);
+        BatchPaymentShedule? isadded = await _batchPaymentSheduleRepository.GetBatchPaymentSheduleByIdAsync(b.BatchPaymentSheduleId);
 
         if (isadded is null)
         {
@@ -69,18 +69,18 @@ public class BatchPaymentSheduleController : ControllerBase
         }
     }
 
-    [HttpPut("{batchId:int}")]
+    [HttpPut("{batchPaymentSheduleId:int}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> Update(int batchId, [FromBody] BatchPaymentShedule b)
+    public async Task<IActionResult> Update(int batchPaymentSheduleId, [FromBody] BatchPaymentShedule b)
     {
         if (b is null)
         {
             return BadRequest();
         }
 
-        BatchPaymentShedule? existing = await  _batchPaymentSheduleRepository.GetBatchPaymentSheduleByIdAsync(batchId);
+        BatchPaymentShedule? existing = await  _batchPaymentSheduleRepository.GetBatchPaymentSheduleByIdAsync(batchPaymentSheduleId);
 
 
         if (existing is null)
@@ -90,9 +90,9 @@ public class BatchPaymentSheduleController : ControllerBase
 
         
 
-        BatchPaymentShedule? updated =  await _batchPaymentSheduleRepository.updateAsync(batchId,b);
+        BatchPaymentShedule? updated =  await _batchPaymentSheduleRepository.updateAsync(batchPaymentSheduleId,b);
 
-        BatchPaymentShedule? isupdated = await  _batchPaymentSheduleRepository.GetBatchPaymentSheduleByIdAsync(batchId);
+        BatchPaymentShedule? isupdated = await  _batchPaymentSheduleRepository.GetBatchPaymentSheduleByIdAsync(batchPaymentSheduleId);
 
         return Ok(isupdated);
     }

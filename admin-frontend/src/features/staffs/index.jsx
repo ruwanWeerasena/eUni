@@ -99,7 +99,6 @@ const Staffs = () => {
   useEffect(() => {
     if (status === "succeeded") {
       if (operation === "deleting") {
-        console.log('aaaaaaaaaaaa', status, operation)
         dispatch(
           showMessage({
             message: "Staff members has been deleted successfully",

@@ -45,7 +45,7 @@ const EnrollmentForm = () => {
   const operation = useSelector((state) => state.enrollments?.operation);
 
   useEffect(()=>{
-    console.log("inside ");
+
     dispatch(retrieveCourses());
     dispatch(retrieveStudent());
     dispatch(retrieveBatches())
@@ -54,7 +54,7 @@ const EnrollmentForm = () => {
   useEffect(() => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "inserting") {
-        console.log(1234)
+
         dispatch(
           showMessage({
             message: "Enrollment has been successfully created.",
@@ -117,7 +117,6 @@ const EnrollmentForm = () => {
 
   const getBatch = (batch)=>{
     const b = batches.filter((itm)=>itm.batchId===batch);
-    console.log("batch",b[0]);
     return b[0];
   }
   const initialValues = {

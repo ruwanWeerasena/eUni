@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eUni.data;
 
@@ -11,9 +12,10 @@ using eUni.data;
 namespace eUni.data.Migrations
 {
     [DbContext(typeof(EUniDBContext))]
-    partial class EUniDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230307154926_AlterBatchTimeShedule")]
+    partial class AlterBatchTimeShedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

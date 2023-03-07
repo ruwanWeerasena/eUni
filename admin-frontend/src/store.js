@@ -9,6 +9,7 @@ import coursesReducer from "./features/courses/courseSlice";
 import notificationReducer from "./features/notifications/notificationSlice";
 import enrollmentsReducer from './features/enrollments/enrollmentSlice'
 import batchPaymentSheduleReducer from './features/batches/paymentShedule/paymentShedultSlice'
+import batchTimeSheduleReducer from './features/batches/timeShedule/timeSheduleSlice'
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
   enrollments: enrollmentsReducer,
   batchPaymentShedules: batchPaymentSheduleReducer,
+  batchTimeShedules: batchTimeSheduleReducer,
 });
 
 export const setupStore = preloadedState => {

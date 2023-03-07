@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid,  Typography } from "@mui/material";
 
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,47 +21,30 @@ const BatchDiscountItem = ({
   };
 
   return (
-    <Grid container>
-      <Grid item xs={2}>
-        <TextField
-          type="text"
-          value={discountItem.criteria}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+    <Grid item xs={12} sx={{borderBottom:1, display:"flex", margin:1, paddingBottom:1}}>
+      <Grid item xs={1}>
+        <Typography>{discountItem.BatchDiscountId}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <TextField
-          type="text"
-          value={discountItem.discountType}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+      
+        <Typography>{discountItem.criteria}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <TextField
-          type="text"
-          value={discountItem.percentage}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+  
+        <Typography>{discountItem.discountType}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <TextField
-          type="text"
-          value={discountItem.amount}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+ 
+        <Typography>{discountItem.percentage}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <TextField
-          type="text"
-          value={discountItem.batchId}
-          variant="outlined"
-          inputProps={{ readOnly: true }}
-        />
+      
+        <Typography>{discountItem.amount}</Typography>
       </Grid>
+      <Grid item xs={2}>
+    
+      </Grid>
+      <Typography>{discountItem.batchId}</Typography>
       <Grid item xs={1}>
         <IconButton onClick={() => edit(discountItem)} aria-label="update">
           <EditIcon />

@@ -1,19 +1,21 @@
 import { Grid, TextField, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import {
   createBatchDiscount,
   updateBatchDiscount,
   deleteBatchDiscount
 } from "./batchDiscountSlice";
 
-const validationSchema = yup.object({});
+const validationSchema = yup.object({
+  criteria: yup.string().required("required"),
+  amount: yup.number().required("required"),
+  discountType: yup.string().required("required"),
+  percentage: yup.number().required("required")
+});
 
 const BatchDiscountManager = ({
   batchDiscount,
@@ -23,13 +25,6 @@ const BatchDiscountManager = ({
   setOperation
 }) => {
   const dispatch = useDispatch();
-
-  // const discounts = useSelector(
-  //   (state) => state.batchdiscount?.batchdiscountList
-  // );
-
-  // const discountslist = discounts.filter((d)=>d.batchId==batchId)
-  console.log(batchDiscount);
 
   const reset = () => {
     setSelectedBatchDiscount({criteria:'', discountType: "", amount:'',percentage:'',batchId:batchId});
@@ -70,7 +65,7 @@ const BatchDiscountManager = ({
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Grid container>
+      <Grid container spacing={1}>
         <Grid item xs={1}>
           {batchDiscount.batchDiscountId && (
             <Button
@@ -119,7 +114,6 @@ const BatchDiscountManager = ({
         </Grid>
         <Grid item xs={2}>
           <TextField
-            // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             fullWidth
             id="percentage"
             name="percentage"
@@ -132,7 +126,6 @@ const BatchDiscountManager = ({
         </Grid>
         <Grid item xs={2}>
           <TextField
-            // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             fullWidth
             id="batchId"
             name="batchId"

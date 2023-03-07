@@ -81,9 +81,7 @@ const BatchManagement = () => {
       <TabPanel value={value} index={3}>
       {id != 'null' && <BatchDiscount batchId={id} />}
       </TabPanel>
-      <Grid item xs={12}>
-        
-      </Grid>
+      
     </Box>
   );
 };

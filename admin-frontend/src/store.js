@@ -10,8 +10,6 @@ import notificationReducer from "./features/notifications/notificationSlice";
 import enrollmentsReducer from './features/enrollments/enrollmentSlice';
 import batchPaymentSheduleReducer from './features/batches/paymentShedule/paymentShedultSlice';
 import batchDiscountReducer from './features/batches/batchDiscount/batchDiscountSlice'
-import enrollmentsReducer from './features/enrollments/enrollmentSlice'
-import batchPaymentSheduleReducer from './features/batches/paymentShedule/paymentShedultSlice'
 import batchTimeSheduleReducer from './features/batches/timeShedule/timeSheduleSlice'
 
 // Create the root reducer separately so we can extract the RootState type
@@ -25,7 +23,7 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
   enrollments: enrollmentsReducer,
   batchPaymentShedules: batchPaymentSheduleReducer,
-  batchDiscounts:batchDiscountReducer
+  batchDiscounts:batchDiscountReducer,
   batchTimeShedules: batchTimeSheduleReducer,
 });
 

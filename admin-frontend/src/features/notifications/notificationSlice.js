@@ -13,7 +13,6 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     showMessage: (state, action) => {
-      console.log('featching showMessage')
       state.message = action.payload.message;
       state.type = action.payload.type;
       state.autoClose = action.payload.autoClose;

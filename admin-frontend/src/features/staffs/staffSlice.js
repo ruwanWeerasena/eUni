@@ -99,7 +99,6 @@ const staffSlice = createSlice({
       state.status = "pending";
     },
     [deleteStaff.fulfilled]: (state, action) => {
-      console.log("deleted succedded");
       let index = state.staffList.findIndex(({ id }) => id === action.payload);
       state.staffList.splice(index, 1);
       state.operation = "deleting";

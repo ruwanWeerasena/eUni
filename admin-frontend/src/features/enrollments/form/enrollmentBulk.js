@@ -64,7 +64,7 @@ const EnrollmentBulk=()=> {
     useEffect(() => {
         if (status.modifyingStatus === "succeeded") {
           if (operation === "inserting") {
-            console.log(1234)
+
             dispatch(
               showMessage({
                 message: "Enrollment has been successfully created.",

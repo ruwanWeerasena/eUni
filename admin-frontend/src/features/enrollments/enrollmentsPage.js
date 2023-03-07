@@ -96,7 +96,6 @@ const Enrollments = () => {
   const edit = (id) => {
     navigate(`/enrollment/new`);
   };
-  console.log(enrollments);
 
   return (
     <div>

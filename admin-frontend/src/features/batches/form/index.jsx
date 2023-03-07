@@ -28,8 +28,8 @@ const validationSchema = yup.object({});
 // .min(8, "Password should be of minimum 8 characters length")
 // .required("Password is required"),
 
-const BatchForm = () => {
-  const { id } = useParams();
+const BatchForm = ({id}) => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

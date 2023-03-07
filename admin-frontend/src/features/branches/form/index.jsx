@@ -57,14 +57,12 @@ const BranchForm = () => {
 
   const operation = useSelector((state) => state.branches?.operation);
 
-  console.log(56, status, operation)
-
   const error = useSelector((state) => state.branches?.error);
 
   useEffect(() => {
     if (status === "succeeded") {
       if (operation === "inserting") {
-        console.log(1234)
+
         dispatch(
           showMessage({
             message: "Branch has been successfully created.",
@@ -118,7 +116,7 @@ const BranchForm = () => {
     if (values.branchId) {
       dispatch(updateBranch({ id: values.branchId, data: values }));
     } else {
-      console.log('insert', values)
+
       dispatch(createBranch(values));
     }
   }
@@ -133,8 +131,6 @@ const BranchForm = () => {
   const modifyingStatus = useSelector(
     (state) => state.branches?.modifyingStatus
   );
-
-    console.log('yy', typeof id)
 
   return (
     <div>

@@ -7,8 +7,9 @@ import studentsReducer from "./features/students/studentSlice";
 import lecturerReducer from "./features/lecturers/lecturerSlice";
 import coursesReducer from "./features/courses/courseSlice";
 import notificationReducer from "./features/notifications/notificationSlice";
-import enrollmentsReducer from './features/enrollments/enrollmentSlice'
-import batchPaymentSheduleReducer from './features/batches/paymentShedule/paymentShedultSlice'
+import enrollmentsReducer from './features/enrollments/enrollmentSlice';
+import batchPaymentSheduleReducer from './features/batches/paymentShedule/paymentShedultSlice';
+import batchDiscountReducer from './features/batches/batchDiscount/batchDiscountSlice'
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
   enrollments: enrollmentsReducer,
   batchPaymentShedules: batchPaymentSheduleReducer,
+  batchDiscounts:batchDiscountReducer
 });
 
 export const setupStore = preloadedState => {

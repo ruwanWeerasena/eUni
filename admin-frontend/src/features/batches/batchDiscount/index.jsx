@@ -6,7 +6,6 @@ import BatchDiscountGrid from "./BatchDiscountGrid";
 
 const BatchDiscount = ({ batchId }) => {
   const [selectedBatchDiscount, setSelectedBatchDiscount] = useState({
-    batchDiscountId:"",
     criteria: "",
     discountType: "",
     amount: "",

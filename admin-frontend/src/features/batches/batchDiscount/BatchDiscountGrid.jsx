@@ -23,7 +23,7 @@ const BatchDiscountGrid = ({
 
 
 const discountsList = discounts.filter((d)=>d.batchId==batchId);
-console.log("discountsList",discountsList);
+
 
   return discountsList?.map((discount) => (
     <BatchDiscountItem key={discount.batchdiscountId}

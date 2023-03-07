@@ -45,15 +45,7 @@ public class BatchDiscountController : ControllerBase
         return Ok(batchdiscount);
     }
 
-        [HttpGet("batch/{id}")]
-    [ProducesResponseType(404)]
-    public async Task<List<BatchDiscount>> GetBatchDiscountByBatch(int id)
-    {
-        return await _batchDiscountRepository.GetBatchDiscountsByBatchIdAsync(id);
-
-        
-    }
-
+  
     [HttpPost]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]

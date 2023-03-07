@@ -18,10 +18,7 @@ public class BatchDiscountRepository : IBatchDiscountRepository
         return list;
     }
 
-    public async  Task<List<BatchDiscount>> GetBatchDiscountsByBatchIdAsync(int id)
-    {
-        return await _db.BatchDiscounts.Where(b=>b.BatchId==id).ToListAsync();
-    }
+
 
     public async  Task<BatchDiscount?> GetBatchDiscountsByIdAsync(int id)
     {

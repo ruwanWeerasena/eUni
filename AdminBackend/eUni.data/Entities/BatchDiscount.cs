@@ -8,6 +8,6 @@ public class BatchDiscount
     public float Percentage { get; set; }
     public decimal Amount { get; set; }
     public int? BatchId { get; set; }
-    public virtual Batch Batch { get; set; }
+    public virtual Batch? Batch { get; set; }
 
 }

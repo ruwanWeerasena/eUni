@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import BatchForm from "./form";
 import PaymentShedule from "./paymentShedule";
+import BatchDiscount from "./batchDiscount";
 
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -78,8 +79,9 @@ const BatchManagement = () => {
       {id != "null" && <TimeShedule batchId={id} />}
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Discount Options
+      {id != 'null' && <BatchDiscount batchId={id} />}
       </TabPanel>
+      
     </Box>
   );
 };

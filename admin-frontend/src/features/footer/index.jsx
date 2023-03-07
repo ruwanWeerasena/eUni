@@ -6,12 +6,9 @@ const Footer = () => {
 
     return (
         
-        <Box  sx={{ backgroundColor:'primary.dark',top: 'auto', bottom: 0 ,position:"fixed",width:1}}>
-        <Typography variant="body2" component="div" color='white' sx={{paddingTop:4}}>
-            e University
-          </Typography>
-          <Typography variant="body2"  color='white'>
-            @2023
+        <Box  sx={{ backgroundColor:'primary.dark',top: 'auto', bottom: 0 ,position:"sticky",width:1}}>
+        <Typography variant="body2" component="div" color='white' sx={{paddingTop:1, paddingBottom:1}}>
+            e University @ 2023
           </Typography>
         </Box>
       

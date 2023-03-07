@@ -5,34 +5,34 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const PaymentSheduleItem = ({
+const TimeSheduleItem = ({
   sheduleItem,
-  setSelectedPaymentShedule,
+  setSelectedTimeShedule,
   setOperation,
 }) => {
   const edit = (item) => {
     setOperation("edit");
-    setSelectedPaymentShedule(item);
+    setSelectedTimeShedule(item);
   };
 
   const del = (item) => {
     setOperation("delete");
-    setSelectedPaymentShedule(item);
+    setSelectedTimeShedule(item);
   };
 
   return (
     <Grid item xs={12} sx={{borderBottom:1, display:"flex", margin:1, paddingBottom:1}}>
       <Grid item xs={1}>
-        <Typography>{sheduleItem.batchPaymentSheduleId}</Typography>
+        <Typography>{sheduleItem.batchTimeSheduleId}</Typography>
       </Grid>
       <Grid item xs={3}>
-        <Typography>{sheduleItem.title}</Typography>
+        <Typography>{sheduleItem.day}</Typography>
       </Grid>
       <Grid item xs={3}>
-      <Typography>{sheduleItem.amount}</Typography>
+      <Typography>{sheduleItem.startTime}</Typography>
       </Grid>
       <Grid item xs={3}>
-      <Typography>{sheduleItem.paymentDate}</Typography>
+      <Typography>{sheduleItem.endTime}</Typography>
       </Grid>
       <Grid item xs={1}>
         <IconButton onClick={() => edit(sheduleItem)} aria-label="update">
@@ -48,4 +48,4 @@ const PaymentSheduleItem = ({
   );
 };
 
-export default PaymentSheduleItem;
+export default TimeSheduleItem;

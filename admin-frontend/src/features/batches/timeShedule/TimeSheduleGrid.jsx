@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Grid, TextField, Button } from "@mui/material";
-import PaymentSheduleItem from "./PaymentSheduleItem";
+import TimeSheduleItem from "./TimeSheduleItem";
 
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveBatchPaymentShedules } from "./paymentShedultSlice";
+import { retrieveBatchTimeShedules } from "./timeSheduleSlice";
 
-const SheduleGrid = ({ batchId, setOperation, setSelectedPaymentShedule }) => {
+const TimeSheduleGrid = ({ batchId, setOperation, setSelectedTimeShedule }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(retrieveBatchPaymentShedules());
+    dispatch(retrieveBatchTimeShedules());
   }, [batchId]);
 
   const shedules = useSelector(
-    (state) => state.batchPaymentShedules?.paymentSheduleList
+    (state) => state.batchTimeShedules?.timeSheduleList
   );
 
   console.log("shedules", shedules);
@@ -21,10 +21,10 @@ const SheduleGrid = ({ batchId, setOperation, setSelectedPaymentShedule }) => {
   return (
     <Grid container>
       {shedules?.map((shedule) => (
-        <PaymentSheduleItem
-          key={shedule.batchPaymentSheduleId}
+        <TimeSheduleItem
+          key={shedule.batchTimeSheduleId}
           sheduleItem={shedule}
-          setSelectedPaymentShedule={setSelectedPaymentShedule}
+          setSelectedTimeShedule={setSelectedTimeShedule}
           setOperation={setOperation}
         />
       ))}
@@ -32,4 +32,4 @@ const SheduleGrid = ({ batchId, setOperation, setSelectedPaymentShedule }) => {
   );
 };
 
-export default SheduleGrid;
+export default TimeSheduleGrid;

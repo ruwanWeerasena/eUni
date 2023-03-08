@@ -22,29 +22,21 @@ const BatchDiscountItem = ({
 
   return (
     <Grid item xs={12} sx={{borderBottom:1, display:"flex", margin:1, paddingBottom:1}}>
-      <Grid item xs={1}>
-        <Typography>{discountItem.BatchDiscountId}</Typography>
-      </Grid>
-      <Grid item xs={2}>
-      
+      <Grid item xs={5}>
         <Typography>{discountItem.criteria}</Typography>
       </Grid>
-      <Grid item xs={2}>
-  
+      <Grid item xs={3}>
         <Typography>{discountItem.discountType}</Typography>
       </Grid>
       <Grid item xs={2}>
+        {
+          discountItem.discountType=="PERCENTAGE"?
+          <Typography>{discountItem.percentage}</Typography>
+          :
+          <Typography>{discountItem.amount}</Typography>
+        }
  
-        <Typography>{discountItem.percentage}</Typography>
       </Grid>
-      <Grid item xs={2}>
-      
-        <Typography>{discountItem.amount}</Typography>
-      </Grid>
-      <Grid item xs={2}>
-    
-      </Grid>
-      <Typography>{discountItem.batchId}</Typography>
       <Grid item xs={1}>
         <IconButton onClick={() => edit(discountItem)} aria-label="update">
           <EditIcon />

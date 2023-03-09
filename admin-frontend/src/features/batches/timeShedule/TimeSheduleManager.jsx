@@ -44,7 +44,6 @@ const TimeSheduleManager = ({
     onSubmit: (values) => {
       switch (operation) {
         case "add":
-          console.log("add", values);
           dispatch(createTimeShedule({ ...values, batchId: batchId }));
           break;
         case "edit":

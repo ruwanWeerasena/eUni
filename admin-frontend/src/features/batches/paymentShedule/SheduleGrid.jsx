@@ -16,8 +16,6 @@ const SheduleGrid = ({ batchId, setOperation, setSelectedPaymentShedule }) => {
     (state) => state.batchPaymentShedules?.paymentSheduleList
   );
 
-  console.log("shedules", shedules);
-
   return (
     <Grid container>
       {shedules?.map((shedule) => (

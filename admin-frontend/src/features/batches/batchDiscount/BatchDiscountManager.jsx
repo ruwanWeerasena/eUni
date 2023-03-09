@@ -52,6 +52,7 @@ const validationSchema = yup.object({
             
             dispatch(createBatchDiscount({ ...values,discountType:discountType.type, batchId: batchId }));
           }
+
           break;
         case "edit":
           dispatch(

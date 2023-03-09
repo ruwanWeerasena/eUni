@@ -40,12 +40,12 @@ const Notification = () => {
     return color;
   };
 
-  const height = isOpen ? "blue" : "yellow";
+  const color = isOpen ? "blue" : "yellow";
 
   console.log('notification', isOpen, open)
 
   return (
-    <div style={{ color: getFontColor(type), background:'red'}}>
+    <div style={{ color: getFontColor(type), background:color}}>
       {message}
       {!autoClose && <button onClick={closeNotification}>close</button>}
     </div>

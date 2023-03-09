@@ -47,7 +47,6 @@ const SheduleManager = ({
     onSubmit: (values) => {
       switch (operation) {
         case "add":
-          console.log("add");
           dispatch(createPaymentShedule({ ...values, batchId: batchId }));
           break;
         case "edit":

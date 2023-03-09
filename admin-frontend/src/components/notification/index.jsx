@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Notification = () => {
-  let { message, type, open, remainingTime, autoClose } = useSelector(
+  let { message, type, open, remainingTime, autoClose, random } = useSelector(
     (state) => state.notification
   );
 
@@ -16,7 +16,7 @@ const Notification = () => {
         setIsOpen(false);
       }, remainingTime);
     }
-  }, [autoClose, open]);
+  }, [autoClose, open, random]);
 
   const closeNotification = (e) => {
     setIsOpen(false);
@@ -40,10 +40,12 @@ const Notification = () => {
     return color;
   };
 
-  const height = isOpen ? "50px" : "10px";
+  const color = isOpen ? "blue" : "yellow";
+
+  console.log('notification', isOpen, open)
 
   return (
-    <div style={{ color: getFontColor(type), height: height }}>
+    <div style={{ color: getFontColor(type), background:color}}>
       {message}
       {!autoClose && <button onClick={closeNotification}>close</button>}
     </div>

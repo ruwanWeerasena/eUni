@@ -22,6 +22,7 @@ const BatchDiscountManager = ({
   }
 
 
+
   return (
     <Form>
       <Grid container spacing={1}>

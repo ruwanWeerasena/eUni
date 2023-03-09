@@ -6,6 +6,7 @@ const initialState = {
   open: false,
   remainingTime: 0,
   autoClose: false,
+  randomNumber:0
 };
 
 const notificationSlice = createSlice({
@@ -17,6 +18,7 @@ const notificationSlice = createSlice({
       state.type = action.payload.type;
       state.autoClose = action.payload.autoClose;
       state.open = action.payload.open;
+      state.random = action.payload.random;
 
       if (action.payload.autoClose) {
         state.remainingTime = action.payload.remainingTime;

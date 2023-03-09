@@ -28,6 +28,7 @@ export const retrieveBatchDiscounts = createAsyncThunk(
 export const updateBatchDiscount = createAsyncThunk(
   "batchdiscount/update",
   async ({ id, data }) => {
+    console.log("updattttt");
     const res = await BatchDiscountService.update(id, data);
     return res.data;
   }

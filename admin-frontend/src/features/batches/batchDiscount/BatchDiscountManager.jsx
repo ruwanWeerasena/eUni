@@ -1,4 +1,4 @@
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button,Select ,FormControl,InputLabel,MenuItem} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -10,12 +10,8 @@ import {
   deleteBatchDiscount
 } from "./batchDiscountSlice";
 
-const validationSchema = yup.object({
-  criteria: yup.string().required("required"),
-  amount: yup.number().required("required"),
-  discountType: yup.string().required("required"),
-  percentage: yup.number().required("required")
-});
+
+
 
 const BatchDiscountManager = ({
   batchDiscount,
@@ -24,10 +20,19 @@ const BatchDiscountManager = ({
   setSelectedBatchDiscount,
   setOperation
 }) => {
+
+const [discountType ,setDiscountType] = useState({type:"",error:false,touched:false});
+
+const validationSchema = yup.object({
+  criteria: yup.string().required("required"),
+
+
+});
+
   const dispatch = useDispatch();
 
   const reset = () => {
-    setSelectedBatchDiscount({criteria:'', discountType: "", amount:'',percentage:'',batchId:batchId});
+    setSelectedBatchDiscount({criteria:'', discountType:discountType, amount:"",percentage:"",batchId:batchId});
     setOperation('add')
   }
 
@@ -36,9 +41,18 @@ const BatchDiscountManager = ({
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      console.log("dd");
       switch (operation) {
         case "add":
-          dispatch(createBatchDiscount({ ...values, batchId: batchId }));
+          console.log('add',values)
+          values.amount !=""?values.percentage=0:values.amount=0;
+          if(discountType.type==""){
+            setDiscountType({...discountType,error:true,touched:true})
+          }else{
+            
+            dispatch(createBatchDiscount({ ...values,discountType:discountType.type, batchId: batchId }));
+          }
+
           break;
         case "edit":
           dispatch(
@@ -56,6 +70,7 @@ const BatchDiscountManager = ({
           dispatch(deleteBatchDiscount({id:batchDiscount.batchDiscountId}));
           break;
         default:
+          console.log("default");
           break;
       }
 
@@ -65,17 +80,8 @@ const BatchDiscountManager = ({
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={1}>
-        <Grid item xs={1}>
-          {batchDiscount.batchDiscountId && (
-            <Button
-              onClick={() => reset()}
-              variant="outlined"
-            >
-              Reset
-            </Button>
-          )}
-        </Grid>
-        <Grid item xs={2}>
+        
+        <Grid item xs={5}>
           <TextField
             fullWidth
             id="criteria"
@@ -87,19 +93,30 @@ const BatchDiscountManager = ({
             helperText={formik.touched.criteria && formik.errors.criteria}
           />
         </Grid>
-        <Grid item xs={2}>
-          <TextField
-              fullWidth
+        <Grid item xs={3}>
+            <FormControl fullWidth>
+            <InputLabel id="discountTypeLabel">Discount Type</InputLabel>
+            <Select
+              labelId="discountTypeLabel"
               id="discountType"
               name="discountType"
-              label="discountType"
-              value={formik.values?.discountType}
-              onChange={formik.handleChange}
-              error={formik.touched.discountType && Boolean(formik.errors.discountType)}
-              helperText={formik.touched.discountType && formik.errors.discountType}
-            />
+              value={discountType.type}
+              error={discountType.touched && Boolean(discountType.error)}
+              helperText={discountType.touched && discountType.touched}
+   
+              onChange={({target})=>{
+                setDiscountType({...discountType,type:target.value,error:false,touched:"true"});
+              }}
+            >
+              <MenuItem value="PERCENTAGE">PERCENTAGE</MenuItem>
+              <MenuItem value="AMOUNT">AMOUNT</MenuItem>
+            
+            </Select>
+          </FormControl>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2} >
+
+          {discountType.type==="AMOUNT"?
           <TextField
             fullWidth
             id="amount"
@@ -110,8 +127,7 @@ const BatchDiscountManager = ({
             error={formik.touched.amount && Boolean(formik.errors.amount)}
             helperText={formik.touched.amount && formik.errors.amount}
           />
-        </Grid>
-        <Grid item xs={2}>
+          :
           <TextField
             fullWidth
             id="percentage"
@@ -121,20 +137,11 @@ const BatchDiscountManager = ({
             onChange={formik.handleChange}
             error={formik.touched.percentage && Boolean(formik.errors.percentage)}
             helperText={formik.touched.percentage && formik.errors.percentage}
+       
           />
+        }
         </Grid>
-        <Grid item xs={2}>
-          <TextField
-            fullWidth
-            id="batchId"
-            name="batchId"
-            label="batchId"
-            value={formik.values?.batchId}
-            onChange={formik.handleChange}
-            error={formik.touched.batchId && Boolean(formik.errors.batchId)}
-            helperText={formik.touched.batchId && formik.errors.batchId}
-          />
-        </Grid>
+  
         <Grid item xs={1}>
           <Button type="submit" variant="outlined">
             {batchDiscount.batchDiscountId
@@ -143,6 +150,16 @@ const BatchDiscountManager = ({
                 : "Delete"
               : "Add"}
           </Button>
+        </Grid>
+        <Grid item xs={1}>
+          {batchDiscount.batchDiscountId && (
+            <Button
+              onClick={() => reset()}
+              variant="outlined"
+            >
+              Reset
+            </Button>
+          )}
         </Grid>
       </Grid>
     </form>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { retrieveStudent,deleteStudent } from "./studentSlice";
+import { retrieveStudent,deleteStudent, resetModifying } from "./studentSlice";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -28,6 +28,10 @@ import {
   Grid,
   Typography
 } from "@mui/material";
+import {
+  showMessage,
+  closeNotification,
+} from "../../features/notifications/notificationSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -73,18 +77,99 @@ const Students = () => {
 
   const students = useSelector((state) => state.students.studentlist);
   
-  const loadingStatus = useSelector((state) => state.students.status);
+  const status = useSelector((state) => state.students.status);
+  const operation = useSelector((state) => state.students.operation);
 
   useEffect(() => {
-    dispatch(retrieveStudent());
+    if (students.length === 0) {
+      dispatch(retrieveStudent());
+    } else {
+      dispatch(resetModifying());
+    }
   }, []);
 
 
-  if (loadingStatus === "loading") {
-    return (
-      <CircularProgress />
-    );
+  useEffect(() => {
+    if (status.modifyingStatus === "succeeded") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "student  has been deleted successfully",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "student has been successfully updated.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+      else if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "student has been successfully inserted.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+
+    if (status === "failed") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "student members deletion fail",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "student  updating failed.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+      else if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "student  inserting failed.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
+
+
+  if (status.retrievingStatus === "loading") {
+    return <CircularProgress />;
   }
+
+  if (status.modifyingStatus === "pending") {
+    return <CircularProgress />;
+  }
+
 
   const edit = (id) => {
     navigate(`/students/${id}`);

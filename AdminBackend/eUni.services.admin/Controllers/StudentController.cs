@@ -18,7 +18,7 @@ public class StudentController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetAllStudent()
     {
-        
+        Thread.Sleep(2000);
         return Ok(await _studentrepository.GetStudentsAsync());
     }
 
@@ -33,7 +33,7 @@ public class StudentController : ControllerBase
         {
             return NotFound();
         }
-
+        Thread.Sleep(2000);
         return Ok(student);
     }
 
@@ -50,7 +50,7 @@ public class StudentController : ControllerBase
         Student? addedStudent = await _studentrepository.CreateAsync(b);
 
         Student? isadded = await _studentrepository.GetStudentByIdAsync(b.StudentId);
-
+        Thread.Sleep(2000);
         if (isadded is null)
         {
             return BadRequest("Repository failed to add staff");
@@ -85,7 +85,7 @@ public class StudentController : ControllerBase
         Student? updated =  await _studentrepository.updateAsync(studentid,b);
 
         Student? isupdated = await  _studentrepository.GetStudentByIdAsync(studentid);
-
+        Thread.Sleep(2000);
         return Ok(isupdated);
     }
 
@@ -105,6 +105,7 @@ public class StudentController : ControllerBase
 
         bool? deleted = await _studentrepository.DeletAsync(StudentId);
         System.Console.WriteLine(deleted);
+        Thread.Sleep(2000);
         if (deleted.HasValue && deleted.Value)
         {
             return new NoContentResult();

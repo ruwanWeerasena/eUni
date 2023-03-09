@@ -78,7 +78,4 @@ export const { selectAll, selectById } = coursesAdapter.getSelectors();
 export const getAllCourses = coursesAdapter.getSelectors(
 	(state) => state.courses
 );
-
-export const getCourseById = coursesAdapter.getSelectors(
-	(state) => state.courses
-);
+;

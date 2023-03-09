@@ -16,8 +16,6 @@ const TimeSheduleGrid = ({ batchId, setOperation, setSelectedTimeShedule }) => {
     (state) => state.batchTimeShedules?.timeSheduleList
   );
 
-  console.log("shedules", shedules);
-
   return (
     <Grid container>
       {shedules?.map((shedule) => (

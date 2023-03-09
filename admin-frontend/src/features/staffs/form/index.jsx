@@ -77,7 +77,8 @@ const StaffForm = () => {
             type: "info",
             autoClose: true,
             open: true,
-            remainingTime: 3000,
+            remainingTime: 5000,
+            random: Math.random() * 10000
           })
         );
       }

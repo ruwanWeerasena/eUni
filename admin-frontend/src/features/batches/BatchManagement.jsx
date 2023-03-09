@@ -47,13 +47,17 @@ function a11yProps(index) {
 
 const BatchManagement = () => {
   const { id } = useParams();
-  const [batchId, setBatchId] = useState();
+
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const disabled = id === 'null' ? true : false;
+
+  console.log('disable', disabled);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -63,10 +67,10 @@ const BatchManagement = () => {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Batch Details" {...a11yProps(0)} />
-          <Tab label="Payment Shedule" {...a11yProps(1)} />
-          <Tab label="Time Shedule" {...a11yProps(2)} />
-          <Tab label="Discount Options" {...a11yProps(2)} />
+          <Tab label="Batch Details"  {...a11yProps(0)} />
+          <Tab label="Payment Shedule" disabled={disabled} {...a11yProps(1)} />
+          <Tab label="Time Shedule" disabled={disabled} {...a11yProps(2)} />
+          <Tab label="Discount Options" disabled={disabled} {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

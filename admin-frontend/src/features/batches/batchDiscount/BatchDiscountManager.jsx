@@ -38,7 +38,6 @@ const BatchDiscountManager = ({
     onSubmit: (values) => {
       switch (operation) {
         case "add":
-          console.log('add')
           dispatch(createBatchDiscount({ ...values, batchId: batchId }));
           break;
         case "edit":

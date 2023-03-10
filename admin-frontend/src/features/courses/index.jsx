@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {retrieveCourses,deleteCourse, getAllCourses} from "./courseSlice";
+import {retrieveCourses,deleteCourse, getAllCourses,resetModifying} from "./courseSlice";
 import { useMsal } from "@azure/msal-react";
 
 import { styled } from "@mui/material/styles";
@@ -30,6 +30,10 @@ import {
   CircularProgress,
   Grid,
 } from "@mui/material";
+import {
+  showMessage,
+  closeNotification,
+} from "../../features/notifications/notificationSlice";
 
 import "../../App.css";
 import { grey } from "@mui/material/colors";
@@ -73,21 +77,62 @@ const Courses = () => {
   };
 
   const deleteConfirm = async () => {
-    dispatch(deleteCourse({ id: selectedDeleteId }));
-    dispatch(retrieveCourses());
+    dispatch(deleteCourse({ id: selectedDeleteId })).then((x)=>{dispatch(resetModifying())});
     setOpen(false);
   };
 
   //const courses = useSelector((state) => state.courses);
   const courses = useSelector(getAllCourses.selectAll);
 
-  const loadingStatus = useSelector((state) => state.courses?.status);
+  const status = useSelector((state) => state.courses?.status);
+  const operation = useSelector((state) => state.courses?.operation);
 
+  // useEffect(() => {
+  //   dispatch(retrieveCourses());
+  // }, []);
   useEffect(() => {
-    dispatch(retrieveCourses());
+    if (courses.length === 0) {
+      dispatch(retrieveCourses());
+    } else {
+      dispatch(resetModifying());
+    }
   }, []);
+  useEffect(() => {
+    if (status.modifyingStatus === "succeeded") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "course  has been deleted successfully",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
 
-  if (loadingStatus === "loading") {
+    if (status === "failed") {
+      if (operation === "deleting") {
+        dispatch(
+          showMessage({
+            message: "course  deletion fail",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
+
+  if (status.retrievingStatus === "loading") {
+    return (
+      <CircularProgress />
+    );
+  }
+  if (status.modifyingStatus === "pending") {
     return (
       <CircularProgress />
     );

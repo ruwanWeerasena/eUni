@@ -32,11 +32,8 @@ import {
 } from "@mui/material";
 import {
   showMessage,
-  closeNotification,
 } from "../../features/notifications/notificationSlice";
-
 import "../../App.css";
-import { grey } from "@mui/material/colors";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -81,15 +78,12 @@ const Courses = () => {
     setOpen(false);
   };
 
-  //const courses = useSelector((state) => state.courses);
   const courses = useSelector(getAllCourses.selectAll);
 
   const status = useSelector((state) => state.courses?.status);
   const operation = useSelector((state) => state.courses?.operation);
 
-  // useEffect(() => {
-  //   dispatch(retrieveCourses());
-  // }, []);
+
   useEffect(() => {
     if (courses.length === 0) {
       dispatch(retrieveCourses());
@@ -97,6 +91,7 @@ const Courses = () => {
       dispatch(resetModifying());
     }
   }, []);
+  
   useEffect(() => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "deleting") {

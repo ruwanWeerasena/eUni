@@ -29,7 +29,6 @@ export const updateCourse = createAsyncThunk(
   "courses/update",
   async ({ id, data }) => {
     const res = await CourseService.update(id, data);
-    console.log("data",res.data);
     return res.data;
   }
 );
@@ -57,8 +56,6 @@ const courseSlice = createSlice({
       state.status.modifyingStatus="pending";
     },
     [createCourse.fulfilled]: (state, action) => {
-      console.log("sssss",state);
-      console.log("pppppp",action.payload );
       coursesAdapter.addOne(state,{...action.payload,id:action.payload.courseId})
       state.operation = "inserting";
       state.status.modifyingStatus = "succeeded";

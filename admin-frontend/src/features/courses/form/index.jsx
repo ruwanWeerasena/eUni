@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Button, Grid, Box } from "@mui/material";
+import { Button, Grid, Box,CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createCourse, updateCourse, getAllCourses } from "../courseSlice";
+import {
+  showMessage,
+  closeNotification,
+} from "../../../features/notifications/notificationSlice";
 
 const validationSchema = yup.object({});
 
@@ -42,8 +46,63 @@ const CourseForm = () => {
   };
 
   const courses = useSelector(getAllCourses.selectAll);
+  const status = useSelector((state) => state.courses?.status);
+  const operation = useSelector((state) => state.courses?.operation);
 
   const course = selectCourseById(courses, id);
+
+  useEffect(() => {
+    if (status.modifyingStatus === "succeeded") {
+      if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "course has been successfully created.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "course has been successfully updated.",
+            type: "info",
+            autoClose: true,
+            open: true,
+            remainingTime: 5000,
+            random: Math.random() * 10000
+          })
+        );
+      }
+
+      navigate("/courses");
+    }
+
+    if (status.modifyingStatus === "failed") {
+      if (operation === "inserting") {
+        dispatch(
+          showMessage({
+            message: "course creation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      } else if (operation === "updating") {
+        dispatch(
+          showMessage({
+            message: "course updation failed",
+            type: "error",
+            autoClose: true,
+            open: true,
+            remainingTime: 3000,
+          })
+        );
+      }
+    }
+  }, [status, operation]);
 
 
   const formik = useFormik({
@@ -57,9 +116,15 @@ const CourseForm = () => {
         dispatch(createCourse(values));
       }
 
-      navigate("/courses");
+    
     },
   });
+
+  if(status.modifyingStatus=="pending"){
+    return (
+      <CircularProgress />
+    );
+  }
 
 
   return (

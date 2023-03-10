@@ -20,7 +20,7 @@ public class CourseController : ControllerBase
     public async Task<IActionResult> GetCourses()
     {
         var list = await _courseRepository.GetCoursesAsync();
-        Thread.Sleep(3000);
+        Thread.Sleep(2000);
         return Ok(list);
     }
 
@@ -35,7 +35,7 @@ public class CourseController : ControllerBase
         {
             return NotFound();
         }
-
+        Thread.Sleep(2000);
         return Ok(branch);
     }
 
@@ -52,7 +52,7 @@ public class CourseController : ControllerBase
         Course? addedbranch = await _courseRepository.CreateAsync(b);
 
         Course? isadded = await _courseRepository.GetCourseByIdAsync(b.CourseId);
-
+        Thread.Sleep(2000);
         if (isadded is null)
         {
             return BadRequest("Repository failed to add branch");
@@ -87,7 +87,7 @@ public class CourseController : ControllerBase
         Course? updated =  await _courseRepository.updateAsync(courseId,b);
 
         Course? isupdated = await  _courseRepository.GetCourseByIdAsync(courseId);
-
+        Thread.Sleep(2000);
         return Ok(isupdated);
     }
 
@@ -106,7 +106,7 @@ public class CourseController : ControllerBase
         }
 
         bool? deleted = await _courseRepository.DeletAsync(courseId);
-
+        Thread.Sleep(2000);
         if (deleted.HasValue && deleted.Value)
         {
             return new NoContentResult();

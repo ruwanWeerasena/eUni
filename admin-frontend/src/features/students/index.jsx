@@ -71,7 +71,7 @@ const Students = () => {
   };
 
   const deleteConfirm = async () => {
-    dispatch(deleteStudent({id:selectedDeleteId}));
+    dispatch(deleteStudent({id:selectedDeleteId})).then(()=>{dispatch(resetModifying())});
     setOpen(false);
   };
 
@@ -89,33 +89,84 @@ const Students = () => {
   }, []);
 
 
+  // useEffect(() => {
+  //   if (status.modifyingStatus === "succeeded") {
+  //     if (operation === "deleting") {
+  //       dispatch(
+  //         showMessage({
+  //           message: "student  has been deleted successfully",
+  //           type: "info",
+  //           autoClose: true,
+  //           open: true,
+  //           remainingTime: 3000,
+  //         })
+  //       );
+  //     }else if (operation === "updating") {
+  //       dispatch(
+  //         showMessage({
+  //           message: "student has been successfully updated.",
+  //           type: "info",
+  //           autoClose: true,
+  //           open: true,
+  //           remainingTime: 3000,
+  //         })
+  //       );
+  //     }
+  //     else if (operation === "inserting") {
+  //       dispatch(
+  //         showMessage({
+  //           message: "student has been successfully inserted.",
+  //           type: "info",
+  //           autoClose: true,
+  //           open: true,
+  //           remainingTime: 3000,
+  //         })
+  //       );
+  //     }
+  //   }
+
+  //   if (status === "failed") {
+  //     if (operation === "deleting") {
+  //       dispatch(
+  //         showMessage({
+  //           message: "student members deletion fail",
+  //           type: "error",
+  //           autoClose: true,
+  //           open: true,
+  //           remainingTime: 3000,
+  //         })
+  //       );
+  //     }else if (operation === "updating") {
+  //       dispatch(
+  //         showMessage({
+  //           message: "student  updating failed.",
+  //           type: "info",
+  //           autoClose: true,
+  //           open: true,
+  //           remainingTime: 3000,
+  //         })
+  //       );
+  //     }
+  //     else if (operation === "inserting") {
+  //       dispatch(
+  //         showMessage({
+  //           message: "student  inserting failed.",
+  //           type: "info",
+  //           autoClose: true,
+  //           open: true,
+  //           remainingTime: 3000,
+  //         })
+  //       );
+  //     }
+  //   }
+  // }, [status, operation]);
+
   useEffect(() => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "deleting") {
         dispatch(
           showMessage({
             message: "student  has been deleted successfully",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
-      }else if (operation === "updating") {
-        dispatch(
-          showMessage({
-            message: "student has been successfully updated.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
-      }
-      else if (operation === "inserting") {
-        dispatch(
-          showMessage({
-            message: "student has been successfully inserted.",
             type: "info",
             autoClose: true,
             open: true,
@@ -129,29 +180,8 @@ const Students = () => {
       if (operation === "deleting") {
         dispatch(
           showMessage({
-            message: "student members deletion fail",
+            message: "student  deletion fail",
             type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
-      }else if (operation === "updating") {
-        dispatch(
-          showMessage({
-            message: "student  updating failed.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
-      }
-      else if (operation === "inserting") {
-        dispatch(
-          showMessage({
-            message: "student  inserting failed.",
-            type: "info",
             autoClose: true,
             open: true,
             remainingTime: 3000,

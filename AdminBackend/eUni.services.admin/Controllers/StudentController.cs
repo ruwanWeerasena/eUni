@@ -73,7 +73,7 @@ public class StudentController : ControllerBase
         }
 
         Student? existing = await  _studentrepository.GetStudentByIdAsync(studentid);
-
+        Thread.Sleep(2000);
 
         if (existing is null)
         {

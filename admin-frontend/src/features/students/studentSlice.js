@@ -49,6 +49,7 @@ const studentSlice = createSlice({
   reducers: {
     resetModifying: (state) => {
       state.status.retrievingStatus = "idle";
+      state.status.modifyingStatus = "idle";
     },
   },
   extraReducers: {

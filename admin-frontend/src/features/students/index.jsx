@@ -29,8 +29,7 @@ import {
   Typography
 } from "@mui/material";
 import {
-  showMessage,
-  closeNotification,
+  showInfo, showError
 } from "../../features/notifications/notificationSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -165,12 +164,8 @@ const Students = () => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "deleting") {
         dispatch(
-          showMessage({
-            message: "student  has been deleted successfully",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showInfo({
+            message: "student  has been deleted successfully"
           })
         );
       }
@@ -179,12 +174,8 @@ const Students = () => {
     if (status === "failed") {
       if (operation === "deleting") {
         dispatch(
-          showMessage({
-            message: "student  deletion fail",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "student  deletion fail"
           })
         );
       }

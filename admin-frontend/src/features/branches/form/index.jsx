@@ -8,7 +8,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createBranch, updateBranch } from "../branchSlice";
 import {
-  showMessage,
+  showInfo,
+  showError,
   closeNotification,
 } from "../../../features/notifications/notificationSlice";
 
@@ -62,24 +63,15 @@ const BranchForm = () => {
   useEffect(() => {
     if (status === "succeeded") {
       if (operation === "inserting") {
-
         dispatch(
-          showMessage({
+          showInfo({
             message: "Branch has been successfully created.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
           })
         );
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
+          showInfo({
             message: "Branch has been successfully updated.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
           })
         );
       }
@@ -90,42 +82,33 @@ const BranchForm = () => {
     if (status === "failed") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
+          showError({
             message: "Branch creation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
           })
         );
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "Branch updation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "Branch updation failed"
           })
         );
       }
     }
   }, [status, operation]);
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     if (values.branchId) {
       dispatch(updateBranch({ id: values.branchId, data: values }));
     } else {
-
       dispatch(createBranch(values));
     }
-  }
+  };
 
   const formik = useFormik({
     initialValues: branch,
     validationSchema: validationSchema,
     enableReinitialize: true,
-    onSubmit: {handleSubmit},
+    onSubmit: { handleSubmit },
   });
 
   const modifyingStatus = useSelector(
@@ -215,7 +198,7 @@ const BranchForm = () => {
                 fullWidth
                 type="submit"
               >
-                { id == 'null' ? 'Insert':'Update'}
+                {id == "null" ? "Insert" : "Update"}
               </Button>
             </Grid>
           </Grid>

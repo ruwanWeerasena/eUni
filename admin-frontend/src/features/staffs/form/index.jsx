@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createStaff, updateStaff } from "../staffSlice";
 
-import { showMessage } from "../../../features/notifications/notificationSlice";
+import { showInfo, showError } from "../../../features/notifications/notificationSlice";
 
 const validationSchema = yup.object({});
 
@@ -62,24 +62,10 @@ const StaffForm = () => {
     if (status === "succeeded") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
-            message: "staff has been successfully created.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
+          showInfo({message: "staff has been successfully created."}));
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "Staff has been successfully updated.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 5000,
-            random: Math.random() * 10000
-          })
+          showInfo({message: "Staff has been successfully updated."})
         );
       }
 
@@ -89,23 +75,10 @@ const StaffForm = () => {
     if (status === "failed") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
-            message: "Staff creation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
+          showError({message: "Staff creation failed"}));
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "Staff updation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
+          showError({message: "Staff updation failed"})
         );
       }
     }

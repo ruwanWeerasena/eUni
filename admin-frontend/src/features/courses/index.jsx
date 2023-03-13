@@ -31,7 +31,7 @@ import {
   Grid,
 } from "@mui/material";
 import {
-  showMessage,
+  showInfo,showError
 } from "../../features/notifications/notificationSlice";
 import "../../App.css";
 
@@ -96,12 +96,8 @@ const Courses = () => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "deleting") {
         dispatch(
-          showMessage({
-            message: "course  has been deleted successfully",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showInfo({
+            message: "course  has been deleted successfully"
           })
         );
       }
@@ -110,12 +106,8 @@ const Courses = () => {
     if (status === "failed") {
       if (operation === "deleting") {
         dispatch(
-          showMessage({
-            message: "course  deletion fail",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "course  deletion fail"
           })
         );
       }

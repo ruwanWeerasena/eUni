@@ -31,8 +31,8 @@ import {
 } from "@mui/material";
 
 import {
-  showMessage,
-  closeNotification,
+  showInfo,
+  showError,
 } from "../../features/notifications/notificationSlice";
 
 import "../../App.css";
@@ -108,30 +108,13 @@ const Branches = () => {
   useEffect(() => {
     if (status === "succeeded") {
       if (operation === "deleting") {
-   
-        dispatch(
-          showMessage({
-            message: "Staff members has been deleted successfully",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
+        dispatch(showInfo({message: "Staff members has been deleted successfully"}));
       }
     }
 
     if (status === "failed") {
       if (operation === "deleting") {
-        dispatch(
-          showMessage({
-            message: "Staff members deletion fail",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
-          })
-        );
+        dispatch(showError({message: "Staff members deletion fail"}));
       }
     }
   }, [status, operation]);

@@ -40,15 +40,15 @@ const Notification = () => {
     return color;
   };
 
-  const color = isOpen ? "blue" : "yellow";
-
-  console.log('notification', isOpen, open)
-
   return (
-    <div style={{ color: getFontColor(type), background:color}}>
-      {message}
-      {!autoClose && <button onClick={closeNotification}>close</button>}
-    </div>
+    <>
+      {isOpen && (
+        <div style={{ color: getFontColor(type)}}>
+          {message}
+          {!autoClose && <button onClick={closeNotification}>close</button>}
+        </div>
+      )}
+    </>
   );
 };
 

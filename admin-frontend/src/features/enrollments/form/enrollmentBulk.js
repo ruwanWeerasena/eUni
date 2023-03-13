@@ -9,8 +9,7 @@ import {Formik ,Field ,Form} from "formik";
 import MyDataGrid from './MyDataGrid';
 import {useNavigate} from 'react-router-dom'
 import {
-    showMessage,
-    closeNotification,
+    showInfo, showError
   } from "../../../features/notifications/notificationSlice";
 
 const EnrollmentBulk=()=> {
@@ -66,22 +65,14 @@ const EnrollmentBulk=()=> {
           if (operation === "inserting") {
 
             dispatch(
-              showMessage({
-                message: "Enrollment has been successfully created.",
-                type: "info",
-                autoClose: true,
-                open: true,
-                remainingTime: 3000,
+              showInfo({
+                message: "Enrollment has been successfully created."
               })
             );
           } else if (operation === "updating") {
             dispatch(
-              showMessage({
-                message: "Enrollment has been successfully updated.",
-                type: "info",
-                autoClose: true,
-                open: true,
-                remainingTime: 3000,
+              showInfo({
+                message: "Enrollment has been successfully updated."
               })
             );
           }
@@ -92,22 +83,14 @@ const EnrollmentBulk=()=> {
         if (status.modifyingStatus === "failed") {
           if (operation === "inserting") {
             dispatch(
-              showMessage({
-                message: "Enrollment creation failed",
-                type: "error",
-                autoClose: true,
-                open: true,
-                remainingTime: 3000,
+              showError({
+                message: "Enrollment creation failed"
               })
             );
           } else if (operation === "updating") {
             dispatch(
-              showMessage({
-                message: "Enrollment updation failed",
-                type: "error",
-                autoClose: true,
-                open: true,
-                remainingTime: 3000,
+              showError({
+                message: "Enrollment updation failed"
               })
             );
           }

@@ -5,8 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {  createStudent, updateStudent } from "../studentSlice";
 import {
-  showMessage,
-  closeNotification,
+  showInfo, showError
 } from "../../../features/notifications/notificationSlice";
 
 
@@ -68,23 +67,14 @@ const StudentForm = () => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
-            message: "student has been successfully created.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showInfo({
+            message: "student has been successfully created."
           })
         );
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "student has been successfully updated.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 5000,
-            random: Math.random() * 10000
+          showInfo({
+            message: "student has been successfully updated."
           })
         );
       }
@@ -95,22 +85,14 @@ const StudentForm = () => {
     if (status.modifyingStatus === "failed") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
-            message: "student creation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "student creation failed"
           })
         );
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "course updation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "course updation failed"
           })
         );
       }

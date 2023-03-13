@@ -8,8 +8,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createCourse, updateCourse, getAllCourses } from "../courseSlice";
 import {
-  showMessage,
-  closeNotification,
+  showInfo,showError
 } from "../../../features/notifications/notificationSlice";
 
 const validationSchema = yup.object({});
@@ -55,23 +54,14 @@ const CourseForm = () => {
     if (status.modifyingStatus === "succeeded") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
-            message: "course has been successfully created.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showInfo({
+            message: "course has been successfully created."
           })
         );
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "course has been successfully updated.",
-            type: "info",
-            autoClose: true,
-            open: true,
-            remainingTime: 5000,
-            random: Math.random() * 10000
+          showInfo({
+            message: "course has been successfully updated."
           })
         );
       }
@@ -82,22 +72,14 @@ const CourseForm = () => {
     if (status.modifyingStatus === "failed") {
       if (operation === "inserting") {
         dispatch(
-          showMessage({
-            message: "course creation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "course creation failed"
           })
         );
       } else if (operation === "updating") {
         dispatch(
-          showMessage({
-            message: "course updation failed",
-            type: "error",
-            autoClose: true,
-            open: true,
-            remainingTime: 3000,
+          showError({
+            message: "course updation failed"
           })
         );
       }

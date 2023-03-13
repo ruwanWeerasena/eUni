@@ -13,15 +13,38 @@ const notificationSlice = createSlice({
   name: "staffs",
   initialState,
   reducers: {
-    showMessage: (state, action) => {
+    
+    showInfo: (state, action) => {
       state.message = action.payload.message;
-      state.type = action.payload.type;
-      state.autoClose = action.payload.autoClose;
-      state.open = action.payload.open;
-      state.random = action.payload.random;
+      state.type = 'info';
+      state.autoClose = action.payload.autoClose ?? true;
+      state.open = action.payload.open ?? true;
+      state.random = action.payload.random ?? Math.random() * 10000;
+
+      if (action.payload.autoClose??true) {
+        state.remainingTime = action.payload.remainingTime ?? 3000;
+      }
+    },
+    showError: (state, action) => {
+      state.message = action.payload.message;
+      state.type =  'error';
+      state.autoClose = action.payload.autoClose ?? true;
+      state.open = action.payload.open ?? true;
+      state.random = action.payload.random ?? Math.random() * 10000;
 
       if (action.payload.autoClose) {
-        state.remainingTime = action.payload.remainingTime;
+        state.remainingTime = action.payload.remainingTime ?? 3000;
+      }
+    },
+    showWarning: (state, action) => {
+      state.message = action.payload.message;
+      state.type =  'warning';
+      state.autoClose = action.payload.autoClose ?? true;
+      state.open = action.payload.open ?? true;
+      state.random = action.payload.random ?? Math.random() * 10000;
+
+      if (action.payload.autoClose) {
+        state.remainingTime = action.payload.remainingTime ?? 3000;
       }
     },
     closeNotification: (state) => {
@@ -34,4 +57,4 @@ const notificationSlice = createSlice({
 const { reducer } = notificationSlice;
 export default reducer;
 
-export const { showMessage, closeNotification} = notificationSlice.actions;
+export const { showInfo,showError, showWarning, closeNotification} = notificationSlice.actions;

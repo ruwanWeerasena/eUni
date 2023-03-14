@@ -59,17 +59,20 @@ const StaffForm = () => {
   const error = useSelector((state) => state.staffs.error);
 
   useEffect(() => {
+    console.log('operation',operation)
     if (status === "succeeded") {
       if (operation === "inserting") {
         dispatch(
-          showInfo({message: "staff has been successfully created."}));
+          showInfo({ message: "staff has been successfully created." }));
+          navigate("/staffs");
       } else if (operation === "updating") {
         dispatch(
           showInfo({message: "Staff has been successfully updated."})
         );
+        navigate("/staffs");
       }
 
-      navigate("/staffs");
+      
     }
 
     if (status === "failed") {
@@ -96,6 +99,8 @@ const StaffForm = () => {
       }
     },
   });
+
+  console.log('date type', typeof formik.values?.dateOfBirth)
 
   return (
     <div>

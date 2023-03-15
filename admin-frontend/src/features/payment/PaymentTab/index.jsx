@@ -13,9 +13,8 @@ import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from "react-redux";
 import {createPayment} from "../studentPaymentSlice"
 import {
-  showMessage,
-} from "../../../features/notifications/notificationSlice";
-
+  showInfo
+} from "../../notifications/notificationSlice";
 const PaymentForm = ({setValue})=>{
     const {paymentData} = useContext(PaymentContext);
     const [dueFee,setDueFee] = useState(0);
@@ -43,7 +42,7 @@ const PaymentForm = ({setValue})=>{
       if(status.modifyingStatus=="succeeded"){
         if(operation =="inserting"){
           dispatch(
-            showMessage({
+            showInfo({
               message: "Payment Successfull.",
               type: "info",
               autoClose: true,
@@ -57,7 +56,7 @@ const PaymentForm = ({setValue})=>{
       }else if(status.modifyingStatus == "failed"){
         if(operation =="inserting"){
           dispatch(
-            showMessage({
+            showInfo({
               message: "Payment Failed.",
               type: "info",
               autoClose: true,

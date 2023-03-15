@@ -1,6 +1,5 @@
-import { Grid } from "@mui/material";
 import React, { useState, createContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 import PropTypes from "prop-types";
@@ -24,9 +23,9 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <div sx={{ p: 3 }}>
           <Typography>{children}</Typography>
-        </Box>
+        </div>
       )}
     </div>
   );
@@ -46,6 +45,7 @@ function a11yProps(index) {
 }
 
 const PaymentContext = createContext()
+
 const PaymentManagement = () => {
   const { id } = useParams();
   const [paymentData,setpaymentData] = useState({
@@ -59,10 +59,9 @@ const PaymentManagement = () => {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    console.log(newValue,"ddddd");
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
 
 
@@ -72,7 +71,7 @@ const PaymentManagement = () => {
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
-          onChange={handleChange}
+          // onChange={handleChange}
           aria-label="basic tabs example"
         >
           <Tab label= "Enrollment Details" {...a11yProps(0)} />

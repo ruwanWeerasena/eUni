@@ -20,30 +20,46 @@ const PaymentInfo = ({batchId,enrollmentId,setValue})=>{
     useEffect(()=>{
       setpaymentData({...paymentData,paidAmount:paidAmount,shedules:shedules,dueAmount:dueAmount})
     },[paidAmount])
+    const paymentshedulesstatus = useSelector((state)=>state.batchPaymentShedules.status)
   
+  //   <Button fullWidth variant='outlined'
+  //   onClick={()=>{
+  //     setValue(2)
+  //   }}
+  // >Proceed</Button>
 
     return(
         <Grid container spacing={1}>
           <Grid item xs={12} >
-            <PaymentDiscount paymentData={paymentData}/>
+              <PaymentDiscount paymentData={paymentData}/>
           </Grid>
-          <Grid item xs={6}>
-            <PaymentShedule shedules={shedules} dueAmount={dueAmount} setDueAmount={setDueAmount} setShedules={setShedules} paidAmount={paidAmount} batchId={paymentData.enrollment.batchId}/>
-          </Grid>
-          <Grid item xs={6}>
-            <PaymentHistory setPaidAmount={setPaidAmount} studentId={paymentData.student.studentId}/>
-          </Grid>
-          <Grid item xs={6}>
           
-          </Grid>
-          <Grid item xs={6} >
-         
-            <Button variant='outlined'
-              onClick={()=>{
-                setValue(2)
-              }}
-            >Proceed</Button>
-          </Grid>
+            <Grid item xs={6}>
+                  <PaymentShedule shedules={shedules} dueAmount={dueAmount} setDueAmount={setDueAmount} setShedules={setShedules} paidAmount={paidAmount} batchId={paymentData.enrollment.batchId}/>
+                      {
+                        paymentshedulesstatus!="loading"?
+                      <>
+                      <Button sx={{mr:2}}  variant='outlined'
+                      onClick={()=>{
+                        setValue(0)
+                      }}
+                    >Back</Button>
+                      
+                    <Button sx={{mr:2}}   variant='outlined'
+                      onClick={()=>{
+                        setValue(2)
+                      }}
+                    >Proceed</Button>
+                    </>
+                    :""
+
+                  }
+            </Grid>
+
+            <Grid item xs={6}>
+                <PaymentHistory setPaidAmount={setPaidAmount} studentId={paymentData.student.studentId}/>
+            </Grid>
+
         </Grid>
             
     );

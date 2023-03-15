@@ -170,33 +170,46 @@ const PaymentForm = ({setValue})=>{
      
       
             <Grid item xs={12} >
+              
               <Button color="primary" variant="contained" fullWidth type="submit">
                 Pay
               </Button>
+              <Button sx={{m:2}}   variant='outlined'
+                      onClick={()=>{
+                        setValue(1)
+                      }}
+                    >Back</Button>
+                    <Button sx={{m:2}}   variant='outlined'
+                      onClick={()=>{
+                        setValue(0)
+                      }}
+                    >Home</Button>
             </Grid>
           </Grid>
         </form>
         </Grid>
         <Grid item xs={6}>
                 <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Due Amount
-                </Typography>
-                <Typography  variant="h5">
-                   {dueFee}
-                </Typography>
-                
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Outstanding Amount
-                </Typography>
-                <Typography variant="h5" component="div">
-                {outstandingFee}
-                </Typography>
-               
-            </CardContent>
+                <CardContent>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    Due Amount
+                    </Typography>
+                    <Typography  variant="h5">
+                      {dueFee}
+                    </Typography>
+                    
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            Outstanding Amount
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                    {outstandingFee}
+                    </Typography>
+                  
+                </CardContent>
           
-            </Card>
+               </Card>
+
+             
         </Grid>
         </Grid>
     )

@@ -99,6 +99,17 @@ const Header = (props) => {
               {" "}
               Enrollment{" "}
             </Button>
+            <Button
+              variant="secondary"
+              className="ml-auto"
+              sx={{ color: "white" }}
+              onClick={() => {
+                navigate("./payment");
+              }}
+            >
+              {" "}
+              Payment{" "}
+            </Button>
           </Box>
           <Box>{isAuthenticated ? <SignOutButton /> : <SignInButton />}</Box>
         </Toolbar>

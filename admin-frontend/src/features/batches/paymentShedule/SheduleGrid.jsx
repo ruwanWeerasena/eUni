@@ -13,7 +13,7 @@ const SheduleGrid = ({ batchId, setOperation, setSelectedPaymentShedule }) => {
   }, [batchId]);
 
   const shedules = useSelector(
-    (state) => state.batchPaymentShedules?.paymentSheduleList
+    (state) => state.batchPaymentShedules?.paymentSheduleList.filter((s)=>s.batchId==batchId)
   );
 
   return (

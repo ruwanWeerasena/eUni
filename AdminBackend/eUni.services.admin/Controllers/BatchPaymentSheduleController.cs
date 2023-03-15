@@ -26,7 +26,7 @@ public class BatchPaymentSheduleController : ControllerBase
     public async Task<IActionResult> GetBatchPaymentShedules()
     {
         var list = await _batchPaymentSheduleRepository.GetBatchPaymentShedulesAsync();
-
+        Thread.Sleep(2000);
         return Ok(list);
     }
 

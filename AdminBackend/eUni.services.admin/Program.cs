@@ -17,6 +17,7 @@ builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 builder.Services.AddScoped<IBatchPaymentSheduleRepository, BatchPaymentSheduleRepository>();
 builder.Services.AddScoped<IBatchDiscountRepository, BatchDiscountRepository>();
 builder.Services.AddScoped<IBatchTimeSheduleRepository, BatchTimeSheduleRepository>();
+builder.Services.AddScoped<IStudentPaymentRepository, StudentPaymentRepository>();
 builder.Services.AddCors();
 
 // builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);

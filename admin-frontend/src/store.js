@@ -11,6 +11,7 @@ import enrollmentsReducer from './features/enrollments/enrollmentSlice';
 import batchPaymentSheduleReducer from './features/batches/paymentShedule/paymentShedultSlice';
 import batchDiscountReducer from './features/batches/batchDiscount/batchDiscountSlice'
 import batchTimeSheduleReducer from './features/batches/timeShedule/timeSheduleSlice'
+import studentPaymentReducer from './features/payment/studentPaymentSlice'
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   batchPaymentShedules: batchPaymentSheduleReducer,
   batchDiscounts:batchDiscountReducer,
   batchTimeShedules: batchTimeSheduleReducer,
+  studentPayments : studentPaymentReducer
 });
 
 export const setupStore = preloadedState => {

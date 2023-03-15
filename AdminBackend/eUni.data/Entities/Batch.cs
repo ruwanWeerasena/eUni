@@ -10,6 +10,7 @@ public class Batch
     public string Name { get; set; }
     public DateTime  StartDate { get; set; }
     public DateTime  EndDate { get; set; }
+    public decimal Fee { get; set; }
     [ForeignKey("Staff")]
      public int InchargeStaffId { get; set; }
     

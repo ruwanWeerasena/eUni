@@ -7,12 +7,15 @@ namespace eUni.services.admin.ViewModels
         public DateTime  EnrollmentDate { get; set; }
         public int BatchId { get; set; }
         public int StaffId { get; set; }
+        public decimal batchFee { get; set; }
         public int StudentId { get; set; }
         public int? BatchDiscountId { get; set; }
         public string BatchName { get; set; }
         public string StaffName { get; set; }
         public string StudentName { get; set; }
         public string? BatchDiscountCriteria { get; set; }
+        public string? BatchDiscountType { get; set; }
         public float? BatchDiscountsPercentage { get; set; }
+        public float? BatchDiscountsAmount { get; set; }
     }
 }

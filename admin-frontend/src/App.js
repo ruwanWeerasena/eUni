@@ -27,6 +27,7 @@ import EnrollmentOption from "./features/enrollments";
 import EnrollmentForm from "./features/enrollments/form";
 import EnrollmentPage from "./features/enrollments/enrollmentsPage";
 import EnrollmentBulk from "./features/enrollments/form/enrollmentBulk";
+import PaymentManagement from "./features/payment";
 
 
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="/enrollment/view" element={<EnrollmentPage />} />
             <Route path="/enrollment/new" element={<EnrollmentForm />} />
             <Route path="/enrollment/bulk" element={<EnrollmentBulk />} />
+            <Route path="/payment" element={<PaymentManagement />} />
           </Routes>
         </Container>
         <Footer />

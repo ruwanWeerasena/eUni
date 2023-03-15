@@ -1,10 +1,14 @@
 import { CircularProgress,  Typography} from '@mui/material/'
 import { useDispatch, useSelector } from "react-redux";
 import { retrievePaymentsById } from "../../studentPaymentSlice";
-import {  useEffect } from "react";
+import {  useContext, useEffect,useState } from "react";
 import { TableContainer,Table,TableHead,TableRow,TableCell,TableBody } from "@mui/material";
+import { PaymentContext } from '../..';
 
 const PaymetHistory = ({studentId,setPaidAmount})=>{
+    const {paymentData , setpaymentData} = useContext(PaymentContext);
+    const [list, setList] = useState([]);
+
   
     const dispatch = useDispatch()
     const paymentlist = useSelector((state)=>state.studentPayments.studentPaymentList);
@@ -17,6 +21,9 @@ const PaymetHistory = ({studentId,setPaidAmount})=>{
     useEffect(()=>{
         const amount = countAmount();
         setPaidAmount(amount)
+        if(paymentlist){
+          setList(paymentlist.filter((p)=>p.enrollmentId==paymentData.enrollment.enrollmentId))
+        }
 
     },[paymentlist])
 
@@ -55,9 +62,9 @@ const PaymetHistory = ({studentId,setPaidAmount})=>{
           <TableBody>
  
              {
-             paymentlist.length==0?"No Past Payments" :
+             list.length==0?"No Past Payments" :
              
-             paymentlist.map((row)=>{
+             list.map((row)=>{
                 return(
                     <TableRow
                     key={row.batchPaymentSheduleId}

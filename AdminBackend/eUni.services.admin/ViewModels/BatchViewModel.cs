@@ -7,6 +7,7 @@ namespace eUni.services.admin.ViewModels
         public int BranchId { get; set; }
         public int InchargeStaffId { get; set; }
         public int InchargeLecturerId { get; set; }
+        public decimal fee { get; set; }
         public string Name { get; set; }
         public string CourseName { get; set; }
         public string BranchName { get; set; }

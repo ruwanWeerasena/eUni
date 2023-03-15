@@ -178,7 +178,8 @@ public class EUniDBContext : DbContext
             InchargeLecturerId = 1,
             InchargeStaffId = 1,
             StartDate = new(2022, 01, 05),
-            EndDate = new(2022, 12, 19)
+            EndDate = new(2022, 12, 19),
+            Fee = 10000
         };
 
         Batch weliveriya_dotnet_2022 = new()
@@ -190,7 +191,8 @@ public class EUniDBContext : DbContext
             InchargeLecturerId = 1,
             InchargeStaffId = 1,
             StartDate = new(2022, 01, 05),
-            EndDate = new(2022, 12, 19)
+            EndDate = new(2022, 12, 19),
+            Fee = 15000
         };
 
         Batch polonnaruwa_react_2022 = new()
@@ -202,7 +204,8 @@ public class EUniDBContext : DbContext
             InchargeLecturerId = 2,
             InchargeStaffId = 2,
             StartDate = new(2022, 01, 05),
-            EndDate = new(2022, 12, 19)
+            EndDate = new(2022, 12, 19),
+            Fee = 12000
         };
 
         Batch polonnaruwa_dotnet_2022 = new()
@@ -214,7 +217,8 @@ public class EUniDBContext : DbContext
             InchargeLecturerId = 2,
             InchargeStaffId = 2,
             StartDate = new(2022, 01, 05),
-            EndDate = new(2022, 12, 19)
+            EndDate = new(2022, 12, 19),
+            Fee = 18000
         };
 
         modelBuilder.Entity<Batch>()

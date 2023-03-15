@@ -23,10 +23,10 @@ public class BatchDiscountController : ControllerBase
     [HttpGet()]
     //[ProducesResponseType(201, Type = typeof(CartDetail))]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> GetAllPayments()
+    public async Task<IActionResult> GetAllDiscounts()
     {
         var list = await _batchDiscountRepository.GetBatchDiscountsAsync();
-
+        Thread.Sleep(2000);
         return Ok(list);
     }
 

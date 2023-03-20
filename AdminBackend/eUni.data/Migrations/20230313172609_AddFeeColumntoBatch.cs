@@ -9,6 +9,12 @@ namespace eUni.data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                            name: "Fee",
+                            table: "Batchs",
+                            type: "decimal(18,2)",
+                            nullable: true);
+
             migrationBuilder.UpdateData(
                 table: "Batchs",
                 keyColumn: "BatchId",

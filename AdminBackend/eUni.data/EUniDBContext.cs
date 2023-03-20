@@ -60,7 +60,7 @@ public class EUniDBContext : DbContext
         SeedStaff(modelBuilder);
         SeedCourses(modelBuilder);
         SeedLecturers(modelBuilder);
-        SeedBatches(modelBuilder);
+        //SeedBatches(modelBuilder);
         SeedStudents(modelBuilder);
         SeedBatchDiscounts(modelBuilder);
         SeedEnrollments(modelBuilder);
